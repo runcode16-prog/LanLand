@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LanLand</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#f5f6fa;--card:#fff;--line:#e5e7ee;--text:#171923;--muted:#737987;--blue:#4f5bd5;--blue2:#eef0ff;--red:#dc3545;--green:#16855b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}.muted{color:var(--muted)}.danger{color:var(--red)}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:390px;max-width:100%;background:#fff;padding:32px;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 40px #0000000a}.logo{font-size:25px;font-weight:800;margin-bottom:25px}
+h1,h2,h3{margin:0 0 16px}label{display:block;margin:12px 0 6px;font-weight:600}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;outline:0}input:focus,select:focus,textarea:focus{border-color:var(--blue)}textarea{resize:vertical;min-height:90px}
+.btn{padding:10px 15px;border-radius:10px;background:var(--blue);color:#fff;font-weight:600}.btn.gray{background:#eee;color:#333}.btn.red{background:var(--red)}.btn.sm{padding:7px 10px;font-size:12px}.err{color:var(--red);margin-top:12px}
+.app{display:flex;min-height:100vh}.side{width:235px;background:#fff;border-right:1px solid var(--line);padding:22px 14px;position:fixed;inset:0 auto 0 0}.brand{font-size:22px;font-weight:800;padding:5px 10px 22px}.nav{display:grid;gap:4px}.nav button{background:none;text-align:left;padding:11px 12px;border-radius:10px;color:#4e5360}.nav button.active,.nav button:hover{background:var(--blue2);color:var(--blue);font-weight:600}
+.main{margin-left:235px;width:calc(100% - 235px);padding:28px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.stat{padding:18px;border:1px solid var(--line);border-radius:14px;background:#fff}.stat b{font-size:26px;display:block;margin-top:7px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line);vertical-align:top}.actions{display:flex;gap:7px;flex-wrap:wrap}.empty{padding:25px;text-align:center;color:var(--muted)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.day{min-height:170px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}.dayhead{font-weight:700;margin-bottom:9px}.lesson{background:var(--blue2);padding:9px;border-radius:9px;margin-bottom:7px;font-size:12px}.lesson b{display:block;margin-bottom:4px}
+.modalbg{position:fixed;inset:0;background:#0008;display:grid;place-items:center;padding:15px;z-index:20}.modal{background:#fff;width:600px;max-width:100%;max-height:90vh;overflow:auto;border-radius:17px;padding:22px}.modalhead{display:flex;justify-content:space-between;gap:10px}.close{background:#eee;border-radius:8px;width:32px;height:32px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}
+.check{display:flex;gap:8px;align-items:center;padding:7px 0;font-weight:400}.check input{width:auto}.chat{display:grid;grid-template-columns:220px 1fr;gap:12px;height:65vh}.people,.messages{background:#fff;border:1px solid var(--line);border-radius:14px}.people{padding:8px;overflow:auto}.person{padding:11px;border-radius:9px;cursor:pointer}.person:hover{background:var(--blue2)}.messages{display:flex;flex-direction:column;overflow:hidden}.msgs{flex:1;overflow:auto;padding:15px}.msg{padding:9px 12px;background:#f0f1f6;border-radius:10px;margin-bottom:8px;max-width:75%}.msg.mine{margin-left:auto;background:var(--blue2)}.send{padding:10px;border-top:1px solid var(--line);display:flex;gap:8px}
+@media(max-width:850px){.side{width:70px}.brand{font-size:0}.brand:after{content:"L";font-size:22px}.nav button{font-size:0}.nav button:before{content:"•";font-size:20px}.main{margin-left:70px;width:calc(100% - 70px);padding:15px}.grid{grid-template-columns:1fr 1fr}.week{grid-template-columns:1fr}.chat{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="login" class="login"><div class="loginbox">
+<div class="logo">LanLand</div>
+<label>Email</label><input id="email" type="email">
+<label>Пароль</label><input id="pass" type="password">
+<button class="btn" style="width:100%;margin-top:16px" onclick="login()">Войти</button>
+<div id="loginErr" class="err"></div>
+</div></div>
+
+<div id="app" class="app hidden">
+<aside class="side"><div class="brand">LanLand</div><div id="nav" class="nav"></div></aside>
+<main class="main">
+<div class="top"><div><h2 id="title"></h2><span id="subtitle" class="muted"></span></div><button class="btn gray" onclick="logout()">Выйти</button></div>
+<div id="content"></div>
+</main>
+</div>
+<div id="modal" class="hidden"></div>
+
+<script>
+const SUPABASE_URL='https://opwzlempjchopqdyggrk.supabase.co',
+SUPABASE_ANON_KEY='sb_publishable_-hmiHifgWmpjKA-9l3cZhg_FHWZLI6_',
+ADMIN_FUNCTION='admin-user',
+sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY),
+LANG=['Английский','中文','Français','Deutsch'],
+WT={'КР':1.5,'Проверочная':1.15,'Тест':1,'ДЗ':.8,'Р/У':.7};
+
+let currentUser=null,page='schedule',profiles=[],scheduleRows=[],homeworkRows=[],submissionRows=[],gradeRows=[],messageRows=[],week=0,chatUser=null,checkHw=null;
+const $=id=>document.getElementById(id),
+esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])),
+profile=id=>profiles.find(x=>String(x.id)===String(id)),
+teachers=()=>profiles.filter(x=>x.role==='teacher'),
+students=()=>profiles.filter(x=>x.role==='student'),
+roleName=r=>r==='admin'?'Администратор':r==='teacher'?'Преподаватель':'Ученик';
+
+/* Нормализация языков */
+function langs(x){
+ if(!x)return[];
+ if(Array.isArray(x))return x;
+ if(typeof x==='string'){
+  try{let a=JSON.parse(x);return Array.isArray(a)?a:[x]}catch(e){return x.split(',').map(v=>v.trim()).filter(Boolean)}
+ }
+ return[];
+}
+const langsForTeacher=t=>langs(t?.languages);
+const langsForStudent=s=>langs(s?.languages);
+const studentsOf=t=>t?students().filter(s=>String(s.teacher_id)===String(t.id)):[];
+function mergeProfiles(a=[]){const m=new Map(profiles.map(x=>[String(x.id),x]));a.forEach(x=>m.set(String(x.id),x));profiles=[...m.values()]}
+
+async function dbStudents(t){
+ if(!t)return[];
+ const {data,error}=await sb.from('profiles').select('*').eq('role','student').eq('teacher_id',t.id).order('full_name');
+ if(error){console.error('STUDENTS:',error);return[]}
+ mergeProfiles(data||[]);return data||[];
+}
+
+/* AUTH */
+async function init(){const {data:{session}}=await sb.auth.getSession();if(session)await afterLogin(session.user)}
+async function login(){
+ $('loginErr').textContent='';
+ const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('pass').value});
+ if(error){$('loginErr').textContent=error.message;return}
+ await afterLogin(data.user)
+}
+async function afterLogin(u){
+ const {data,error}=await sb.from('profiles').select('*').eq('id',u.id).single();
+ if(error||!data){alert('Профиль пользователя не найден.');return}
+ currentUser=data;await reloadData();$('login').classList.add('hidden');$('app').classList.remove('hidden');renderNav();render()
+}
+async function logout(){await sb.auth.signOut();location.reload()}
+
+/* DATA */
+async function reloadData(){
+ const q=await Promise.all([
+  sb.from('profiles').select('*'),
+  sb.from('schedule').select('*').order('lesson_date').order('start_time'),
+  sb.from('homework').select('*').order('created_at',{ascending:false}),
+  sb.from('submissions').select('*').order('submitted_at',{ascending:false}),
+  sb.from('grades').select('*').order('created_at',{ascending:false})
+ ]);
+ profiles=q[0].error?(console.error('PROFILES:',q[0].error),[]):q[0].data||[];
+ scheduleRows=q[1].error?(console.error('SCHEDULE:',q[1].error),[]):q[1].data||[];
+ homeworkRows=q[2].error?(console.error('HOMEWORK:',q[2].error),[]):q[2].data||[];
+ submissionRows=q[3].error?(console.error('SUBMISSIONS:',q[3].error),[]):q[3].data||[];
+ gradeRows=q[4].error?(console.error('GRADES:',q[4].error),[]):q[4].data||[];
+ const {data,error}=await sb.from('messages').select('*').order('created_at');
+ messageRows=error?(console.error('MESSAGES:',error),[]):data||[]
+}
+
+/* NAV */
+function navItems(){
+ let n=[['schedule','Расписание'],['homework','Домашняя работа'],['grades','Оценки'],['chat','Чат']];
+ if(currentUser.role==='admin')n.push(['students','Ученики'],['users','Пользователи'],['analytics','Аналитика'],['settings','Настройки']);
+ else if(currentUser.role==='teacher')n.push(['students','Ученики'],['check','Проверка']);
+ return n
+}
+function renderNav(){$('nav').innerHTML=navItems().map(x=>`<button class="${page===x[0]?'active':''}" onclick="go('${x[0]}')">${x[1]}</button>`).join('')}
+async function go(p){page=p;renderNav();await render()}
+async function render(){
+ const names={schedule:'Расписание',homework:'Домашняя работа',grades:'Оценки',chat:'Чат',students:'Ученики',users:'Пользователи',analytics:'Аналитика',settings:'Настройки',check:'Проверка'};
+ $('title').textContent=names[page]||'LanLand';
+ $('subtitle').textContent=currentUser.full_name+' · '+roleName(currentUser.role);
+ const f={schedule:renderSchedule,homework:renderHomework,grades:renderGrades,chat:renderChat,students:renderStudents,users:renderUsers,analytics:renderAnalytics,settings:renderSettings,check:renderCheck};
+ $('content').innerHTML='';if(f[page])await f[page]()
+}
+
+/* DATE */
+function startOfWeek(d=new Date()){d=new Date(d);let x=d.getDay()||7;d.setDate(d.getDate()-x+1+week*7);d.setHours(0,0,0,0);return d}
+function iso(d){return new Date(d).toISOString().slice(0,10)}
+function fmt(d){return new Date(d).toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit'})}
+
+/* SCHEDULE */
+function visibleSchedule(){
+ return scheduleRows.filter(x=>currentUser.role==='admin'||currentUser.role==='teacher'?String(x.teacher_id)===String(currentUser.id):String(x.student_id)===String(currentUser.id))
+}
+async function renderSchedule(){
+ let d=startOfWeek(),days=Array.from({length:7},(_,i)=>{let x=new Date(d);x.setDate(d.getDate()+i);return x});
+ const add=currentUser.role!=='student'?`<button class="btn" onclick="scheduleModal()">Добавить занятие</button>`:'';
+ $('content').innerHTML=`<div class="card"><div class="actions">${add}<button class="btn gray" onclick="week--;render()">←</button><button class="btn gray" onclick="week=0;render()">Сегодня</button><button class="btn gray" onclick="week++;render()">→</button></div></div><div class="week">${days.map(day=>{
+ let rows=visibleSchedule().filter(x=>String(x.lesson_date)===iso(day));
+ return`<div class="day"><div class="dayhead">${day.toLocaleDateString('ru-RU',{weekday:'short'})} ${fmt(day)}</div>${rows.map(x=>{
+ let t=profile(x.teacher_id),s=profile(x.student_id),can=currentUser.role==='admin'||String(x.teacher_id)===String(currentUser.id);
+ return`<div class="lesson"><b>${esc(x.start_time?.slice(0,5))}–${esc(x.end_time?.slice(0,5))}</b>${esc(x.language)}<br>${esc(s?.full_name||'Ученик')}<br>${esc(t?.full_name||'Преподаватель')}${can?`<div class="actions" style="margin-top:6px"><button class="btn sm gray" onclick="scheduleModal('${x.id}')">Изменить</button><button class="btn sm red" onclick="deleteSchedule('${x.id}')">Удалить</button></div>`:''}</div>`
+ }).join('')||'<span class="muted">Нет занятий</span>'}</div>`
+ }).join('')}</div>`
+}
+
+/* SCHEDULE FORM */
+async function reloadScheduleForm(old=null){
+ const te=$('st'),le=$('sl'),se=$('su');if(!te||!le||!se)return;
+ const t=profile(te.value);if(!t){le.innerHTML='';se.innerHTML='';return}
+ le.innerHTML=langsForTeacher(t).map(l=>`<option value="${esc(l)}" ${old?.language===l?'selected':''}>${esc(l)}</option>`).join('');
+ let lang=le.value,list=(await dbStudents(t)).filter(s=>!lang||langsForStudent(s).includes(lang));
+ se.innerHTML=list.map(s=>`<option value="${s.id}" ${String(old?.student_id)===String(s.id)?'selected':''}>${esc(s.full_name)}</option>`).join('')||'<option value="">Нет учеников с этим языком</option>'
+}
+function scheduleModal(id=null){
+ if(currentUser.role==='student')return;
+ const old=id?scheduleRows.find(x=>String(x.id)===String(id)):null,ts=currentUser.role==='admin'?teachers():[currentUser];
+ open(`<div class="modalhead"><h3>${old?'Изменить':'Новое занятие'}</h3><button class="close" onclick="closeModal()">×</button></div>
+ <label>Преподаватель</label><select id="st">${ts.map(t=>`<option value="${t.id}" ${String(old?.teacher_id)===String(t.id)?'selected':''}>${esc(t.full_name)}</option>`).join('')}</select>
+ <label>Язык</label><select id="sl"></select><label>Ученик</label><select id="su"></select>
+ <div class="formgrid"><div><label>Дата</label><input id="sd" type="date" value="${old?.lesson_date||iso(new Date())}"></div><div><label>Начало</label><input id="ss" type="time" value="${old?.start_time?.slice(0,5)||'15:00'}"></div><div><label>Конец</label><input id="se" type="time" value="${old?.end_time?.slice(0,5)||'16:00'}"></div></div>
+ <div class="actions" style="margin-top:16px"><button class="btn" onclick="saveSchedule('${id||''}')">Сохранить</button><button class="btn gray" onclick="closeModal()">Отмена</button></div>`);
+ $('st').onchange=()=>reloadScheduleForm(old);$('sl').onchange=()=>reloadScheduleForm({...old,language:$('sl').value});reloadScheduleForm(old)
+}
+async function saveSchedule(id){
+ const teacherId=$('st')?.value,studentId=$('su')?.value,language=$('sl')?.value,lessonDate=$('sd')?.value||'',startTime=$('ss')?.value||'',endTime=$('se')?.value||'';
+ if(!lessonDate||!startTime||!endTime){alert('Укажите дату и время.');return}
+ const t=profile(teacherId),s=profile(studentId);
+ if(!t||!s||!language){alert('Выберите преподавателя, язык и ученика.');return}
+ if(currentUser.role==='teacher'&&String(t.id)!==String(currentUser.id)){alert('Можно создавать только свои занятия.');return}
+ if(!langsForTeacher(t).includes(language)){alert('Этот язык не назначен преподавателю.');return}
+ if(!langsForStudent(s).includes(language)){alert('Этот язык не назначен ученику.');return}
+ const p={lesson_date:lessonDate,start_time:startTime,end_time:endTime,language,teacher_id:t.id,student_id:s.id};
+ const r=id?await sb.from('schedule').update(p).eq('id',id):await sb.from('schedule').insert(p);
+ if(r.error){alert(r.error.message);return}closeModal();await reloadData();await render()
+}
+async function editSchedule(id){scheduleModal(id)}
+async function deleteSchedule(id){if(!confirm('Удалить занятие?'))return;let r=await sb.from('schedule').delete().eq('id',id);if(r.error){alert(r.error.message);return}await reloadData();await render()}
+
+/* HOMEWORK */
+function homeworkForMe(){
+ return homeworkRows.filter(h=>{
+  if(currentUser.role==='admin')return true;
+  if(currentUser.role==='teacher')return String(h.teacher_id)===String(currentUser.id);
+  return (h.student_ids||[]).map(String).includes(String(currentUser.id))
+ })
+}
+function submissionFor(hid,sid){return submissionRows.find(x=>String(x.homework_id)===String(hid)&&String(x.student_id)===String(sid))}
+async function renderHomework(){
+ let rows=homeworkForMe();
+ $('content').innerHTML=`<div class="card">${currentUser.role!=='student'?'<button class="btn" onclick="homeworkModal()">Создать ДЗ</button>':''}</div>
+ <div class="card"><table><thead><tr><th>Задание</th><th>Язык</th><th>Срок</th><th>Учитель</th><th></th></tr></thead><tbody>${rows.map(h=>{
+ let t=profile(h.teacher_id);
+ return`<tr><td><b>${esc(h.title)}</b><br><span class="muted">${esc(h.description||'')}</span></td><td>${esc(h.language)}</td><td>${esc(h.due_date||'—')}</td><td>${esc(t?.full_name||'—')}</td><td class="actions">${currentUser.role==='student'?`<button class="btn sm" onclick="submitHomeworkModal('${h.id}')">Сдать</button>`:`<button class="btn sm gray" onclick="homeworkModal('${h.id}')">Изменить</button><button class="btn sm" onclick="openCheckList('${h.id}')">Проверить</button><button class="btn sm red" onclick="deleteHomework('${h.id}')">Удалить</button>`}</td></tr>`
+ }).join('')||'<tr><td colspan="5" class="empty">Нет заданий</td></tr>'}</tbody></table></div>`
+}
+
+/* ИСПРАВЛЕННАЯ ФОРМА ДЗ */
+async function reloadHomeworkForm(old=null){
+ const te=$('ht'),le=$('hl'),se=$('hstudents');if(!te||!le||!se)return;
+ const t=profile(te.value);if(!t){le.innerHTML='';se.innerHTML='';return}
+ const teacherLanguages=langsForTeacher(t);
+ le.innerHTML=teacherLanguages.map(l=>`<option value="${esc(l)}" ${old?.language===l?'selected':''}>${esc(l)}</option>`).join('');
+ const lang=le.value;
+ const list=(await dbStudents(t)).filter(s=>!lang||langsForStudent(s).includes(lang));
+ se.innerHTML=list.map(s=>`<label class="check"><input type="checkbox" value="${s.id}" ${(old?.student_ids||[]).map(String).includes(String(s.id))?'checked':''}>${esc(s.full_name)}</label>`).join('')||'<span class="muted">Нет учеников с этим языком</span>'
+}
+function homeworkModal(id=null){
+ const old=id?homeworkRows.find(x=>String(x.id)===String(id)):null,ts=currentUser.role==='admin'?teachers():[currentUser];
+ open(`<div class="modalhead"><h3>${old?'Изменить':'Новое ДЗ'}</h3><button class="close" onclick="closeModal()">×</button></div>
+ <label>Преподаватель</label><select id="ht">${ts.map(t=>`<option value="${t.id}" ${String(old?.teacher_id)===String(t.id)?'selected':''}>${esc(t.full_name)}</option>`).join('')}</select>
+ <label>Язык</label><select id="hl"></select><label>Название</label><input id="hname" value="${esc(old?.title||'')}">
+ <label>Описание</label><textarea id="hdesc">${esc(old?.description||'')}</textarea><label>Ссылка</label><input id="hlink" value="${esc(old?.link||'')}">
+ <label>Срок</label><input id="hdue" type="date" value="${old?.due_date||''}"><label>Ученики</label><div id="hstudents"></div>
+ <div class="actions" style="margin-top:15px"><button class="btn" onclick="saveHomework('${id||''}')">Сохранить</button><button class="btn gray" onclick="closeModal()">Отмена</button></div>`);
+ $('ht').onchange=()=>reloadHomeworkForm({...old,teacher_id:$('ht').value,student_ids:[]});
+ $('hl').onchange=()=>reloadHomeworkForm({...old,language:$('hl').value});
+ reloadHomeworkForm(old)
+}
+async function saveHomework(id){
+ const ids=[...document.querySelectorAll('#hstudents input:checked')].map(x=>x.value);
+ if(!ids.length){alert('Выберите хотя бы одного ученика.');return}
+ const teacherId=$('ht').value,language=$('hl').value,t=profile(teacherId);
+ if(!t){alert('Преподаватель не найден.');return}
+ if(currentUser.role==='teacher'&&String(t.id)!==String(currentUser.id)){alert('Нельзя создавать ДЗ от имени другого преподавателя.');return}
+ const valid=ids.every(id=>{let s=profile(id);return s&&String(s.teacher_id)===String(t.id)&&langsForStudent(s).includes(language)});
+ if(!valid){alert('Выбранный ученик не привязан к этому преподавателю или языку.');return}
+ const p={teacher_id:teacherId,language,title:$('hname').value.trim(),description:$('hdesc').value,link:$('hlink').value.trim()||null,due_date:$('hdue').value||null,student_ids:ids};
+ const r=id?await sb.from('homework').update(p).eq('id',id):await sb.from('homework').insert(p);
+ if(r.error){alert(r.error.message);return}closeModal();await reloadData();await render()
+}
+async function deleteHomework(id){
+ if(!confirm('Удалить ДЗ и связанные ответы?'))return;
+ await sb.from('submissions').delete().eq('homework_id',id);await sb.from('grades').delete().eq('homework_id',id);
+ const r=await sb.from('homework').delete().eq('id',id);if(r.error){alert(r.error.message);return}await reloadData();await render()
+}
+function submitHomeworkModal(id){
+ const h=homeworkRows.find(x=>String(x.id)===String(id)),s=submissionFor(id,currentUser.id);
+ open(`<div class="modalhead"><h3>Сдать ДЗ</h3><button class="close" onclick="closeModal()">×</button></div><p>${esc(h?.title)}</p><textarea id="answer">${esc(s?.answer||'')}</textarea><label>Ссылка</label><input id="answerlink" value="${esc(s?.link||'')}"><div class="actions" style="margin-top:15px"><button class="btn" onclick="submitHomework('${id}')">Отправить</button></div>`)
+}
+async function submitHomework(id){
+ const p={homework_id:id,student_id:currentUser.id,answer:$('answer').value,link:$('answerlink').value.trim()||null,submitted_at:new Date().toISOString()},old=submissionFor(id,currentUser.id);
+ const r=old?await sb.from('submissions').update(p).eq('id',old.id):await sb.from('submissions').insert(p);
+ if(r.error){alert(r.error.message);return}closeModal();await reloadData();await render()
+}
+
+/* GRADES */
+function visibleGrades(){return gradeRows.filter(g=>currentUser.role==='admin'||currentUser.role==='teacher'?String(g.teacher_id)===String(currentUser.id):String(g.student_id)===String(currentUser.id))}
+function weightedAverage(rows){let a=rows.filter(x=>x.value!=null),s=0,w=0;a.forEach(x=>{let z=WT[x.type]||1;s+=Number(x.value)*z;w+=z});return w?(s/w).toFixed(2):'—'}
+async function renderGrades(){
+ let rows=visibleGrades();
+ $('content').innerHTML=`<div class="card">${currentUser.role!=='student'?'<button class="btn" onclick="gradeModal()">Добавить оценку</button>':''}<div style="margin-top:12px;font-size:20px">Средний: <b>${weightedAverage(rows)}</b></div></div>
+ <div class="card"><table><thead><tr><th>Ученик</th><th>Предмет</th><th>Тип</th><th>Оценка</th><th></th></tr></thead><tbody>${rows.map(g=>`<tr><td>${esc(profile(g.student_id)?.full_name||'—')}</td><td>${esc(g.language)}</td><td>${esc(g.type)}</td><td><b>${esc(g.value)}</b></td><td>${currentUser.role!=='student'?`<button class="btn sm red" onclick="deleteGrade('${g.id}')">Удалить</button>`:''}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Нет оценок</td></tr>'}</tbody></table></div>`
+}
+function gradeModal(){
+ const ts=currentUser.role==='admin'?teachers():[currentUser],ss=currentUser.role==='admin'?students():studentsOf(currentUser);
+ open(`<div class="modalhead"><h3>Новая оценка</h3><button class="close" onclick="closeModal()">×</button></div><label>Ученик</label><select id="gs">${ss.map(s=>`<option value="${s.id}">${esc(s.full_name)}</option>`).join('')}</select><label>Преподаватель</label><select id="gt">${ts.map(t=>`<option value="${t.id}">${esc(t.full_name)}</option>`).join('')}</select><label>Язык</label><select id="gl">${LANG.map(x=>`<option>${x}</option>`).join('')}</select><label>Тип</label><select id="gtype">${Object.keys(WT).map(x=>`<option>${x}</option>`).join('')}</select><label>Оценка</label><input id="gv" type="number" min="1" max="5"><div class="actions" style="margin-top:15px"><button class="btn" onclick="saveGrade()">Сохранить</button></div>`)
+}
+async function saveGrade(){
+ const s=profile($('gs').value),t=profile($('gt').value),language=$('gl').value;
+ if(!s||!t||!langsForTeacher(t).includes(language)||!langsForStudent(s).includes(language)||String(s.teacher_id)!==String(t.id)){alert('Ученик, преподаватель и язык не соответствуют друг другу.');return}
+ const p={student_id:s.id,teacher_id:t.id,language,type:$('gtype').value,value:Number($('gv').value)},r=await sb.from('grades').insert(p);
+ if(r.error){alert(r.error.message);return}closeModal();await reloadData();await render()
+}
+async function deleteGrade(id){if(!confirm('Удалить оценку?'))return;let r=await sb.from('grades').delete().eq('id',id);if(r.error){alert(r.error.message);return}await reloadData();await render()}
+
+/* STUDENTS */
+async function renderStudents(){
+ let ss=currentUser.role==='admin'?students():studentsOf(currentUser);
+ $('content').innerHTML=`<div class="card"><table><thead><tr><th>Ученик</th><th>Email</th><th>Языки</th><th>Преподаватель</th></tr></thead><tbody>${ss.map(s=>`<tr><td>${esc(s.full_name)}</td><td>${esc(s.email||'—')}</td><td>${esc(langsForStudent(s).join(', '))}</td><td>${esc(profile(s.teacher_id)?.full_name||'—')}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Нет учеников</td></tr>'}</tbody></table></div>`
+}
+
+/* USERS */
+async function renderUsers(){
+ if(currentUser.role!=='admin')return;
+ $('content').innerHTML=`<div class="card"><button class="btn" onclick="userModal()">Добавить пользователя</button></div><div class="card"><table><thead><tr><th>Имя</th><th>Роль</th><th>Email</th><th>Языки</th><th>Учитель</th><th></th></tr></thead><tbody>${profiles.map(u=>`<tr><td>${esc(u.full_name)}</td><td>${roleName(u.role)}</td><td>${esc(u.email||'—')}</td><td>${esc(langs(u.languages).join(', '))}</td><td>${esc(profile(u.teacher_id)?.full_name||'—')}</td><td><button class="btn sm gray" onclick="userModal('${u.id}')">Изменить</button></td></tr>`).join('')}</tbody></table></div>`
+}
+function userModal(id=null){
+ const u=id?profile(id):null;
+ open(`<div class="modalhead"><h3>${u?'Изменить':'Новый пользователь'}</h3><button class="close" onclick="closeModal()">×</button></div><label>Имя</label><input id="uname" value="${esc(u?.full_name||'')}">${u?'':`<label>Email</label><input id="ul" type="email"><label>Пароль</label><input id="up" type="password">`}<label>Роль</label><select id="ur"><option value="student" ${u?.role==='student'?'selected':''}>Ученик</option><option value="teacher" ${u?.role==='teacher'?'selected':''}>Преподаватель</option><option value="admin" ${u?.role==='admin'?'selected':''}>Администратор</option></select><label>Языки</label><div>${LANG.map(l=>`<label class="check"><input class="ulang" type="checkbox" value="${l}" ${langs(u?.languages).includes(l)?'checked':''}>${l}</label>`).join('')}</div><div id="teacherBox"></div><div class="actions" style="margin-top:15px"><button class="btn" onclick="saveUser('${id||''}')">Сохранить</button></div>`);
+ const refresh=()=>{$('teacherBox').innerHTML=$('ur').value==='student'?`<label>Преподаватель</label><select id="ut"><option value="">Не назначен</option>${teachers().map(t=>`<option value="${t.id}" ${String(u?.teacher_id)===String(t.id)?'selected':''}>${esc(t.full_name)}</option>`).join('')}</select>`:''};
+ $('ur').onchange=refresh;refresh()
+}
+async function saveUser(id){
+ const role=$('ur').value,name=$('uname').value.trim(),languages=[...document.querySelectorAll('.ulang:checked')].map(x=>x.value),teacherId=role==='student'?($('ut')?.value||null):null;
+ if(!name){alert('Введите имя');return}
+ if(id){
+  const p={full_name:name,role,languages,teacher_id:role==='student'?teacherId:null},r=await sb.from('profiles').update(p).eq('id',id);
+  if(r.error){alert(r.error.message);return}
+ }else{
+  const email=$('ul').value.trim(),password=$('up').value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Введите корректный email.');return}
+  if(password.length<6){alert('Пароль должен содержать минимум 6 символов.');return}
+  const {data:{session}}=await sb.auth.getSession();if(!session){alert('Сессия истекла.');return}
+  const r=await fetch(SUPABASE_URL+'/functions/v1/'+ADMIN_FUNCTION,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},body:JSON.stringify({action:'create',email,password,full_name:name,role,languages,teacher_id:teacherId})});
+  let j={};try{j=await r.json()}catch(e){}if(!r.ok){alert(j.error||j.message||'Ошибка создания');return}
+ }
+ closeModal();await reloadData();await render()
+}
+
+/* ANALYTICS */
+async function renderAnalytics(){
+ $('content').innerHTML=`<div class="grid"><div class="stat">Ученики<b>${students().length}</b></div><div class="stat">Преподаватели<b>${teachers().length}</b></div><div class="stat">Оценки<b>${gradeRows.length}</b></div><div class="stat">ДЗ<b>${homeworkRows.length}</b></div><div class="stat">Занятия<b>${scheduleRows.length}</b></div><div class="stat">Сообщения<b>${messageRows.length}</b></div></div>`
+}
+
+/* CHAT */
+function chatPeople(){return profiles.filter(x=>x.id!==currentUser.id&&(currentUser.role==='admin'||x.role==='admin'||(currentUser.role==='teacher'&&String(x.teacher_id)===String(currentUser.id))||(currentUser.role==='student'&&String(x.teacher_id)===String(currentUser.id))))}
+async function renderChat(){
+ const ps=chatPeople();
+ $('content').innerHTML=`<div class="chat"><div class="people">${ps.map(p=>`<div class="person" onclick="selectChat('${p.id}')">${esc(p.full_name)}<br><small class="muted">${roleName(p.role)}</small></div>`).join('')||'<div class="empty">Нет пользователей</div>'}</div><div class="messages"><div id="msgs" class="msgs"><div class="empty">Выберите пользователя</div></div><div class="send"><input id="msg" placeholder="Сообщение"><button class="btn" onclick="sendChat()">Отправить</button></div></div></div>`
+}
+async function selectChat(id){chatUser=id;await loadChatMessages()}
+async function loadChatMessages(){
+ if(!chatUser)return;
+ const {data,error}=await sb.from('messages').select('*').or(`and(sender_id.eq.${currentUser.id},receiver_id.eq.${chatUser}),and(sender_id.eq.${chatUser},receiver_id.eq.${currentUser.id})`).order('created_at');
+ if(error){console.error('CHAT:',error);return}
+ $('msgs').innerHTML=(data||[]).map(m=>`<div class="msg ${String(m.sender_id)===String(currentUser.id)?'mine':''}">${esc(m.text)}</div>`).join('')||'<div class="empty">Нет сообщений</div>';
+ $('msgs').scrollTop=$('msgs').scrollHeight
+}
+async function sendChat(){
+ const text=$('msg').value.trim();if(!text||!chatUser)return;
+ const r=await sb.from('messages').insert({sender_id:currentUser.id,receiver_id:chatUser,text});
+ if(r.error){alert(r.error.message);return}$('msg').value='';await loadChatMessages()
+}
+
+/* CHECK */
+async function openCheckList(id){checkHw=id;await renderCheck()}
+async function renderCheck(){
+ const h=homeworkRows.find(x=>String(x.id)===String(checkHw));
+ if(!h){$('content').innerHTML='<div class="empty">Выберите ДЗ</div>';return}
+ const ss=(h.student_ids||[]).map(profile).filter(Boolean);
+ $('content').innerHTML=`<div class="card"><h3>${esc(h.title)}</h3>${ss.map(s=>{let sub=submissionFor(h.id,s.id);return`<div class="card"><b>${esc(s.full_name)}</b><p>${esc(sub?.answer||'Ответ не отправлен')}</p>${sub?.link?`<a href="${esc(sub.link)}" target="_blank" rel="noopener">Открыть ссылку</a>`:''}<br><button class="btn sm" style="margin-top:8px" onclick="openCheck('${h.id}','${s.id}')">Проверить</button></div>`}).join('')}</div>`
+}
+function openCheck(hid,sid){
+ const sub=submissionFor(hid,sid),g=gradeRows.find(x=>String(x.homework_id)===String(hid)&&String(x.student_id)===String(sid));
+ open(`<div class="modalhead"><h3>Проверка</h3><button class="close" onclick="closeModal()">×</button></div><p>${esc(sub?.answer||'Нет ответа')}</p><label>Оценка</label><input id="cv" type="number" min="1" max="5" value="${g?.value||''}"><label>Комментарий</label><textarea id="cc">${esc(g?.comment||'')}</textarea><button class="btn" onclick="finishCheck('${hid}','${sid}','${g?.id||''}')">Сохранить</button>`)
+}
+async function finishCheck(hid,sid,gid){
+ const h=homeworkRows.find(x=>String(x.id)===String(hid)),value=Number($('cv').value);
+ if(!value||value<1||value>5){alert('Введите оценку от 1 до 5.');return}
+ const p={homework_id:hid,student_id:sid,teacher_id:h.teacher_id,language:h.language,type:'ДЗ',value,comment:$('cc').value};
+ const r=gid?await sb.from('grades').update(p).eq('id',gid):await sb.from('grades').insert(p);
+ if(r.error){alert(r.error.message);return}closeModal();await reloadData();await render()
+}
+
+/* SETTINGS */
+function renderSettings(){
+ $('content').innerHTML=`<div class="card"><h3>Настройки</h3><p>Пользователь: <b>${esc(currentUser.full_name)}</b></p><p>Email: ${esc(currentUser.email||'—')}</p><p>Роль: ${roleName(currentUser.role)}</p><p>Языки: ${langs(currentUser.languages).map(esc).join(', ')||'—'}</p></div>`
+}
+
+/* MODAL */
+function open(html){$('modal').innerHTML=`<div class="modalbg"><div class="modal">${html}</div></div>`;$('modal').classList.remove('hidden')}
+function closeModal(){$('modal').classList.add('hidden');$('modal').innerHTML=''}
+window.addEventListener('click',e=>{if(e.target.classList.contains('modalbg'))closeModal()});
+window.addEventListener('load',init);
+</script>
+</body>
+</html>
