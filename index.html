@@ -269,7 +269,7 @@ async function load(){
   const r = await Promise.all([
     db.from('profiles').select('*'), db.from('languages').select('*'), db.from('schedule').select('*'),
     db.from('homework').select('*'), db.from('grades').select('*').order('created_at', {ascending:false}),
-    db.from('teacher_languages').select('*'), db.from('homework_submissions').select('*'), db.from('groups').select('*'), db.from('group_members').select('*'), db.from('messages').select('*').order('created_at', {ascending:false}).limit(300)]);
+    db.from('teacher_languages').select('*'), db.from('homework_submissions').select('*'), db.from('groups').select('*'), db.from('group_members').select('*'), db.from('lan_messages').select('*').order('created_at', {ascending:false}).limit(300)]);
   const bad = r.slice(0, 7).find(x => x.error); if (bad) throw bad.error;
   const kc = c => { c = String(c || '').toLowerCase().slice(0, 2); return c === 'cn' ? 'zh' : c; };
   LG = r[1].data; [LANG, LGK].forEach(o => Object.keys(o).forEach(k => delete o[k]));
@@ -317,7 +317,7 @@ function showApp(){
   $('#wName').textContent = me.full_name || 'Без имени';
   $('#wRole').textContent = ROLE[me.role] + (me.role === 'teacher' && me.langs.length ? ' · ' + me.langs.map(l => LANG[l]).join(', ') : '');
   try { LR = JSON.parse(localStorage.getItem('lr_' + me.id) || '{}'); } catch (_) { LR = {}; }
-  if (!rt) rt = db.channel('msgs-' + me.id).on('postgres_changes', {event:'INSERT', schema:'public', table:'messages'}, p => onMsg(p.new)).subscribe();
+  if (!rt) rt = db.channel('msgs-' + me.id).on('postgres_changes', {event:'INSERT', schema:'public', table:'lan_messages'}, p => onMsg(p.new)).subscribe();
   if (!navItems().some(x => x[0] === page)) page = 'home';
   go(page);
 }
@@ -728,7 +728,7 @@ function markRead(c){ const l = lastMsg(c); if (l) { LR[c] = l.created_at; try {
 function openChat(c){ chCur = c; markRead(c); go('chat'); const m = $('#msgs'); if (m) m.scrollTop = m.scrollHeight; const i = $('#mIn'); if (i && innerWidth > 820) i.focus(); }
 async function sendMsg(ev){ ev.preventDefault(); const i = $('#mIn'), b = i.value.trim(); if (b) { i.value = ''; await postMsg(b); } return false; }
 async function postMsg(body){
-  const {data, error} = await db.from('messages').insert({channel:chCur, sender_id:me.id, body}).select().single();
+  const {data, error} = await db.from('lan_messages').insert({channel:chCur, sender_id:me.id, body}).select().single();
   if (error) return toast(/messages/.test(error.message) ? 'Чат не настроен: выполните setup.sql в Supabase' : error.message);
   onMsg(data);
 }
