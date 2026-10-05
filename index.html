@@ -178,6 +178,16 @@ nav button:hover{transform:none}.ic{width:28px;height:28px}.nb{position:absolute
 .chat{grid-template-columns:1fr;height:calc(100vh - 210px)}.chat.open .clist{display:none}.chat:not(.open) .cpane{display:none}.back{display:block}
 .sheet{border-radius:28px 28px 0 0;align-self:end;max-width:none}
 }
+main{max-width:1280px;margin:0 auto}
+#rail{display:none}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;margin-top:8px}.cal>b{font-size:11px;color:var(--mute);padding:4px 0}
+.cd{border:0;background:none;border-radius:12px;padding:5px 0 3px;cursor:pointer;font-weight:600;font-size:13px;display:flex;flex-direction:column;align-items:center;min-height:38px;transition:.15s}
+.cd:hover{background:#F3F5F7}.cd.today{background:var(--lime)}.cd.sel{background:var(--ink);color:#fff}
+@media(min-width:1280px){
+#app{grid-template-columns:250px minmax(0,1fr) 330px}
+#rail{display:block;position:sticky;top:0;height:100vh;overflow:auto;padding:36px 28px 36px 0}
+#app.norail{grid-template-columns:250px minmax(0,1fr)}#app.norail #rail{display:none}
+}
 </style>
 </head>
 <body>
@@ -207,6 +217,7 @@ nav button:hover{transform:none}.ic{width:28px;height:28px}.nb{position:absolute
     <div class="who"><b id="wName"></b><span id="wRole"></span></div>
   </aside>
   <main id="main"></main>
+  <div id="rail"></div>
 </div>
 <div id="modal" class="hide" onclick="if(event.target===this)closeModal()"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <canvas id="fx" class="hide"></canvas>
@@ -324,7 +335,7 @@ function showApp(){
 function go(p){
   page = p;
   drawNav();
-  $('#main').innerHTML = VIEWS[p](); window.scrollTo(0, 0);
+  $('#main').innerHTML = VIEWS[p](); $('#app').classList.toggle('norail', p === 'chat'); drawRail(); window.scrollTo(0, 0);
 }
 async function refresh(t){ try { await load(); go(page); if (t) toast(t); } catch (err) { toast(err.message); } }
 async function run(q, t){ const {error} = await q; if (error) return toast(error.message); refresh(t); }
@@ -697,6 +708,23 @@ function addMember(gid){ const s = $('#am_' + gid).value; if (s) run(db.from('gr
 const rmMember = (gid, sid) => run(db.from('group_members').delete().eq('group_id', gid).eq('student_id', sid), 'Ученик убран из группы');
 const delGroup = gid => confirm('Удалить группу? Расписание и задания группы нужно удалить отдельно.') && run(db.from('groups').delete().eq('id', gid), 'Группа удалена');
 
+/* ---------- right rail ---------- */
+let rmo = 0;
+function railPick(k){ const mon = d => { const t = new Date(d + 'T00:00'); t.setDate(t.getDate() - (t.getDay() + 6) % 7); return t; }; wk = Math.round((mon(k) - mon(iso(new Date()))) / 6048e5); sel = k; go('schedule'); }
+function drawRail(){
+  const now = new Date(), today = iso(now), base = new Date(now.getFullYear(), now.getMonth() + rmo, 1), y = base.getFullYear(), m = base.getMonth();
+  const off = (base.getDay() + 6) % 7, n = new Date(y, m + 1, 0).getDate();
+  let cells = '<span></span>'.repeat(off);
+  for (let d = 1; d <= n; d++) { const k = iso(new Date(y, m, d)), ls = [...new Set(LES.filter(l => l.starts_at.slice(0, 10) === k).map(l => l.language))];
+    cells += `<button class="cd ${k === today ? 'today' : ''} ${k === sel ? 'sel' : ''}" onclick="railPick('${k}')">${d}<span class="dots">${ls.slice(0, 3).map(g => `<i class="c-${g}"></i>`).join('')}</span></button>`; }
+  const tl = LES.filter(l => l.starts_at.slice(0, 10) === today), seen = new Set();
+  const dl = HW.filter(h => h.status !== 'checked' && h.due_on >= today && !seen.has(bkey(h)) && seen.add(bkey(h))).sort((a, b) => String(a.due_on) < String(b.due_on) ? -1 : 1).slice(0, 4);
+  $('#rail').innerHTML = `<div class="card"><div class="wkhead"><button class="btn ghost" onclick="rmo--;drawRail()">‹</button><b style="text-transform:capitalize">${base.toLocaleDateString('ru', {month:'long', year:'numeric'})}</b><button class="btn ghost" onclick="rmo++;drawRail()">›</button></div>
+    <div class="cal">${['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map(d => `<b>${d}</b>`).join('')}${cells}</div></div>
+  <div class="card"><h3>Сегодня</h3>${tl.map(l => `<div class="row"><span class="pill" style="background:color-mix(in srgb,var(--${l.language},#6B7280) 18%,#fff)">${fmtT(l.starts_at)}</span><div class="grow"><b>${e(LANG[l.language])}</b><small>${e(lessonWho(l))}</small></div></div>`).join('') || '<div class="empty" style="padding:4px 0">Занятий нет — отдыхаем 😌</div>'}</div>
+  <div class="card"><h3>Ближайшие сроки</h3>${dl.map(h => `<div class="row" style="cursor:pointer" onclick="go('homework')"><div class="grow"><b>${dot(h.language)}${e(h.title)}</b><small>${h.group_id ? '👥 ' + e(G[h.group_id] || '') : isStaff() ? e(nm(h.student_id)) : e(LANG[h.language])}</small></div><span class="pill">${fmtS(h.due_on)}</span></div>`).join('') || '<div class="empty" style="padding:4px 0">Всё сдано 🎉</div>'}</div>`;
+}
+
 /* ---------- chat ---------- */
 let chCur = null, LR = {}, rt = null;
 const dmId = o => 'd:' + [me.id, o].sort().join(':');
@@ -707,8 +735,12 @@ const unr = ch => (CM[ch] || []).filter(m => m.sender_id !== me.id && m.created_
 const unrAll = () => Object.keys(CM).reduce((a, c) => a + unr(c), 0);
 function chans(){
   const gs = myGroups().map(g => ({id:'g:' + g.id, t:g.name, s:'Группа · ' + (LANG[g.language] || ''), ic:'👥', c:`var(--${g.language}, #6B7280)`}));
-  const ids = me.role === 'student' ? [...new Set([me.teacher_id, ...myGroups().map(g => g.teacher_id)].filter(Boolean))] : Object.keys(P).filter(i => i !== me.id);
-  return [...gs, ...ids.map(i => P[i]).filter(Boolean).map(p => ({id:dmId(p.id), t:p.full_name || 'Без имени', s:ROLE[p.role], ic:ini(p.full_name), c:hue(p.id)}))];
+  const room = isStaff() ? [{id:'s:staff', t:'Учительская', s:'Все учителя и администраторы', ic:'🏫', c:'#111827'}] : [];
+  const ids = new Set(Object.keys(CM).filter(c => c[0] === 'd').map(c => c.split(':').slice(1).find(i => i !== me.id)));
+  if (me.role === 'student') [me.teacher_id, ...myGroups().map(g => g.teacher_id)].forEach(i => i && ids.add(i));
+  else Object.keys(P).forEach(i => ids.add(i));
+  ids.delete(me.id);
+  return [...room, ...gs, ...[...ids].map(i => P[i]).filter(Boolean).map(p => ({id:dmId(p.id), t:p.full_name || 'Без имени', s:ROLE[p.role], ic:ini(p.full_name), c:hue(p.id)}))];
 }
 function chatView(){
   const cs = chans().sort((a, b) => String((lastMsg(b.id) || {}).created_at || '').localeCompare(String((lastMsg(a.id) || {}).created_at || ''))), cur = cs.find(c => c.id === chCur);
@@ -721,7 +753,7 @@ function chatView(){
     <form class="comp" onsubmit="return sendMsg(event)"><input id="mIn" placeholder="Сообщение…" autocomplete="off" maxlength="1000"><button class="btn lime">➤</button></form>` : '<div class="nochat"><div style="font-size:42px">💬</div>Выберите чат слева</div>'}</div></div>`;
 }
 function msgsHtml(){
-  const g = chCur && chCur[0] === 'g', l = CM[chCur] || [];
+  const g = chCur && 'gs'.includes(chCur[0]), l = CM[chCur] || [];
   return l.length ? l.map(m => `<div class="bub ${m.sender_id === me.id ? 'me' : ''}">${g && m.sender_id !== me.id ? `<b>${e(nm(m.sender_id))}</b>` : ''}${e(m.body)}<small>${fmtT(m.created_at)}</small></div>`).join('') : '<div class="nochat">Напишите первое сообщение 👋</div>';
 }
 function markRead(c){ const l = lastMsg(c); if (l) { LR[c] = l.created_at; try { localStorage.setItem('lr_' + me.id, JSON.stringify(LR)); } catch (_) {} } drawNav(); }
