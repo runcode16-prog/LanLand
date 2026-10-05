@@ -105,6 +105,79 @@ nav{flex-direction:row;overflow-x:auto;width:100%}nav button{white-space:nowrap;
 main{padding:24px 16px 96px}.two{grid-template-columns:1fr}.banner{padding:24px}.banner::after{font-size:48px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ===== v2 design ===== */
+body{background-color:#EEF1F7;background-image:radial-gradient(900px 520px at 4% -8%,#D9E5FF 0,transparent 60%),radial-gradient(700px 480px at 100% 4%,#FFE3DE 0,transparent 55%),radial-gradient(800px 600px at 55% 112%,#DDF6EA 0,transparent 60%);background-attachment:fixed}
+aside{background:rgba(255,255,255,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+nav button{display:flex;align-items:center;gap:12px}
+nav button:hover{transform:translateX(3px)}
+.ic{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;background:#F0F2F6;font-size:16px;flex:none;transition:.25s}
+nav button.on .ic{background:rgba(255,255,255,.18);transform:rotate(-6deg) scale(1.1)}
+.nb{margin-left:auto;background:var(--zh);color:#fff;border-radius:99px;font:700 11px Onest,sans-serif;padding:2px 8px;min-width:20px;text-align:center;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{transform:scale(1.15)}}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}
+main>*{animation:up .55s cubic-bezier(.2,.8,.2,1) backwards}
+main>*:nth-child(2){animation-delay:.05s}main>*:nth-child(3){animation-delay:.1s}main>*:nth-child(4){animation-delay:.15s}main>*:nth-child(n+5){animation-delay:.2s}
+main>h1{background:linear-gradient(100deg,#111827 30%,#3B6BFF);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.card{border:1px solid rgba(255,255,255,.9);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 22px 40px -22px rgba(17,24,39,.4)}
+.banner{background:linear-gradient(120deg,#0F172A,#1E2A5A,#3B1D5C,#0F172A);background-size:300% 300%;animation:up .55s backwards,flow 14s ease infinite;box-shadow:0 30px 60px -30px rgba(59,107,255,.6)}
+.banner::before{content:'';position:absolute;width:320px;height:320px;right:-60px;top:-120px;background:radial-gradient(circle,rgba(211,245,74,.35),transparent 65%);animation:float 7s ease-in-out infinite;pointer-events:none}
+@keyframes flow{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+@keyframes float{50%{transform:translate(-30px,30px) scale(1.15)}}
+.big{background:linear-gradient(120deg,#111827 20%,#3B6BFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grid .card{position:relative;overflow:hidden}
+.grid .card::after{content:'';position:absolute;right:-24px;top:-24px;width:90px;height:90px;border-radius:50%;background:var(--lime);opacity:.55}
+.grid .card:nth-child(2)::after{background:#BFD2FF}.grid .card:nth-child(3)::after{background:#FFD0CB}
+.lcard{transition:.2s}.lcard:hover{transform:translateX(4px)}
+.two2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}.two2 .card{margin:0}
+.phrase{font:600 24px Unbounded,sans-serif;letter-spacing:-.03em;margin:8px 0 4px}
+.xp{height:12px;border-radius:9px;background:#EEF0F3;overflow:hidden;margin:8px 0 12px}.xp i{display:block;height:100%;background:linear-gradient(90deg,var(--en),var(--fr));border-radius:9px;transition:width 1s}
+.badges{display:flex;flex-wrap:wrap;gap:8px}.badge{padding:6px 12px;border-radius:99px;background:#F0F2F6;color:#9CA3AF;font-weight:600;font-size:13px;filter:grayscale(1);opacity:.7}.badge.on{background:var(--lime);color:var(--ink);filter:none;opacity:1}
+.hwc{border-left:6px solid var(--x,#E5E7EB)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.fb{background:#FFF8E6;border-radius:14px;padding:10px 14px;margin-top:8px}.fb b{display:block;font-size:12px;color:#9A5B00}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.fchip{border:0;background:#fff;padding:8px 14px;border-radius:99px;font-weight:600;cursor:pointer;color:var(--mute);box-shadow:0 6px 16px -12px rgba(17,24,39,.5);transition:.15s}.fchip.on{background:var(--ink);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{border:0;border-radius:99px;padding:7px 13px;font-weight:600;font-size:13px;cursor:pointer;background:#F3F5F7;transition:.15s}
+.chip:hover{transform:translateY(-2px)}.chip.late{box-shadow:inset 0 0 0 2px var(--zh)}.chip.s-plain{cursor:default}
+.s-submitted{background:var(--lime)!important}.s-checked{background:#CFF3E6!important;color:#0B7A5A}.s-returned{background:#FFE7C2!important;color:#9A5B00}
+.bar{height:8px;border-radius:9px;background:#EEF0F3;display:flex;overflow:hidden;margin:10px 0}.bar i{height:100%;transition:width .6s}.bar .ok{background:var(--fr)}.bar .wt{background:var(--lime)}
+.chip a{cursor:pointer;color:var(--zh);margin-left:4px}
+#modal{position:fixed;inset:0;background:rgba(17,24,39,.45);backdrop-filter:blur(6px);display:grid;place-items:center;z-index:20;opacity:0;transition:opacity .25s;padding:16px}
+#modal.show{opacity:1}
+.sheet{background:#fff;border-radius:28px;padding:26px;width:100%;max-width:540px;max-height:90vh;overflow:auto;transform:translateY(40px) scale(.92);transition:transform .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 40px 80px -30px rgba(0,0,0,.5)}
+#modal.show .sheet{transform:none}
+.drop{display:grid;justify-items:center;gap:4px;padding:24px;border:2px dashed #C7CDD6;border-radius:20px;cursor:pointer;text-align:center;transition:.2s;margin:0!important;color:var(--ink)!important;font-size:15px!important}
+.drop:hover{border-color:var(--en);background:#F2F6FF;transform:scale(1.01)}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}.thumbs img,.gal img{object-fit:cover;border-radius:12px}.thumbs img{width:72px;height:72px;animation:up .3s backwards}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin:10px 0}.gal img{width:100%;height:120px}
+#fx{position:fixed;inset:0;z-index:50;pointer-events:none}
+#toast{z-index:60}
+.chat{display:grid;grid-template-columns:300px 1fr;gap:16px;height:calc(100vh - 200px);min-height:440px}
+.clist,.cpane{background:#fff;border-radius:24px;box-shadow:0 12px 32px -18px rgba(17,24,39,.3);overflow:hidden}
+.clist{overflow:auto;padding:10px}
+.ci{display:flex;gap:12px;align-items:center;padding:10px;border-radius:16px;cursor:pointer;border:0;background:none;width:100%;text-align:left;transition:.15s}
+.ci.on,.ci:hover{background:#F3F5F7}.ci .grow{flex:1;min-width:0}
+.ci small{display:block;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-weight:700;color:#fff;flex:none;font-size:14px}
+.cpane{display:flex;flex-direction:column}
+.chead{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}.back{display:none}
+.msgs{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:6px}
+.bub{max-width:76%;padding:9px 14px;border-radius:18px 18px 18px 6px;background:#F0F2F6;align-self:flex-start;animation:pop .25s;word-break:break-word}
+.bub.me{align-self:flex-end;background:var(--ink);color:#fff;border-radius:18px 18px 6px 18px}
+.bub b{display:block;font-size:12px;color:var(--en)}.bub small{display:block;font-size:11px;opacity:.55;text-align:right}
+@keyframes pop{from{opacity:0;transform:scale(.92) translateY(6px)}}
+.nochat{margin:auto;text-align:center;color:var(--mute);font-size:15px;padding:20px}
+.emo{display:flex;gap:6px;padding:8px 14px 0}.emo button{border:0;background:#F3F5F7;border-radius:10px;padding:4px 9px;cursor:pointer;font-size:16px;transition:.15s}.emo button:hover{transform:scale(1.2)}
+.comp{display:flex;gap:8px;padding:10px 14px 14px}.comp input{flex:1}
+@media(max-width:820px){
+.two2{grid-template-columns:1fr}
+nav button{flex-direction:column;gap:2px;font-size:11px;padding:6px 10px}
+nav button:hover{transform:none}.ic{width:28px;height:28px}.nb{position:absolute;margin:0;transform:translate(14px,-8px)}nav button{position:relative}
+.chat{grid-template-columns:1fr;height:calc(100vh - 210px)}.chat.open .clist{display:none}.chat:not(.open) .cpane{display:none}.back{display:block}
+.sheet{border-radius:28px 28px 0 0;align-self:end;max-width:none}
+}
 </style>
 </head>
 <body>
@@ -135,6 +208,8 @@ main{padding:24px 16px 96px}.two{grid-template-columns:1fr}.banner{padding:24px}
   </aside>
   <main id="main"></main>
 </div>
+<div id="modal" class="hide" onclick="if(event.target===this)closeModal()"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<canvas id="fx" class="hide"></canvas>
 <div id="toast" class="hide" role="status"></div>
 
 <script>
@@ -148,7 +223,7 @@ const ROLE = {student:'Ученик', teacher:'Учитель', admin:'Адми�
 const SUBST = {not_submitted:'Не сдано', submitted:'Сдано', checked:'Проверено', returned:'Возвращено'};
 const $ = s => document.querySelector(s);
 const e = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let me = null, P = {}, LG = [], LES = [], HW = [], GR = [], TL = [], SUB = [], G = {}, page = 'home', booting = false;
+let me = null, P = {}, LG = [], LES = [], HW = [], GR = [], TL = [], SUB = [], G = {}, GRP = [], GM = [], CM = {}, page = 'home', booting = false;
 
 /* ---------- helpers ---------- */
 const nm = id => P[id]?.full_name || 'Без имени';
@@ -166,7 +241,7 @@ const stOpts = () => myStudents().map(p => `<option value="${p.id}">${e(p.full_n
 const lgOpts = () => Object.entries(LANG).filter(([k]) => me.role === 'admin' || me.langs.includes(k)).map(([k, v]) => `<option value="${k}">${e(v)}</option>`).join('');
 const rowOf = (sid, k) => { const l = LGK[k]; return {student_id:sid, teacher_id:me.role === 'admin' ? (P[sid].teacher_id || me.id) : me.id, language:l ? l.name : k, language_id:l ? l.id : null}; };
 async function tryIns(t, base, variants, ok){
-  let err; for (const v of variants) { const {error} = await db.from(t).insert({...base, ...v}); if (!error) return refresh(ok); err = error; }
+  let err; for (const v of variants) { const {error} = await db.from(t).insert({...base, ...v}); if (!error) return refresh(ok); err = err || error; console.warn(t, v, error.message); }
   toast(err.message);
 }
 
@@ -187,14 +262,14 @@ $('#authForm').onsubmit = async ev => {
     msg.textContent = /Invalid login/i.test(err.message) ? 'Неверная почта или пароль.' : err.message;
   }
 };
-const showAuth = () => { $('#app').classList.add('hide'); $('#auth').classList.remove('hide'); };
+const showAuth = () => { if (rt) { db.removeChannel(rt); rt = null; } $('#app').classList.add('hide'); $('#auth').classList.remove('hide'); };
 
 /* ---------- data ---------- */
 async function load(){
   const r = await Promise.all([
     db.from('profiles').select('*'), db.from('languages').select('*'), db.from('schedule').select('*'),
     db.from('homework').select('*'), db.from('grades').select('*').order('created_at', {ascending:false}),
-    db.from('teacher_languages').select('*'), db.from('homework_submissions').select('*'), db.from('groups').select('id,name')]);
+    db.from('teacher_languages').select('*'), db.from('homework_submissions').select('*'), db.from('groups').select('*'), db.from('group_members').select('*'), db.from('messages').select('*').order('created_at', {ascending:false}).limit(300)]);
   const bad = r.slice(0, 7).find(x => x.error); if (bad) throw bad.error;
   const kc = c => { c = String(c || '').toLowerCase().slice(0, 2); return c === 'cn' ? 'zh' : c; };
   LG = r[1].data; [LANG, LGK].forEach(o => Object.keys(o).forEach(k => delete o[k]));
@@ -205,6 +280,8 @@ async function load(){
   };
   P = Object.fromEntries(r[0].data.map(x => [x.id, x]));
   SUB = r[6].data; G = Object.fromEntries((r[7].data || []).map(g => [g.id, g.name]));
+  GRP = (r[7].data || []).map(g => ({...g, language:g.language ? key(g) : null})); GM = r[8].data || [];
+  CM = {}; (r[9].data || []).slice().reverse().forEach(m => (CM[m.channel] ||= []).push(m));
   const st = h => (SUB.find(s => s.homework_id === h.id && s.student_id === h.student_id) || {}).status || 'not_submitted';
   LES = r[2].data.filter(l => (l.lesson_date || l.date) && l.start_time && l.end_time).map(l => { const d = l.lesson_date || l.date; return {...l, language:key(l), starts_at:`${d}T${l.start_time}`, ends_at:`${d}T${l.end_time}`}; })
     .sort((a, b) => a.starts_at < b.starts_at ? -1 : 1);
@@ -235,22 +312,18 @@ db.auth.onAuthStateChange((ev, s) => {
 });
 
 /* ---------- shell ---------- */
-function navItems(){
-  const n = [['home','Главная'],['schedule','Расписание'],['grades','Оценки'],['homework','Домашняя работа']];
-  if (isStaff()) n.push(['students','Ученики']);
-  if (me.role === 'admin') n.push(['teachers','Учителя'],['users','Пользователи'],['create','Создать аккаунт']);
-  n.push(['settings','Настройки']); return n;
-}
 function showApp(){
   $('#auth').classList.add('hide'); $('#app').classList.remove('hide');
   $('#wName').textContent = me.full_name || 'Без имени';
   $('#wRole').textContent = ROLE[me.role] + (me.role === 'teacher' && me.langs.length ? ' · ' + me.langs.map(l => LANG[l]).join(', ') : '');
+  try { LR = JSON.parse(localStorage.getItem('lr_' + me.id) || '{}'); } catch (_) { LR = {}; }
+  if (!rt) rt = db.channel('msgs-' + me.id).on('postgres_changes', {event:'INSERT', schema:'public', table:'messages'}, p => onMsg(p.new)).subscribe();
   if (!navItems().some(x => x[0] === page)) page = 'home';
   go(page);
 }
 function go(p){
   page = p;
-  $('#nav').innerHTML = navItems().map(([k,t]) => `<button class="${k === p ? 'on' : ''}" onclick="go('${k}')">${t}</button>`).join('');
+  drawNav();
   $('#main').innerHTML = VIEWS[p](); window.scrollTo(0, 0);
 }
 async function refresh(t){ try { await load(); go(page); if (t) toast(t); } catch (err) { toast(err.message); } }
@@ -285,7 +358,7 @@ function scheduleView(){
   const f = d => d.toLocaleDateString('ru', {day:'numeric', month:'long'});
   let html = '<h1>Расписание</h1><p class="sub">Выберите день недели. Уроки подряд собраны в одну группу.</p>';
   if (isStaff()) html += `<details class="card"><summary>Добавить занятие</summary><form onsubmit="return addLesson(event)">
-    <div class="two"><div><label>Ученик</label><select name="st" required>${stOpts()}</select></div><div><label>Язык</label><select name="lg" required>${lgOpts()}</select></div>
+    <div class="two"><div><label>Кому (группа или ученик)</label><select name="st" required>${whoOpts()}</select></div><div><label>Язык (для ученика)</label><select name="lg" required>${lgOpts()}</select></div>
     <div><label>Дата</label><input type="date" name="d" value="${sel}" required></div><div></div>
     <div><label>Начало</label><input type="time" name="s" required></div><div><label>Окончание</label><input type="time" name="t" required></div></div>
     <button class="btn" style="margin-top:18px">Добавить занятие</button></form></details>`;
@@ -296,9 +369,9 @@ function scheduleView(){
   return html + (at(sel).length ? chainHtml(at(sel)) : '<div class="card empty">В этот день занятий нет.</div>');
 }
 function addLesson(ev){
-  ev.preventDefault(); const f = new FormData(ev.target), d = f.get('d'), s = f.get('s'), t = f.get('t');
+  ev.preventDefault(); const f = new FormData(ev.target), d = f.get('d'), s = f.get('s'), t = f.get('t'), [kind, who] = f.get('st').split(':');
   if (t <= s) { toast('Окончание должно быть позже начала'); return false; }
-  tryIns('schedule', {...rowOf(f.get('st'), f.get('lg')), start_time:s, end_time:t, created_by:me.id}, [{lesson_date:d, date:d}, {lesson_date:d}, {date:d}], 'Занятие добавлено');
+  tryIns('schedule', {...(kind === 'g' ? groupRow(who) : rowOf(who, f.get('lg'))), start_time:s, end_time:t, created_by:me.id}, [{lesson_date:d, date:d}, {lesson_date:d}, {date:d}], 'Занятие добавлено');
   return false;
 }
 const delRow = (t, id) => confirm('Удалить запись?') && run(db.from(t).delete().eq('id', id), 'Удалено');
@@ -323,66 +396,164 @@ function gradesView(){
 }
 function addGrade(ev){
   ev.preventDefault(); const f = new FormData(ev.target), k = f.get('kind'), v = +f.get('v');
-  tryIns('grades', {...rowOf(f.get('st'), f.get('lg')), comment:f.get('c') || null},
+  tryIns('grades', {...rowOf(f.get('st'), f.get('lg')), comment:f.get('c') || null, what:f.get('c') || k},
     [{grade_type:k, type:k, value:v, grade:v}, {grade_type:k, value:v}, {grade_type:k, grade:v}, {type:k, grade:v}, {type:k, value:v}], 'Оценка сохранена');
   return false;
 }
 
 /* ---------- homework ---------- */
+let hwF = 'all', hwTab = 'check';
+const subOf = h => SUB.find(s => s.homework_id === h.id && s.student_id === h.student_id);
+const bkey = h => h.batch_id || h.id;
+const SI = {not_submitted:'○', submitted:'●', checked:'✓', returned:'↩'};
+const lateOf = h => h.status === 'not_submitted' && h.due_on < iso(new Date());
+const GV = (k, v) => [{grade_type:k, type:k, value:v, grade:v}, {grade_type:k, value:v}, {grade_type:k, grade:v}, {type:k, grade:v}, {type:k, value:v}];
+
+function hwForm(){
+  return `<details class="card"><summary>＋ Создать задание</summary><form onsubmit="return addHw(event)">
+  <label>Группы (задание получат все участники)</label><div class="chk">${myGroups().map(g => `<label><input type="checkbox" name="tg" value="${g.id}">${dot(g.language)}${e(g.name)}</label>`).join('') || '<span class="empty">Групп пока нет — создайте во вкладке «Группы»</span>'}</div>
+  <label>Отдельные ученики</label><div class="chk" style="max-height:130px;overflow:auto">${myStudents().map(p => `<label><input type="checkbox" name="st" value="${p.id}">${e(p.full_name)}</label>`).join('') || '<span class="empty">Нет учеников</span>'}</div>
+  <div class="two"><div><label>Язык (для отдельных учеников)</label><select name="lg" required>${lgOpts()}</select></div><div><label>Срок сдачи</label><input type="date" name="due" required></div></div>
+  <label>Название</label><input name="title" required maxlength="120"><label>Описание</label><textarea name="desc" rows="3"></textarea>
+  <button class="btn" style="margin-top:18px">Выдать задание</button></form></details>`;
+}
 function homeworkView(){
-  const today = new Date().toISOString().slice(0, 10);
-  let html = '<h1>Домашняя работа</h1><p class="sub">Задания, сроки и статус сдачи.</p>';
-  if (isStaff()) html += `<details class="card"><summary>Создать задание</summary><form onsubmit="return addHw(event)">
-    <label>Ученики</label><div class="chk" style="max-height:140px;overflow:auto">${myStudents().map(p => `<label><input type="checkbox" name="st" value="${p.id}">${e(p.full_name)}</label>`).join('') || '<span class="empty">Нет учеников</span>'}</div>
-    <div class="two"><div><label>Язык</label><select name="lg" required>${lgOpts()}</select></div><div><label>Срок сдачи</label><input type="date" name="due" required></div></div>
-    <label>Название</label><input name="title" required maxlength="120"><label>Описание</label><textarea name="desc" rows="3"></textarea>
-    <button class="btn" style="margin-top:18px">Создать задание</button></form></details>`;
+  const html = '<h1>Домашняя работа</h1><p class="sub">' + (isStaff() ? 'Задания по группам и индивидуально. Проверка — по вкладке «На проверку».' : 'Задания, сроки и сдача с фото.') + '</p>' + (isStaff() ? hwForm() : '');
   if (!HW.length) return html + '<div class="card empty">Заданий пока нет.</div>';
-  return html + HW.map(h => {
-    const late = h.status === 'not_submitted' && h.due_on < today;
-    const acts = isStaff()
-      ? `${h.status === 'submitted' ? `<button class="btn ghost" onclick="setSub('${h.id}','checked')">Отметить проверенным</button><button class="btn ghost" onclick="setSub('${h.id}','returned')">Вернуть</button>` : ''}
-         <button class="btn ghost" onclick="editHw('${h.id}')">Изменить</button><button class="btn del" onclick="delRow('homework','${h.id}')">Удалить</button>`
-      : (h.status === 'not_submitted' || h.status === 'returned' ? `<button class="btn ghost" onclick="setSub('${h.id}','submitted')">Отметить сданной</button>` : '');
-    return `<div class="card"><div class="row" style="border:0;padding:0 0 8px"><div class="grow"><h3 style="margin:0">${dot(h.language)}${e(h.title)}</h3>
-      <small class="lbl">${e(LANG[h.language])}${isStaff() ? ' · ' + e(nm(h.student_id)) : ''}</small></div>
-      <span class="pill">${late ? 'Просрочено' : SUBST[h.status]}</span></div>
-      <p>${e(h.description || '')}</p><p class="lbl" style="margin-top:8px">Выдано ${h.assigned_on ? fmtS(h.assigned_on) : '—'} · срок сдачи ${h.due_on ? fmtS(h.due_on) : '—'}</p>
-      ${acts.trim() ? `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${acts}</div>` : ''}</div>`;
+  return html + (isStaff() ? staffHw() : studentHw());
+}
+function staffHw(){
+  const all = Object.values(HW.reduce((m, h) => ((m[bkey(h)] ||= []).push(h), m), {}));
+  const gids = [...new Set(HW.map(h => h.group_id).filter(Boolean))];
+  const nc = HW.filter(h => h.status === 'submitted').length;
+  let list = all.filter(b => hwF === 'all' || (hwF === 'solo' ? !b[0].group_id : b[0].group_id === hwF));
+  if (hwTab === 'check') list = list.filter(b => b.some(h => h.status === 'submitted'));
+  list.sort((a, b) => String(a[0].due_on) < String(b[0].due_on) ? -1 : 1);
+  return `<div class="seg"><button class="${hwTab === 'check' ? 'on' : ''}" onclick="hwTab='check';go('homework')">На проверку${nc ? ' · ' + nc : ''}</button><button class="${hwTab === 'all' ? 'on' : ''}" onclick="hwTab='all';go('homework')">Все задания</button></div>
+  <div class="filters">${[['all', 'Все'], ...gids.map(g => [g, '👥 ' + (G[g] || 'Группа')]), ['solo', '👤 Индивидуальные']].map(([k, t]) => `<button class="fchip ${hwF === k ? 'on' : ''}" onclick="hwF='${k}';go('homework')">${e(t)}</button>`).join('')}</div>
+  ${list.length ? list.map(batchCard).join('') : `<div class="card empty">${hwTab === 'check' ? 'Работ на проверку нет 🎉' : 'Заданий нет.'}</div>`}`;
+}
+function batchCard(b){
+  const h = b[0], n = b.length, ch = b.filter(x => x.status === 'checked').length, sb = b.filter(x => x.status === 'submitted').length, k = bkey(h);
+  const who = h.group_id ? '👥 ' + e(G[h.group_id] || 'Группа') : '👤 ' + e(nm(h.student_id));
+  return `<div class="card hwc t-${h.language}"><div class="row" style="border:0;padding:0 0 6px"><div class="grow"><h3 style="margin:0">${dot(h.language)}${e(h.title)}</h3><small class="lbl">${e(LANG[h.language])} · ${who} · срок ${h.due_on ? fmtS(h.due_on) : '—'}</small></div>
+    <span class="pill ${sb ? 'kr' : ''}">${sb ? sb + ' на проверку' : ch + '/' + n + ' принято'}</span></div>
+    ${h.description ? `<p>${e(h.description)}</p>` : ''}
+    <div class="bar"><i class="ok" style="width:${ch / n * 100}%"></i><i class="wt" style="width:${sb / n * 100}%"></i></div>
+    <div class="chips">${b.map(x => `<button class="chip s-${x.status} ${lateOf(x) ? 'late' : ''}" onclick="reviewHw('${x.id}')">${SI[x.status]} ${e(nm(x.student_id))}</button>`).join('')}</div>
+    <div class="acts"><button class="btn ghost" onclick="editHw('${k}')">Изменить</button><button class="btn del" onclick="delHw('${k}')">Удалить</button></div></div>`;
+}
+function studentHw(){
+  const rank = h => h.status === 'checked' ? 2 : h.status === 'submitted' ? 1 : 0;
+  return [...HW].sort((a, b) => rank(a) - rank(b) || (String(a.due_on) < String(b.due_on) ? -1 : 1)).map(h => {
+    const s = subOf(h), can = h.status === 'not_submitted' || h.status === 'returned';
+    return `<div class="card hwc t-${h.language}"><div class="row" style="border:0;padding:0 0 6px"><div class="grow"><h3 style="margin:0">${dot(h.language)}${e(h.title)}</h3><small class="lbl">${e(LANG[h.language])}${h.group_id ? ' · 👥 ' + e(G[h.group_id] || 'Группа') : ''} · срок ${h.due_on ? fmtS(h.due_on) : '—'}</small></div>
+      <span class="pill s-${h.status}">${lateOf(h) ? 'Просрочено' : SUBST[h.status]}</span></div>
+      ${h.description ? `<p>${e(h.description)}</p>` : ''}
+      ${s && s.feedback ? `<div class="fb"><b>Комментарий учителя</b>${e(s.feedback)}</div>` : ''}
+      ${s && s.comment && h.status === 'submitted' ? `<p class="lbl" style="margin-top:8px">Ваш комментарий: ${e(s.comment)}</p>` : ''}
+      <div class="acts">${can ? `<button class="btn" onclick="openSubmit('${h.id}')">${h.status === 'returned' ? '↩ Пересдать' : '📤 Сдать ДЗ'}</button>` : h.status === 'submitted' ? `<button class="btn ghost" onclick="openSubmit('${h.id}')">Изменить сдачу</button>` : ''}</div></div>`;
   }).join('');
 }
 function addHw(ev){
-  ev.preventDefault(); const f = new FormData(ev.target), ids = f.getAll('st');
-  if (!ids.length) { toast('Выберите хотя бы одного ученика'); return false; }
-  run(db.from('homework').insert(ids.map(id => ({...rowOf(id, f.get('lg')), title:f.get('title'), description:f.get('desc'), due_date:f.get('due')}))), 'Задание создано');
+  ev.preventDefault(); const f = new FormData(ev.target), rows = [];
+  f.getAll('tg').forEach(gid => { const b = crypto.randomUUID(); members(gid).forEach(sid => rows.push({...groupRow(gid), student_id:sid, group_id:gid, batch_id:b})); });
+  f.getAll('st').forEach(id => rows.push({...rowOf(id, f.get('lg')), batch_id:crypto.randomUUID()}));
+  if (!rows.length) { toast('Выберите группу или ученика (в группе должны быть участники)'); return false; }
+  run(db.from('homework').insert(rows.map(r => ({...r, title:f.get('title'), description:f.get('desc'), due_date:f.get('due')}))), 'Задание выдано');
   return false;
 }
-function setSub(id, st){
-  const h = HW.find(x => x.id === id), s = SUB.find(x => x.homework_id === id && x.student_id === h.student_id);
-  const upd = {status:st}; if (st !== 'submitted') upd.checked_at = new Date().toISOString();
-  run(s ? db.from('homework_submissions').update(upd).eq('id', s.id) : db.from('homework_submissions').insert({homework_id:id, student_id:h.student_id, status:st}), 'Статус обновлён');
+/* сдача ДЗ учеником */
+function openSubmit(id){
+  const h = HW.find(x => x.id === id), s = subOf(h);
+  openModal(`<h2 style="font-size:22px">Сдать ДЗ</h2><p class="lbl" style="margin:4px 0 14px">${dot(h.language)}${e(h.title)}</p>
+  <label class="drop"><input type="file" id="sFiles" accept="image/*" multiple hidden onchange="previewFiles(this)"><span style="font-size:34px">📷</span><b>Прикрепить фото</b><span class="lbl">Можно выбрать несколько</span><div class="thumbs" id="thumbs"></div></label>
+  <label for="sCom">Комментарий</label><textarea id="sCom" rows="3" placeholder="Хотите что-то сказать учителю?">${e(s && s.comment || '')}</textarea>
+  <div class="acts" style="margin-top:18px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Отмена</button><button class="btn" id="sGo" onclick="doSubmit('${h.id}')">Сдать</button></div>`);
 }
-function editHw(id){
-  const h = HW.find(x => x.id === id), t = prompt('Название', h.title); if (t === null) return;
+const previewFiles = inp => { $('#thumbs').innerHTML = [...inp.files].map(f => `<img src="${URL.createObjectURL(f)}" alt="">`).join(''); };
+async function doSubmit(id){
+  const h = HW.find(x => x.id === id), s = subOf(h), files = [...$('#sFiles').files], com = $('#sCom').value.trim(), b = $('#sGo');
+  if (!files.length && !com && !(s && s.photo_paths && s.photo_paths.length)) return toast('Добавьте фото или комментарий');
+  const fail = m => { b.disabled = false; b.textContent = 'Сдать'; toast(m); };
+  b.disabled = true; b.textContent = 'Отправляем…';
+  const paths = [...(s && s.photo_paths || [])];
+  for (const [i, f] of files.entries()) {
+    const p = `${me.id}/${id}/${Date.now()}-${i}.${(f.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+    const up = await db.storage.from('homework').upload(p, f, {contentType:f.type});
+    if (up.error) return fail('Не удалось загрузить фото: ' + up.error.message);
+    paths.push(p);
+  }
+  const upd = {status:'submitted', comment:com || null, photo_paths:paths, submitted_at:new Date().toISOString(), feedback:null};
+  const {error} = await (s ? db.from('homework_submissions').update(upd).eq('id', s.id) : db.from('homework_submissions').insert({homework_id:id, student_id:h.student_id, ...upd}));
+  if (error) return fail(error.message);
+  closeModal(); confetti(); refresh('Домашка сдана! 🎉');
+}
+/* проверка учителем */
+function reviewHw(id){
+  const h = HW.find(x => x.id === id), s = subOf(h), sent = h.status !== 'not_submitted';
+  openModal(`<h2 style="font-size:22px">${e(nm(h.student_id))}</h2><p class="lbl" style="margin:4px 0 14px">${dot(h.language)}${e(h.title)} · ${SUBST[h.status]}</p>` + (sent ? `
+  ${s && s.submitted_at ? `<p class="lbl">Сдано ${new Date(s.submitted_at).toLocaleString('ru', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})}</p>` : ''}
+  ${s && s.comment ? `<div class="fb" style="background:#F3F5F7"><b style="color:var(--mute)">Комментарий ученика</b>${e(s.comment)}</div>` : ''}
+  <div class="gal" id="gal"></div>
+  <div class="two"><div><label>Оценка за ДЗ</label><select id="rGr"><option value="">Без оценки</option>${[5, 4, 3, 2, 1].map(n => `<option>${n}</option>`).join('')}</select></div><div><label>Комментарий ученику</label><input id="rFb" maxlength="300" value="${e(s && s.feedback || '')}"></div></div>
+  <div class="acts" style="margin-top:18px;justify-content:flex-end"><button class="btn ghost" onclick="decide('${id}','returned')">↩ Вернуть</button><button class="btn lime" onclick="decide('${id}','checked')">✓ Принять</button></div>`
+  : '<div class="empty">Ученик ещё не сдал это задание.</div><div class="acts"><button class="btn ghost" onclick="closeModal()">Закрыть</button></div>'));
+  if (sent && s && s.photo_paths && s.photo_paths.length) loadPhotos(s.photo_paths, $('#gal'));
+}
+async function loadPhotos(paths, el){
+  const {data, error} = await db.storage.from('homework').createSignedUrls(paths, 3600); if (error || !data) return;
+  el.innerHTML = data.filter(d => d.signedUrl).map(d => `<a href="${d.signedUrl}" target="_blank" rel="noopener"><img src="${d.signedUrl}" alt="Фото ДЗ"></a>`).join('');
+}
+async function decide(id, st){
+  const h = HW.find(x => x.id === id), s = subOf(h), fb = $('#rFb').value.trim(), gr = $('#rGr').value;
+  const upd = {status:st, feedback:fb || null, checked_at:new Date().toISOString()};
+  const {error} = await (s ? db.from('homework_submissions').update(upd).eq('id', s.id) : db.from('homework_submissions').insert({homework_id:id, student_id:h.student_id, ...upd}));
+  if (error) return toast(error.message);
+  closeModal();
+  if (st === 'checked') confetti();
+  if (st === 'checked' && gr) tryIns('grades', {...rowOf(h.student_id, h.language), comment:h.title, what:h.title}, GV('ДЗ', +gr), 'Принято, оценка выставлена ✓');
+  else refresh(st === 'checked' ? 'Принято ✓' : 'Возвращено на доработку');
+}
+function editHw(k){
+  const rows = HW.filter(h => bkey(h) === k), h = rows[0], t = prompt('Название', h.title); if (t === null) return;
   const d = prompt('Описание', h.description || ''); if (d === null) return;
   const due = prompt('Срок сдачи (ГГГГ-ММ-ДД)', h.due_on); if (!due) return;
-  run(db.from('homework').update({title:t, description:d, due_date:due}).eq('id', id), 'Изменения сохранены');
+  run(db.from('homework').update({title:t, description:d, due_date:due}).in('id', rows.map(x => x.id)), 'Изменения сохранены');
 }
+const delHw = k => confirm('Удалить задание (у всех учеников)?') && run(db.from('homework').delete().in('id', HW.filter(h => bkey(h) === k).map(x => x.id)), 'Удалено');
 
 /* ---------- home ---------- */
+const PH = {en:[['Break a leg!','Ни пуха ни пера!'],['Piece of cake','Проще простого'],['Better late than never','Лучше поздно, чем никогда']],
+  zh:[['加油！(jiāyóu)','Давай, у тебя получится!'],['慢慢来 (màn màn lái)','Не спеши'],['谢谢 (xièxie)','Спасибо']],
+  fr:[['C’est la vie','Такова жизнь'],['Bon appétit','Приятного аппетита'],['À bientôt','До скорой встречи']],
+  de:[['Alles Gute!','Всего хорошего!'],['Schönen Tag!','Хорошего дня!'],['Das schaffst du!','У тебя получится!']]};
 function homeView(){
   const now = new Date(), today = iso(now), tomorrow = iso(new Date(+now + 864e5));
   const upc = LES.filter(l => new Date(l.ends_at) >= now), next = upc[0];
   const open = HW.filter(h => h.status !== 'checked' && h.due_on >= today);
   const when = l => { const d = l.starts_at.slice(0, 10); return (d === today ? 'сегодня' : d === tomorrow ? 'завтра' : fmtD(l.starts_at)) + ', ' + fmtT(l.starts_at); };
-  const first = e((me.full_name || '').split(' ')[0] || 'друг');
-  return `<div class="banner"><div class="lbl" style="color:#D1D5DB">${ROLE[me.role]}</div><h1 style="font-size:30px;margin:6px 0 10px">Здравствуйте, ${first}</h1>
+  const first = e((me.full_name || '').split(' ')[0] || 'друг'), hr = now.getHours();
+  const hi = hr < 6 ? 'Доброй ночи' : hr < 12 ? 'Доброе утро' : hr < 18 ? 'Добрый день' : 'Добрый вечер';
+  const wait = HW.filter(h => h.status === 'submitted').length;
+  const lk = (next && next.language) || (HW[0] && HW[0].language) || 'en', ph = (PH[lk] || PH.en)[Math.floor(now / 864e5) % 3];
+  let side;
+  if (isStaff()) side = `<div class="card"><div class="lbl">Мои группы</div>${myGroups().slice(0, 4).map(g => `<div class="row"><div class="grow"><b>${dot(g.language)}${e(g.name)}</b><small>${members(g.id).length} уч.</small></div><button class="btn ghost" onclick="openChat('g:${g.id}')">💬</button></div>`).join('') || '<div class="empty">Групп пока нет</div>'}</div>`;
+  else {
+    const done = HW.filter(h => h.status !== 'not_submitted').length, xp = done * 10 + Math.round(GR.reduce((a, g) => a + g.value * 2, 0)), lvl = Math.floor(xp / 60) + 1, a = avg(GR);
+    let streak = 0; for (const h of HW.filter(h => h.due_on <= today).sort((x, y) => String(y.due_on) < String(x.due_on) ? -1 : 1)) { if (h.status === 'not_submitted') break; streak++; }
+    side = `<div class="card"><div class="lbl">Ваш уровень</div><div class="row" style="border:0;padding:4px 0 0"><div class="big" style="font-size:36px">${lvl}</div><div class="grow"><b>${xp} XP</b><small>до следующего уровня ${60 - xp % 60} XP${streak ? ' · 🔥 серия ' + streak : ''}</small></div></div>
+      <div class="xp"><i style="width:${xp % 60 / 60 * 100}%"></i></div>
+      <div class="badges">${[['🚀', 'Первая сдача', done >= 1], ['🔥', 'Серия из 3', streak >= 3], ['⭐', 'Средний ≥ 4,5', a >= 4.5], ['🏆', '10 заданий', done >= 10]].map(([i, t, on]) => `<span class="badge ${on ? 'on' : ''}">${i} ${t}</span>`).join('')}</div></div>`;
+  }
+  return `<div class="banner"><div class="lbl" style="color:#D1D5DB">${ROLE[me.role]}</div><h1 style="font-size:30px;margin:6px 0 10px">${hi}, ${first}!</h1>
     <p>${next ? 'Ближайшее занятие: ' + e(LANG[next.language]) + ', ' + when(next) : 'Ближайших занятий пока нет.'}</p>
-    <button class="btn lime" style="margin-top:18px" onclick="go('schedule')">Открыть расписание</button></div>
+    <div class="acts" style="margin-top:18px"><button class="btn lime" onclick="go('schedule')">Расписание</button>${isStaff() && wait ? `<button class="btn lime" onclick="hwTab='check';go('homework')">На проверку · ${wait}</button>` : `<button class="btn ghost" onclick="go('homework')">Домашка</button>`}</div></div>
   <div class="grid">
     <div class="card"><div class="lbl">${isStaff() ? 'Учеников' : 'Средний балл'}</div><div class="big">${isStaff() ? myStudents().length : f2(avg(GR))}</div></div>
-    <div class="card"><div class="lbl">Активных заданий</div><div class="big">${open.length}</div></div>
+    <div class="card"><div class="lbl">${isStaff() ? 'Ждут проверки' : 'Активных заданий'}</div><div class="big">${isStaff() ? wait : open.length}</div></div>
     <div class="card"><div class="lbl">Занятий впереди</div><div class="big">${upc.length}</div></div></div>
+  <div class="two2" style="margin-top:16px"><div class="card"><div class="lbl">✨ Фраза дня · ${e(LANG[lk] || '')}</div><div class="phrase">${e(ph[0])}</div><div class="lbl">${e(ph[1])}</div></div>${side}</div>
   <div class="day">Ближайшие занятия</div>
   ${upc.length ? chainHtml(upc.slice(0, 4), true) : '<div class="card empty">Ближайших занятий нет.</div>'}`;
 }
@@ -465,7 +636,109 @@ async function createUser(ev){
   await refresh('Аккаунт создан'); return false;
 }
 
-const VIEWS = {home:homeView, schedule:scheduleView, grades:gradesView, homework:homeworkView, students:studentsView, teachers:teachersView, users:usersView, create:createView, settings:settingsView};
+/* ---------- modal / confetti ---------- */
+function openModal(h){ $('#sheet').innerHTML = h; const m = $('#modal'); m.classList.remove('hide'); requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('show'))); }
+function closeModal(){ const m = $('#modal'); m.classList.remove('show'); setTimeout(() => m.classList.add('hide'), 250); }
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeModal(); });
+function confetti(){
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const c = $('#fx'), x = c.getContext('2d'), cols = ['#3B6BFF', '#FF5A4F', '#16B38A', '#FFA620', '#D3F54A'];
+  c.width = innerWidth; c.height = innerHeight; c.classList.remove('hide');
+  const p = [...Array(130)].map(() => ({x:innerWidth / 2, y:innerHeight * .65, vx:(Math.random() - .5) * 18, vy:-Math.random() * 17 - 4, s:6 + Math.random() * 6, c:cols[Math.random() * 5 | 0], r:Math.random() * 6}));
+  let n = 0;
+  (function t(){ x.clearRect(0, 0, c.width, c.height); p.forEach(q => { q.x += q.vx; q.y += q.vy; q.vy += .45; q.r += .2; x.fillStyle = q.c; x.save(); x.translate(q.x, q.y); x.rotate(q.r); x.fillRect(-q.s / 2, -q.s / 2, q.s, q.s * .6); x.restore(); });
+    if (++n < 110) requestAnimationFrame(t); else c.classList.add('hide'); })();
+}
+
+/* ---------- nav ---------- */
+function navItems(){
+  const n = [['home','Главная','🏠'], ['schedule','Расписание','🗓'], ['homework','Домашка','📚'], ['grades','Оценки','⭐'], ['groups','Группы','👥'], ['chat','Чат','💬']];
+  if (isStaff()) n.push(['students','Ученики','🎓']);
+  if (me.role === 'admin') n.push(['teachers','Учителя','🧑‍🏫'], ['users','Пользователи','🛡'], ['create','Создать аккаунт','➕']);
+  n.push(['settings','Настройки','⚙️']); return n;
+}
+function drawNav(){
+  const u = unrAll();
+  $('#nav').innerHTML = navItems().map(([k, t, i]) => `<button class="${k === page ? 'on' : ''}" onclick="go('${k}')"><span class="ic">${i}</span>${t}${k === 'chat' && u ? `<span class="nb">${u}</span>` : ''}</button>`).join('');
+}
+
+/* ---------- groups ---------- */
+const myGroups = () => me.role === 'admin' ? GRP : me.role === 'teacher' ? GRP.filter(g => g.teacher_id === me.id) : GRP.filter(g => GM.some(m => m.group_id === g.id && m.student_id === me.id));
+const members = gid => GM.filter(m => m.group_id === gid).map(m => m.student_id);
+function groupRow(gid){
+  const g = GRP.find(x => x.id === gid), l = LGK[g.language];
+  return {student_id:null, group_id:g.id, teacher_id:g.teacher_id || me.id, language:l ? l.name : g.language, language_id:l ? l.id : null};
+}
+const whoOpts = () => (myGroups().length ? `<optgroup label="Группы">${myGroups().map(g => `<option value="g:${g.id}">👥 ${e(g.name)}</option>`).join('')}</optgroup>` : '') + `<optgroup label="Ученики">${myStudents().map(p => `<option value="s:${p.id}">${e(p.full_name)}</option>`).join('')}</optgroup>`;
+function groupsView(){
+  const gs = myGroups(), ts = Object.values(P).filter(p => p.role === 'teacher');
+  let html = '<h1>Группы</h1><p class="sub">' + (isStaff() ? 'У группы общее расписание, общие задания и свой чат.' : 'Ваши группы.') + '</p>';
+  if (isStaff()) html += `<details class="card"><summary>＋ Создать группу</summary><form onsubmit="return addGroup(event)">
+    <div class="two"><div><label>Название</label><input name="n" required maxlength="60" placeholder="English B1 · вечер"></div><div><label>Язык</label><select name="lg" required>${lgOpts()}</select></div></div>
+    ${me.role === 'admin' ? `<label>Учитель</label><select name="t" required>${ts.map(p => `<option value="${p.id}">${e(p.full_name)}</option>`).join('')}</select>` : ''}
+    <label>Ученики</label><div class="chk" style="max-height:150px;overflow:auto">${myStudents().map(p => `<label><input type="checkbox" name="m" value="${p.id}">${e(p.full_name)}</label>`).join('') || '<span class="empty">Нет учеников</span>'}</div>
+    <button class="btn" style="margin-top:18px">Создать группу</button></form></details>`;
+  if (!gs.length) return html + '<div class="card empty">Групп пока нет.</div>';
+  return html + gs.map(g => {
+    const ms = members(g.id), out = myStudents().filter(s => !ms.includes(s.id));
+    return `<div class="card hwc t-${g.language}"><div class="row" style="border:0;padding:0 0 6px"><div class="grow"><h3 style="margin:0">${dot(g.language)}${e(g.name)}</h3><small class="lbl">${e(LANG[g.language] || '')} · учитель: ${e(nm(g.teacher_id))} · ${ms.length} уч.</small></div><button class="btn ghost" onclick="openChat('g:${g.id}')">💬 Чат</button></div>
+      <div class="chips">${ms.map(s => `<span class="chip s-plain">${e(nm(s))}${isStaff() ? `<a onclick="rmMember('${g.id}','${s}')" title="Убрать">✕</a>` : ''}</span>`).join('') || '<span class="empty">В группе пока никого</span>'}</div>
+      ${isStaff() ? `<div class="acts"><select id="am_${g.id}" style="width:auto;flex:1;min-width:160px"><option value="">Добавить ученика…</option>${out.map(s => `<option value="${s.id}">${e(s.full_name)}</option>`).join('')}</select><button class="btn ghost" onclick="addMember('${g.id}')">Добавить</button><button class="btn del" onclick="delGroup('${g.id}')">Удалить группу</button></div>` : ''}</div>`;
+  }).join('');
+}
+async function addGroup(ev){
+  ev.preventDefault(); const f = new FormData(ev.target), l = LGK[f.get('lg')];
+  const {data, error} = await db.from('groups').insert({name:f.get('n').trim(), language:l.name, teacher_id:me.role === 'admin' ? f.get('t') : me.id, created_by:me.id}).select().single();
+  if (error) { toast(error.message); return false; }
+  const ms = f.getAll('m'); if (ms.length) { const r = await db.from('group_members').insert(ms.map(s => ({group_id:data.id, student_id:s}))); if (r.error) toast(r.error.message); }
+  await refresh('Группа создана 🎉'); return false;
+}
+function addMember(gid){ const s = $('#am_' + gid).value; if (s) run(db.from('group_members').insert({group_id:gid, student_id:s}), 'Ученик добавлен'); }
+const rmMember = (gid, sid) => run(db.from('group_members').delete().eq('group_id', gid).eq('student_id', sid), 'Ученик убран из группы');
+const delGroup = gid => confirm('Удалить группу? Расписание и задания группы нужно удалить отдельно.') && run(db.from('groups').delete().eq('id', gid), 'Группа удалена');
+
+/* ---------- chat ---------- */
+let chCur = null, LR = {}, rt = null;
+const dmId = o => 'd:' + [me.id, o].sort().join(':');
+const hue = s => ['#3B6BFF', '#FF5A4F', '#16B38A', '#FFA620', '#8B5CF6', '#EC4899'][[...String(s)].reduce((a, c) => a + c.charCodeAt(0), 0) % 6];
+const ini = n => (n || '?').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+const lastMsg = ch => (CM[ch] || [])[(CM[ch] || []).length - 1];
+const unr = ch => (CM[ch] || []).filter(m => m.sender_id !== me.id && m.created_at > (LR[ch] || '')).length;
+const unrAll = () => Object.keys(CM).reduce((a, c) => a + unr(c), 0);
+function chans(){
+  const gs = myGroups().map(g => ({id:'g:' + g.id, t:g.name, s:'Группа · ' + (LANG[g.language] || ''), ic:'👥', c:`var(--${g.language}, #6B7280)`}));
+  const ids = me.role === 'student' ? [...new Set([me.teacher_id, ...myGroups().map(g => g.teacher_id)].filter(Boolean))] : Object.keys(P).filter(i => i !== me.id);
+  return [...gs, ...ids.map(i => P[i]).filter(Boolean).map(p => ({id:dmId(p.id), t:p.full_name || 'Без имени', s:ROLE[p.role], ic:ini(p.full_name), c:hue(p.id)}))];
+}
+function chatView(){
+  const cs = chans().sort((a, b) => String((lastMsg(b.id) || {}).created_at || '').localeCompare(String((lastMsg(a.id) || {}).created_at || ''))), cur = cs.find(c => c.id === chCur);
+  return `<h1>Чат</h1><p class="sub">Личные сообщения и чаты групп. Новые сообщения приходят сразу.</p>
+  <div class="chat ${cur ? 'open' : ''}"><div class="clist">${cs.map(c => { const u = unr(c.id), l = lastMsg(c.id);
+    return `<button class="ci ${c.id === chCur ? 'on' : ''}" onclick="openChat('${c.id}')"><span class="av" style="background:${c.c}">${e(c.ic)}</span><span class="grow"><b>${e(c.t)}</b><small>${l ? e(l.body.slice(0, 40)) : e(c.s)}</small></span>${u ? `<span class="nb">${u}</span>` : ''}</button>`; }).join('') || '<div class="empty" style="padding:14px">Пока нет собеседников.</div>'}</div>
+  <div class="cpane">${cur ? `<div class="chead"><button class="btn ghost back" onclick="chCur=null;go('chat')">←</button><span class="av" style="background:${cur.c}">${e(cur.ic)}</span><div><b>${e(cur.t)}</b><small class="lbl" style="display:block">${e(cur.s)}</small></div></div>
+    <div class="msgs" id="msgs">${msgsHtml()}</div>
+    <div class="emo">${['👍', '🔥', '😂', '🎉', '❤️'].map(x => `<button type="button" onclick="postMsg('${x}')">${x}</button>`).join('')}</div>
+    <form class="comp" onsubmit="return sendMsg(event)"><input id="mIn" placeholder="Сообщение…" autocomplete="off" maxlength="1000"><button class="btn lime">➤</button></form>` : '<div class="nochat"><div style="font-size:42px">💬</div>Выберите чат слева</div>'}</div></div>`;
+}
+function msgsHtml(){
+  const g = chCur && chCur[0] === 'g', l = CM[chCur] || [];
+  return l.length ? l.map(m => `<div class="bub ${m.sender_id === me.id ? 'me' : ''}">${g && m.sender_id !== me.id ? `<b>${e(nm(m.sender_id))}</b>` : ''}${e(m.body)}<small>${fmtT(m.created_at)}</small></div>`).join('') : '<div class="nochat">Напишите первое сообщение 👋</div>';
+}
+function markRead(c){ const l = lastMsg(c); if (l) { LR[c] = l.created_at; try { localStorage.setItem('lr_' + me.id, JSON.stringify(LR)); } catch (_) {} } drawNav(); }
+function openChat(c){ chCur = c; markRead(c); go('chat'); const m = $('#msgs'); if (m) m.scrollTop = m.scrollHeight; const i = $('#mIn'); if (i && innerWidth > 820) i.focus(); }
+async function sendMsg(ev){ ev.preventDefault(); const i = $('#mIn'), b = i.value.trim(); if (b) { i.value = ''; await postMsg(b); } return false; }
+async function postMsg(body){
+  const {data, error} = await db.from('messages').insert({channel:chCur, sender_id:me.id, body}).select().single();
+  if (error) return toast(/messages/.test(error.message) ? 'Чат не настроен: выполните setup.sql в Supabase' : error.message);
+  onMsg(data);
+}
+function onMsg(m){
+  const l = (CM[m.channel] ||= []); if (l.some(x => x.id === m.id)) return; l.push(m);
+  if (page === 'chat' && chCur === m.channel) { const el = $('#msgs'); if (el) { el.innerHTML = msgsHtml(); el.scrollTop = el.scrollHeight; } markRead(m.channel); }
+  else { drawNav(); if (m.sender_id !== me.id) { toast('💬 ' + nm(m.sender_id) + ': ' + m.body.slice(0, 50)); if (page === 'chat' && !($('#mIn') || {}).value) go('chat'); } }
+}
+
+const VIEWS = {home:homeView, schedule:scheduleView, grades:gradesView, homework:homeworkView, students:studentsView, teachers:teachersView, users:usersView, create:createView, settings:settingsView, groups:groupsView, chat:chatView};
 boot();
 </script>
 </body>
