@@ -465,7 +465,8 @@ async function createUser(ev){
   await refresh('Аккаунт создан'); return false;
 }
 
-const VIEWS =boot();
+const VIEWS = {home:homeView, schedule:scheduleView, grades:gradesView, homework:homeworkView, students:studentsView, teachers:teachersView, users:usersView, create:createView, settings:settingsView};
+boot();
 </script>
 </body>
 </html>
