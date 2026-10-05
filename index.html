@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LanLand</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -16,14 +17,14 @@
  --blue:#4f5bd5;
  --blue2:#eef0ff;
  --red:#dc3545;
- --green:#16855b
+ --green:#16855b;
 }
 *{box-sizing:border-box}
 body{
  margin:0;
  background:var(--bg);
  color:var(--text);
- font:14px Arial,sans-serif
+ font:14px Arial,sans-serif;
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer;border:0}
@@ -35,7 +36,7 @@ button{cursor:pointer;border:0}
  min-height:100vh;
  display:grid;
  place-items:center;
- padding:20px
+ padding:20px;
 }
 .loginbox{
  width:390px;
@@ -44,19 +45,19 @@ button{cursor:pointer;border:0}
  padding:32px;
  border:1px solid var(--line);
  border-radius:20px;
- box-shadow:0 10px 40px #0000000a
+ box-shadow:0 10px 40px #0000000a;
 }
 .logo{
  font-size:25px;
  font-weight:800;
- margin-bottom:25px
+ margin-bottom:25px;
 }
 
 h1,h2,h3{margin:0 0 16px}
 label{
  display:block;
  margin:12px 0 6px;
- font-weight:600
+ font-weight:600;
 }
 input,select,textarea{
  width:100%;
@@ -64,14 +65,14 @@ input,select,textarea{
  border:1px solid var(--line);
  border-radius:10px;
  background:#fff;
- outline:0
+ outline:0;
 }
 input:focus,select:focus,textarea:focus{
- border-color:var(--blue)
+ border-color:var(--blue);
 }
 textarea{
  resize:vertical;
- min-height:90px
+ min-height:90px;
 }
 
 .btn{
@@ -79,25 +80,26 @@ textarea{
  border-radius:10px;
  background:var(--blue);
  color:#fff;
- font-weight:600
+ font-weight:600;
 }
 .btn.gray{
  background:#eee;
- color:#333
+ color:#333;
 }
 .btn.red{background:var(--red)}
+.btn.green{background:var(--green)}
 .btn.sm{
  padding:7px 10px;
- font-size:12px
+ font-size:12px;
 }
 .err{
  color:var(--red);
- margin-top:12px
+ margin-top:12px;
 }
 
 .app{
  display:flex;
- min-height:100vh
+ min-height:100vh;
 }
 .side{
  width:235px;
@@ -105,114 +107,115 @@ textarea{
  border-right:1px solid var(--line);
  padding:22px 14px;
  position:fixed;
- inset:0 auto 0 0
+ inset:0 auto 0 0;
+ overflow-y:auto;
 }
 .brand{
  font-size:22px;
  font-weight:800;
- padding:5px 10px 22px
+ padding:5px 10px 22px;
 }
 .nav{
  display:grid;
- gap:4px
+ gap:4px;
 }
 .nav button{
  background:none;
  text-align:left;
  padding:11px 12px;
  border-radius:10px;
- color:#4e5360
+ color:#4e5360;
 }
 .nav button.active,
 .nav button:hover{
  background:var(--blue2);
  color:var(--blue);
- font-weight:600
+ font-weight:600;
 }
 
 .main{
  margin-left:235px;
  width:calc(100% - 235px);
- padding:28px
+ padding:28px;
 }
 .top{
  display:flex;
  align-items:center;
  justify-content:space-between;
  margin-bottom:22px;
- gap:15px
+ gap:15px;
 }
 .card{
  background:#fff;
  border:1px solid var(--line);
  border-radius:16px;
  padding:18px;
- margin-bottom:16px
+ margin-bottom:16px;
 }
 .grid{
  display:grid;
  grid-template-columns:repeat(3,1fr);
- gap:15px
+ gap:15px;
 }
 .stat{
  padding:18px;
  border:1px solid var(--line);
  border-radius:14px;
- background:#fff
+ background:#fff;
 }
 .stat b{
  font-size:26px;
  display:block;
- margin-top:7px
+ margin-top:7px;
 }
 
 table{
  width:100%;
- border-collapse:collapse
+ border-collapse:collapse;
 }
 th,td{
  text-align:left;
  padding:11px;
  border-bottom:1px solid var(--line);
- vertical-align:top
+ vertical-align:top;
 }
 .actions{
  display:flex;
  gap:7px;
- flex-wrap:wrap
+ flex-wrap:wrap;
 }
 .empty{
  padding:25px;
  text-align:center;
- color:var(--muted)
+ color:var(--muted);
 }
 
 .week{
  display:grid;
  grid-template-columns:repeat(7,1fr);
- gap:8px
+ gap:8px;
 }
 .day{
  min-height:170px;
  background:#fff;
  border:1px solid var(--line);
  border-radius:12px;
- padding:10px
+ padding:10px;
 }
 .dayhead{
  font-weight:700;
- margin-bottom:9px
+ margin-bottom:9px;
 }
 .lesson{
  background:var(--blue2);
  padding:9px;
  border-radius:9px;
  margin-bottom:7px;
- font-size:12px
+ font-size:12px;
 }
 .lesson b{
  display:block;
- margin-bottom:4px
+ margin-bottom:4px;
 }
 
 .modalbg{
@@ -222,7 +225,7 @@ th,td{
  display:grid;
  place-items:center;
  padding:15px;
- z-index:20
+ z-index:20;
 }
 .modal{
  background:#fff;
@@ -231,32 +234,33 @@ th,td{
  max-height:90vh;
  overflow:auto;
  border-radius:17px;
- padding:22px
+ padding:22px;
 }
 .modalhead{
  display:flex;
  justify-content:space-between;
- gap:10px
+ gap:10px;
+ align-items:center;
 }
 .close{
  background:#eee;
  border-radius:8px;
  width:32px;
- height:32px
+ height:32px;
+ flex-shrink:0;
 }
 .formgrid{
  display:grid;
  grid-template-columns:1fr 1fr;
- gap:10px
+ gap:10px;
 }
 .full{grid-column:1/-1}
-
 .check{
  display:flex;
  gap:8px;
  align-items:center;
  padding:7px 0;
- font-weight:400
+ font-weight:400;
 }
 .check input{width:auto}
 
@@ -264,49 +268,80 @@ th,td{
  display:grid;
  grid-template-columns:220px 1fr;
  gap:12px;
- height:65vh
+ height:65vh;
 }
 .people,.messages{
  background:#fff;
  border:1px solid var(--line);
- border-radius:14px
+ border-radius:14px;
 }
 .people{
  padding:8px;
- overflow:auto
+ overflow:auto;
 }
 .person{
  padding:11px;
  border-radius:9px;
- cursor:pointer
+ cursor:pointer;
 }
-.person:hover{background:var(--blue2)}
+.person:hover,
+.person.active{
+ background:var(--blue2);
+}
 .messages{
  display:flex;
  flex-direction:column;
- overflow:hidden
+ overflow:hidden;
 }
 .msgs{
  flex:1;
  overflow:auto;
- padding:15px
+ padding:15px;
 }
 .msg{
  padding:9px 12px;
  background:#f0f1f6;
  border-radius:10px;
  margin-bottom:8px;
- max-width:75%
+ max-width:75%;
 }
 .msg.mine{
  margin-left:auto;
- background:var(--blue2)
+ background:var(--blue2);
 }
 .send{
  padding:10px;
  border-top:1px solid var(--line);
  display:flex;
- gap:8px
+ gap:8px;
+}
+.send input{flex:1}
+
+.badge{
+ display:inline-block;
+ padding:4px 8px;
+ border-radius:999px;
+ background:var(--blue2);
+ color:var(--blue);
+ font-size:12px;
+ font-weight:600;
+}
+.badge.red{
+ background:#ffe9ec;
+ color:var(--red);
+}
+.badge.green{
+ background:#e8f7f0;
+ color:var(--green);
+}
+
+.errorbox{
+ background:#fff0f1;
+ border:1px solid #ffc7cd;
+ color:#a51f2b;
+ border-radius:12px;
+ padding:15px;
+ margin-bottom:15px;
 }
 
 @media(max-width:850px){
@@ -314,21 +349,29 @@ th,td{
  .brand{font-size:0}
  .brand:after{
   content:"L";
-  font-size:22px
+  font-size:22px;
  }
- .nav button{font-size:0}
+ .nav button{
+  font-size:0;
+ }
  .nav button:before{
   content:"•";
-  font-size:20px
+  font-size:20px;
  }
  .main{
   margin-left:70px;
   width:calc(100% - 70px);
-  padding:15px
+  padding:15px;
  }
  .grid{grid-template-columns:1fr 1fr}
  .week{grid-template-columns:1fr}
- .chat{grid-template-columns:1fr}
+ .chat{grid-template-columns:1fr;height:auto}
+ .people{max-height:220px}
+ .messages{height:500px}
+ table{
+  display:block;
+  overflow-x:auto;
+ }
 }
 </style>
 </head>
@@ -337,108 +380,147 @@ th,td{
 
 <div id="login" class="login">
  <div class="loginbox">
+
   <div class="logo">LanLand</div>
 
   <label>Email</label>
-  <input id="email" type="email">
+  <input id="email" type="email" autocomplete="username">
 
   <label>Пароль</label>
-  <input id="pass" type="password">
+  <input id="pass" type="password" autocomplete="current-password">
 
-  <button class="btn" style="width:100%;margin-top:16px" onclick="login()">
+  <button
+   class="btn"
+   style="width:100%;margin-top:16px"
+   onclick="login()">
    Войти
   </button>
 
   <div id="loginErr" class="err"></div>
+
  </div>
 </div>
+
 
 <div id="app" class="app hidden">
 
  <aside class="side">
+
   <div class="brand">LanLand</div>
+
   <div id="nav" class="nav"></div>
+
  </aside>
+
 
  <main class="main">
 
   <div class="top">
+
    <div>
     <h2 id="title"></h2>
     <span id="subtitle" class="muted"></span>
    </div>
 
-   <button class="btn gray" onclick="logout()">Выйти</button>
+   <button
+    class="btn gray"
+    onclick="logout()">
+    Выйти
+   </button>
+
   </div>
 
   <div id="content"></div>
 
  </main>
+
 </div>
+
 
 <div id="modal" class="hidden"></div>
 
-<script>
-/* =========================
-   SUPABASE
-========================= */
 
-const SUPABASE_URL=
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
  'https://opwzlempjchopqdyggrk.supabase.co';
 
-const SUPABASE_ANON_KEY=
+const SUPABASE_ANON_KEY =
  'sb_publishable_-hmiHifgWmpjKA-9l3cZhg_FHWZLI6_';
 
-const ADMIN_FUNCTION='admin-user';
+const ADMIN_FUNCTION =
+ 'admin-user';
 
-const sb=supabase.createClient(
- SUPABASE_URL,
- SUPABASE_ANON_KEY
-);
+const sb =
+ supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+ );
 
-const LANG=[
+
+/* =========================================================
+   LANGUAGES
+========================================================= */
+
+const LANG = [
  'Английский',
  '中文',
  'Français',
  'Deutsch'
 ];
 
-const WT={
+
+/* =========================================================
+   GRADE WEIGHTS
+========================================================= */
+
+const WT = {
  'КР':1.5,
  'Проверочная':1.15,
  'Тест':1,
- 'ДЗ':.8,
- 'Р/У':.7
+ 'ДЗ':0.8,
+ 'Р/У':0.7
 };
 
-/* =========================
+
+/* =========================================================
    STATE
-========================= */
+========================================================= */
 
-let currentUser=null;
-let page='schedule';
+let currentUser = null;
 
-let profiles=[];
-let scheduleRows=[];
-let homeworkRows=[];
-let submissionRows=[];
-let gradeRows=[];
-let messageRows=[];
+let page = 'schedule';
 
-let week=0;
-let chatUser=null;
-let checkHw=null;
+let profiles = [];
+let scheduleRows = [];
+let homeworkRows = [];
+let submissionRows = [];
+let gradeRows = [];
+let messageRows = [];
 
-/* =========================
+let week = 0;
+
+let chatUser = null;
+
+let checkHw = null;
+
+
+/* =========================================================
    HELPERS
-========================= */
+========================================================= */
 
-const $=id=>document.getElementById(id);
+const $ = id =>
+ document.getElementById(id);
 
-const esc=x=>
- String(x??'').replace(
+
+const esc = x =>
+ String(x ?? '').replace(
   /[&<>"']/g,
-  m=>({
+  m => ({
    '&':'&amp;',
    '<':'&lt;',
    '>':'&gt;',
@@ -447,47 +529,64 @@ const esc=x=>
   }[m])
  );
 
+
 function profile(id){
+
  return profiles.find(
-  x=>String(x.id)===String(id)
+  x => String(x.id) === String(id)
  );
+
 }
+
 
 function teachers(){
+
  return profiles.filter(
-  x=>x.role==='teacher'
+  x => x.role === 'teacher'
  );
+
 }
+
 
 function students(){
+
  return profiles.filter(
-  x=>x.role==='student'
+  x => x.role === 'student'
  );
+
 }
+
 
 function roleName(r){
- return r==='admin'
-  ?'Администратор'
-  :r==='teacher'
-   ?'Преподаватель'
-   :'Ученик';
+
+ if(r === 'admin')
+  return 'Администратор';
+
+ if(r === 'teacher')
+  return 'Преподаватель';
+
+ return 'Ученик';
+
 }
 
-/* =========================
-   LANGUAGES
-========================= */
+
+/* =========================================================
+   LANGUAGE HELPERS
+========================================================= */
 
 function langs(x){
 
- if(!x)return[];
+ if(!x)
+  return [];
 
  if(Array.isArray(x))
   return x;
 
- if(typeof x==='string'){
+ if(typeof x === 'string'){
 
   try{
-   const a=JSON.parse(x);
+
+   const a = JSON.parse(x);
 
    if(Array.isArray(a))
     return a;
@@ -498,95 +597,120 @@ function langs(x){
 
    return x
     .split(',')
-    .map(v=>v.trim())
+    .map(v => v.trim())
     .filter(Boolean);
+
   }
+
  }
 
- return[];
+ return [];
+
 }
+
 
 function ids(x){
 
- if(!x)return[];
+ if(!x)
+  return [];
 
  if(Array.isArray(x))
   return x.map(String);
 
- if(typeof x==='string'){
+ if(typeof x === 'string'){
 
   try{
-   const a=JSON.parse(x);
+
+   const a = JSON.parse(x);
 
    return Array.isArray(a)
-    ?a.map(String)
-    :[];
+    ? a.map(String)
+    : [];
 
   }catch(e){
 
    return x
     .split(',')
-    .map(v=>v.trim())
+    .map(v => v.trim())
     .filter(Boolean)
     .map(String);
+
   }
+
  }
 
- return[];
+ return [];
+
 }
 
-const langsForTeacher=t=>
- langs(t?.languages);
 
-const langsForStudent=s=>
- langs(s?.languages);
+const langsForTeacher =
+ t => langs(t?.languages);
+
+
+const langsForStudent =
+ s => langs(s?.languages);
+
 
 function studentsOf(t){
 
- if(!t)return[];
+ if(!t)
+  return [];
 
  return students().filter(
-  s=>String(s.teacher_id)===String(t.id)
+  s =>
+   String(s.teacher_id) ===
+   String(t.id)
  );
+
 }
 
-function mergeProfiles(a=[]){
 
- const m=new Map(
+/* =========================================================
+   PROFILE MERGE
+========================================================= */
+
+function mergeProfiles(a = []){
+
+ const m = new Map(
   profiles.map(
-   x=>[String(x.id),x]
+   x => [String(x.id), x]
   )
  );
 
  a.forEach(
-  x=>m.set(String(x.id),x)
+  x => m.set(String(x.id),x)
  );
 
- profiles=[...m.values()];
+ profiles = [...m.values()];
+
 }
 
-/* =========================
+
+/* =========================================================
    STUDENTS OF TEACHER
-========================= */
+========================================================= */
 
 async function dbStudents(t){
 
- if(!t?.id)return[];
+ if(!t?.id)
+  return [];
 
- /*
-  Сначала используем уже загруженные profiles.
-  Это важно для RLS и для формы расписания.
- */
-
- const local=profiles.filter(s=>
-  s.role==='student' &&
-  String(s.teacher_id)===String(t.id)
- );
+ const local =
+  profiles.filter(
+   s =>
+    s.role === 'student' &&
+    String(s.teacher_id) ===
+    String(t.id)
+  );
 
  if(local.length)
   return local;
 
- const {data,error}=await sb
+ const {
+  data,
+  error
+ } = await sb
   .from('profiles')
   .select('*')
   .eq('role','student')
@@ -600,221 +724,395 @@ async function dbStudents(t){
    error
   );
 
-  return[];
+  return [];
+
  }
 
- mergeProfiles(data||[]);
+ mergeProfiles(data || []);
 
- return data||[];
+ return data || [];
+
 }
 
-/* =========================
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function open(html){
+
+ $('modal').innerHTML = `
+  <div class="modalbg" onclick="modalBackgroundClick(event)">
+   <div class="modal" onclick="event.stopPropagation()">
+    ${html}
+   </div>
+  </div>
+ `;
+
+ $('modal').classList.remove('hidden');
+
+}
+
+
+function closeModal(){
+
+ $('modal').innerHTML = '';
+
+ $('modal').classList.add('hidden');
+
+}
+
+
+function modalBackgroundClick(e){
+
+ if(e.target.classList.contains('modalbg'))
+  closeModal();
+
+}
+
+
+/* =========================================================
    AUTH
-========================= */
+========================================================= */
 
 async function init(){
 
- const {
-  data:{session}
- }=await sb.auth.getSession();
+ try{
 
- if(session)
-  await afterLogin(session.user);
+  const {
+   data:{session}
+  } = await sb.auth.getSession();
+
+  if(session){
+
+   await afterLogin(
+    session.user
+   );
+
+  }
+
+ }catch(error){
+
+  console.error(
+   'INIT ERROR:',
+   error
+  );
+
+ }
+
 }
+
 
 async function login(){
 
- $('loginErr').textContent='';
+ $('loginErr').textContent = '';
+
+ const email =
+  $('email').value.trim();
+
+ const password =
+  $('pass').value;
+
+ if(!email || !password){
+
+  $('loginErr').textContent =
+   'Введите email и пароль.';
+
+  return;
+
+ }
 
  const {
   data,
   error
- }=await sb.auth.signInWithPassword({
-  email:$('email').value.trim(),
-  password:$('pass').value
- });
+ } =
+  await sb.auth.signInWithPassword({
+   email,
+   password
+  });
 
  if(error){
 
-  $('loginErr').textContent=
+  $('loginErr').textContent =
    error.message;
 
   return;
+
  }
 
  await afterLogin(data.user);
+
 }
+
 
 async function afterLogin(u){
 
  const {
   data,
   error
- }=await sb
-  .from('profiles')
-  .select('*')
-  .eq('id',u.id)
-  .single();
+ } =
+  await sb
+   .from('profiles')
+   .select('*')
+   .eq('id',u.id)
+   .single();
 
- if(error||!data){
+ if(error || !data){
+
+  console.error(
+   'PROFILE ERROR:',
+   error
+  );
 
   alert(
-   'Профиль пользователя не найден.'
+   'Профиль пользователя не найден. Проверь таблицу profiles и RLS.'
   );
 
   return;
+
  }
 
- currentUser=data;
+ currentUser = data;
 
  await reloadData();
 
  $('login').classList.add('hidden');
+
  $('app').classList.remove('hidden');
 
  renderNav();
- render();
+
+ await render();
+
 }
+
 
 async function logout(){
 
  await sb.auth.signOut();
 
  location.reload();
+
 }
 
-/* =========================
+
+/* =========================================================
    DATA
-========================= */
+========================================================= */
 
 async function reloadData(){
 
- const q=await Promise.all([
+ const q =
+  await Promise.all([
 
-  sb
-   .from('profiles')
-   .select('*'),
+   sb
+    .from('profiles')
+    .select('*'),
 
-  sb
-   .from('schedule')
-   .select('*')
-   .order('lesson_date')
-   .order('start_time'),
+   sb
+    .from('schedule')
+    .select('*')
+    .order('lesson_date')
+    .order('start_time'),
 
-  sb
-   .from('homework')
-   .select('*')
-   .order(
-    'created_at',
-    {ascending:false}
-   ),
+   sb
+    .from('homework')
+    .select('*')
+    .order(
+     'created_at',
+     {ascending:false}
+    ),
 
-  sb
-   .from('submissions')
-   .select('*')
-   .order(
-    'created_at',
-    {ascending:false}
-   ),
+   sb
+    .from('submissions')
+    .select('*')
+    .order(
+     'created_at',
+     {ascending:false}
+    ),
 
-  sb
-   .from('grades')
-   .select('*')
-   .order(
-    'created_at',
-    {ascending:false}
-   )
- ]);
-
- profiles=
-  q[0].error
-   ?(
-     console.error(
-      'PROFILES:',
-      q[0].error
-     ),
-     []
+   sb
+    .from('grades')
+    .select('*')
+    .order(
+     'created_at',
+     {ascending:false}
     )
-   :q[0].data||[];
 
- scheduleRows=
-  q[1].error
-   ?(
-     console.error(
-      'SCHEDULE:',
-      q[1].error
-     ),
-     []
-    )
-   :q[1].data||[];
+  ]);
 
- homeworkRows=
-  q[2].error
-   ?(
-     console.error(
-      'HOMEWORK:',
-      q[2].error
-     ),
-     []
-    )
-   :q[2].data||[];
 
- submissionRows=
-  q[3].error
-   ?(
-     console.error(
-      'SUBMISSIONS:',
-      q[3].error
-     ),
-     []
-    )
-   :q[3].data||[];
+ const errors = [];
 
- gradeRows=
-  q[4].error
-   ?(
-     console.error(
-      'GRADES:',
-      q[4].error
-     ),
-     []
-    )
-   :q[4].data||[];
+
+ if(q[0].error){
+
+  console.error(
+   'PROFILES:',
+   q[0].error
+  );
+
+  errors.push(
+   'profiles: '+
+   q[0].error.message
+  );
+
+  profiles = [];
+
+ }else{
+
+  profiles = q[0].data || [];
+
+ }
+
+
+ if(q[1].error){
+
+  console.error(
+   'SCHEDULE:',
+   q[1].error
+  );
+
+  errors.push(
+   'schedule: '+
+   q[1].error.message
+  );
+
+  scheduleRows = [];
+
+ }else{
+
+  scheduleRows =
+   q[1].data || [];
+
+ }
+
+
+ if(q[2].error){
+
+  console.error(
+   'HOMEWORK:',
+   q[2].error
+  );
+
+  errors.push(
+   'homework: '+
+   q[2].error.message
+  );
+
+  homeworkRows = [];
+
+ }else{
+
+  homeworkRows =
+   q[2].data || [];
+
+ }
+
+
+ if(q[3].error){
+
+  console.error(
+   'SUBMISSIONS:',
+   q[3].error
+  );
+
+  errors.push(
+   'submissions: '+
+   q[3].error.message
+  );
+
+  submissionRows = [];
+
+ }else{
+
+  submissionRows =
+   q[3].data || [];
+
+ }
+
+
+ if(q[4].error){
+
+  console.error(
+   'GRADES:',
+   q[4].error
+  );
+
+  errors.push(
+   'grades: '+
+   q[4].error.message
+  );
+
+  gradeRows = [];
+
+ }else{
+
+  gradeRows =
+   q[4].data || [];
+
+ }
+
 
  const {
-  data,
-  error
- }=await sb
-  .from('messages')
-  .select('*')
-  .order('created_at');
+  data:messages,
+  error:messagesError
+ } =
+  await sb
+   .from('messages')
+   .select('*')
+   .order('created_at');
 
- messageRows=
-  error
-   ?(
-     console.error(
-      'MESSAGES:',
-      error
-     ),
-     []
-    )
-   :data||[];
+
+ if(messagesError){
+
+  console.error(
+   'MESSAGES:',
+   messagesError
+  );
+
+  errors.push(
+   'messages: '+
+   messagesError.message
+  );
+
+  messageRows = [];
+
+ }else{
+
+  messageRows =
+   messages || [];
+
+ }
+
+
+ if(errors.length){
+
+  console.warn(
+   'Ошибки загрузки данных:',
+   errors
+  );
+
+ }
+
 }
 
-/* =========================
+
+/* =========================================================
    NAVIGATION
-========================= */
+========================================================= */
 
 function navItems(){
 
- let n=[
+ let n = [
   ['schedule','Расписание'],
   ['homework','Домашняя работа'],
   ['grades','Оценки'],
   ['chat','Чат']
  ];
 
- if(currentUser.role==='admin'){
+
+ if(currentUser.role === 'admin'){
 
   n.push(
    ['students','Ученики'],
@@ -823,43 +1121,72 @@ function navItems(){
    ['settings','Настройки']
   );
 
- }else if(currentUser.role==='teacher'){
+ }
+
+
+ if(currentUser.role === 'teacher'){
 
   n.push(
    ['students','Ученики'],
    ['check','Проверка']
   );
+
  }
 
+
  return n;
+
 }
+
 
 function renderNav(){
 
- $('nav').innerHTML=
+ $('nav').innerHTML =
   navItems()
-   .map(x=>`
+   .map(x => `
     <button
-     class="${page===x[0]?'active':''}"
+     class="${page === x[0] ? 'active' : ''}"
      onclick="go('${x[0]}')">
      ${x[1]}
     </button>
    `)
    .join('');
+
 }
+
 
 async function go(p){
 
- page=p;
+ const allowed =
+  navItems().some(
+   x => x[0] === p
+  );
+
+ if(!allowed){
+
+  page = 'schedule';
+
+ }else{
+
+  page = p;
+
+ }
 
  renderNav();
 
  await render();
+
 }
+
+
+/* =========================================================
+   MAIN RENDER
+========================================================= */
 
 async function render(){
 
- const names={
+ const names = {
+
   schedule:'Расписание',
   homework:'Домашняя работа',
   grades:'Оценки',
@@ -869,114 +1196,243 @@ async function render(){
   analytics:'Аналитика',
   settings:'Настройки',
   check:'Проверка'
+
  };
 
- $('title').textContent=
-  names[page]||'LanLand';
 
- $('subtitle').textContent=
-  currentUser.full_name+
-  ' · '+
+ $('title').textContent =
+  names[page] || 'LanLand';
+
+
+ $('subtitle').textContent =
+  currentUser.full_name +
+  ' · ' +
   roleName(currentUser.role);
 
- const f={
-  schedule:renderSchedule,
-  homework:renderHomework,
-  grades:renderGrades,
-  chat:renderChat,
-  students:renderStudents,
-  users:renderUsers,
-  analytics:renderAnalytics,
-  settings:renderSettings,
-  check:renderCheck
- };
 
- $('content').innerHTML='';
+ $('content').innerHTML =
+  '<div class="empty">Загрузка...</div>';
 
- if(f[page])
-  await f[page]();
+
+ try{
+
+  switch(page){
+
+   case 'schedule':
+    await renderSchedule();
+    break;
+
+   case 'homework':
+    await renderHomework();
+    break;
+
+   case 'grades':
+    await renderGrades();
+    break;
+
+   case 'chat':
+    await renderChat();
+    break;
+
+   case 'students':
+    await renderStudents();
+    break;
+
+   case 'users':
+    await renderUsers();
+    break;
+
+   case 'analytics':
+    await renderAnalytics();
+    break;
+
+   case 'settings':
+    await renderSettings();
+    break;
+
+   case 'check':
+    await renderCheck();
+    break;
+
+   default:
+
+    $('content').innerHTML =
+     '<div class="empty">Раздел не найден.</div>';
+
+  }
+
+ }catch(error){
+
+  console.error(
+   'RENDER ERROR:',
+   error
+  );
+
+  $('content').innerHTML = `
+
+   <div class="errorbox">
+
+    <h3>Ошибка загрузки раздела</h3>
+
+    <p>
+     ${esc(
+      error?.message ||
+      String(error)
+     )}
+    </p>
+
+    <button
+     class="btn"
+     onclick="render()">
+     Повторить
+    </button>
+
+   </div>
+
+  `;
+
+ }
+
 }
 
-/* =========================
+
+/* =========================================================
    DATE
-========================= */
+========================================================= */
 
-function startOfWeek(d=new Date()){
+function startOfWeek(d = new Date()){
 
- d=new Date(d);
+ d = new Date(d);
 
- let x=d.getDay()||7;
+ let x =
+  d.getDay() || 7;
 
  d.setDate(
-  d.getDate()-x+1+week*7
+  d.getDate() -
+  x +
+  1 +
+  week * 7
  );
 
- d.setHours(0,0,0,0);
+ d.setHours(
+  0,0,0,0
+ );
 
  return d;
+
 }
+
 
 function iso(d){
- const x=d instanceof Date?d:new Date(String(d)+'T00:00:00');
- return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
+
+ const x =
+  d instanceof Date
+   ? d
+   : new Date(
+      String(d) +
+      'T00:00:00'
+     );
+
+ return (
+  `${x.getFullYear()}-`+
+  `${String(
+    x.getMonth()+1
+   ).padStart(2,'0')}-`+
+  `${String(
+    x.getDate()
+   ).padStart(2,'0')}`
+ );
+
 }
+
 
 function fmt(d){
- const x=d instanceof Date?d:new Date(String(d)+'T00:00:00');
- return x.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit'});
-}
 
-/* =========================
-   SCHEDULE
-========================= */
+ const x =
+  d instanceof Date
+   ? d
+   : new Date(
+      String(d) +
+      'T00:00:00'
+     );
 
-function visibleSchedule(){
-
- return scheduleRows.filter(x=>{
-
-  if(currentUser.role==='admin')
-   return true;
-
-  if(currentUser.role==='teacher')
-   return String(x.teacher_id)===
-          String(currentUser.id);
-
-  return String(x.student_id)===
-         String(currentUser.id);
- });
-}
-
-async function renderSchedule(){
-
- let d=startOfWeek();
-
- let days=Array.from(
-  {length:7},
-  (_,i)=>{
-   let x=new Date(d);
-
-   x.setDate(
-    d.getDate()+i
-   );
-
-   return x;
+ return x.toLocaleDateString(
+  'ru-RU',
+  {
+   day:'2-digit',
+   month:'2-digit'
   }
  );
 
- const add=
-  currentUser.role!=='student'
-   ?`
+}
+
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+function visibleSchedule(){
+
+ return scheduleRows.filter(x => {
+
+  if(currentUser.role === 'admin')
+   return true;
+
+  if(currentUser.role === 'teacher'){
+
+   return String(x.teacher_id) ===
+          String(currentUser.id);
+
+  }
+
+  return String(x.student_id) ===
+         String(currentUser.id);
+
+ });
+
+}
+
+
+async function renderSchedule(){
+
+ const d =
+  startOfWeek();
+
+
+ const days =
+  Array.from(
+   {length:7},
+   (_,i) => {
+
+    let x =
+     new Date(d);
+
+    x.setDate(
+     d.getDate()+i
+    );
+
+    return x;
+
+   }
+  );
+
+
+ const add =
+  currentUser.role !== 'student'
+   ? `
     <button
      class="btn"
      onclick="scheduleModal()">
      Добавить занятие
     </button>
    `
-   :'';
+   : '';
 
- $('content').innerHTML=`
+
+ $('content').innerHTML = `
 
   <div class="card">
+
    <div class="actions">
 
     ${add}
@@ -1000,222 +1456,303 @@ async function renderSchedule(){
     </button>
 
    </div>
+
   </div>
+
 
   <div class="week">
 
-   ${days.map(day=>{
+   ${
+    days.map(day => {
 
-    let rows=
-     visibleSchedule()
-      .filter(
-       x=>String(x.lesson_date)===
-          String(iso(day))
-      );
+     const rows =
+      visibleSchedule()
+       .filter(
+        x =>
+         String(x.lesson_date) ===
+         String(iso(day))
+       )
+       .sort(
+        (a,b) =>
+         String(a.start_time || '')
+          .localeCompare(
+           String(b.start_time || '')
+          )
+       );
 
-    return`
-     <div class="day">
 
-      <div class="dayhead">
-       ${day.toLocaleDateString(
-        'ru-RU',
-        {weekday:'short'}
-       )}
-       ${fmt(day)}
+     return `
+
+      <div class="day">
+
+       <div class="dayhead">
+
+        ${day.toLocaleDateString(
+         'ru-RU',
+         {weekday:'short'}
+        )}
+
+        ${fmt(day)}
+
+       </div>
+
+
+       ${
+        rows.length
+         ? rows.map(x => {
+
+          const t =
+           profile(x.teacher_id);
+
+          const s =
+           profile(x.student_id);
+
+
+          const can =
+           currentUser.role === 'admin' ||
+           (
+            currentUser.role === 'teacher' &&
+            String(x.teacher_id) ===
+            String(currentUser.id)
+           );
+
+
+          return `
+
+           <div class="lesson">
+
+            <b>
+             ${esc(
+              x.start_time?.slice(0,5)
+             )}
+             –
+             ${esc(
+              x.end_time?.slice(0,5)
+             )}
+            </b>
+
+            ${esc(x.language)}
+
+            <br>
+
+            ${esc(
+             s?.full_name ||
+             'Ученик'
+            )}
+
+            <br>
+
+            ${esc(
+             t?.full_name ||
+             'Преподаватель'
+            )}
+
+
+            ${
+             can
+              ? `
+
+               <div
+                class="actions"
+                style="margin-top:6px">
+
+                <button
+                 class="btn sm gray"
+                 onclick="scheduleModal('${x.id}')">
+                 Изменить
+                </button>
+
+                <button
+                 class="btn sm red"
+                 onclick="deleteSchedule('${x.id}')">
+                 Удалить
+                </button>
+
+               </div>
+
+              `
+              : ''
+            }
+
+           </div>
+
+          `;
+
+         }).join('')
+         : '<span class="muted">Нет занятий</span>'
+       }
+
       </div>
 
-      ${
-       rows.map(x=>{
+     `;
 
-        let t=profile(x.teacher_id);
-        let s=profile(x.student_id);
-
-        let can=
-         currentUser.role==='admin'||
-         String(x.teacher_id)===
-         String(currentUser.id);
-
-        return`
-         <div class="lesson">
-
-          <b>
-           ${esc(
-            x.start_time?.slice(0,5)
-           )}
-           –
-           ${esc(
-            x.end_time?.slice(0,5)
-           )}
-          </b>
-
-          ${esc(x.language)}
-          <br>
-
-          ${esc(
-           s?.full_name||
-           'Ученик'
-          )}
-
-          <br>
-
-          ${esc(
-           t?.full_name||
-           'Преподаватель'
-          )}
-
-          ${
-           can
-            ?`
-             <div
-              class="actions"
-              style="margin-top:6px">
-
-              <button
-               class="btn sm gray"
-               onclick="scheduleModal('${x.id}')">
-               Изменить
-              </button>
-
-              <button
-               class="btn sm red"
-               onclick="deleteSchedule('${x.id}')">
-               Удалить
-              </button>
-
-             </div>
-            `
-            :''
-          }
-
-         </div>
-        `;
-
-       }).join('')||
-       '<span class="muted">Нет занятий</span>'
-      }
-
-     </div>
-    `;
-
-   }).join('')}
+    }).join('')
+   }
 
   </div>
+
  `;
+
 }
 
-/* =========================
+
+/* =========================================================
    SCHEDULE FORM
-========================= */
+========================================================= */
 
-async function reloadScheduleForm(old=null){
+async function reloadScheduleForm(old = null){
 
- const te=$('st');
- const le=$('sl');
- const se=$('su');
+ const te = $('st');
+ const le = $('sl');
+ const se = $('su');
 
- if(!te||!le||!se)
+
+ if(!te || !le || !se)
   return;
 
- const t=profile(te.value);
+
+ const t =
+  profile(te.value);
+
 
  if(!t){
 
-  le.innerHTML='';
+  le.innerHTML = '';
 
-  se.innerHTML=
+  se.innerHTML =
    '<option value="">Нет преподавателя</option>';
 
   return;
+
  }
 
- const teacherLanguages=
+
+ const teacherLanguages =
   langsForTeacher(t);
 
- le.innerHTML=
+
+ le.innerHTML =
   teacherLanguages
-   .map(l=>`
+   .map(l => `
+
     <option
      value="${esc(l)}"
      ${
-      String(old?.language||'')===
+      String(old?.language || '') ===
       String(l)
-       ?'selected'
-       :''
+       ? 'selected'
+       : ''
      }>
      ${esc(l)}
     </option>
+
    `)
    .join('');
 
- const lang=le.value;
 
- /*
-  ВАЖНО:
-  ученики берутся только по teacher_id,
-  затем фильтруются по выбранному языку.
- */
+ if(!teacherLanguages.length){
 
- const list=
+  se.innerHTML =
+   '<option value="">Языки не назначены</option>';
+
+  return;
+
+ }
+
+
+ const lang =
+  le.value;
+
+
+ const list =
   (await dbStudents(t))
-   .filter(s=>{
+   .filter(s => {
 
-    const studentLanguages=
+    const studentLanguages =
      langsForStudent(s);
 
-    return(
-     String(s.teacher_id)===
+    return (
+     String(s.teacher_id) ===
      String(t.id)
      &&
      (
-      !lang||
+      !lang ||
       studentLanguages.includes(lang)
      )
     );
+
    });
 
- se.innerHTML=
+
+ se.innerHTML =
   list.length
-   ?list.map(s=>`
-    <option
-     value="${s.id}"
-     ${
-      String(old?.student_id||'')===
-      String(s.id)
-       ?'selected'
-       :''
-     }>
-     ${esc(s.full_name)}
-    </option>
-   `).join('')
-   :`
+   ? list.map(s => `
+
+     <option
+      value="${s.id}"
+      ${
+       String(old?.student_id || '') ===
+       String(s.id)
+        ? 'selected'
+        : ''
+      }>
+
+      ${esc(s.full_name)}
+
+     </option>
+
+    `).join('')
+
+   : `
+
     <option value="">
      Нет учеников с этим языком
     </option>
+
    `;
+
 }
 
-function scheduleModal(id=null){
 
- if(currentUser.role==='student')
+function scheduleModal(id = null){
+
+ if(currentUser.role === 'student')
   return;
 
- const old=
-  id
-   ?scheduleRows.find(
-    x=>String(x.id)===String(id)
-   )
-   :null;
 
- const ts=
-  currentUser.role==='admin'
-   ?teachers()
-   :[currentUser];
+ const old =
+  id
+   ? scheduleRows.find(
+      x =>
+       String(x.id) ===
+       String(id)
+     )
+   : null;
+
+
+ const ts =
+  currentUser.role === 'admin'
+   ? teachers()
+   : [currentUser];
+
+
+ if(!ts.length){
+
+  alert(
+   'Нет доступных преподавателей.'
+  );
+
+  return;
+
+ }
+
 
  open(`
 
   <div class="modalhead">
+
    <h3>
-    ${old?'Изменить':'Новое занятие'}
+    ${old ? 'Изменить' : 'Новое занятие'}
    </h3>
 
    <button
@@ -1223,74 +1760,94 @@ function scheduleModal(id=null){
     onclick="closeModal()">
     ×
    </button>
+
   </div>
+
 
   <label>Преподаватель</label>
 
   <select id="st">
 
-   ${ts.map(t=>`
-    <option
-     value="${t.id}"
-     ${
-      String(old?.teacher_id||'')===
-      String(t.id)
-       ?'selected'
-       :''
-     }>
-     ${esc(t.full_name)}
-    </option>
-   `).join('')}
+   ${
+    ts.map(t => `
+
+     <option
+      value="${t.id}"
+      ${
+       String(old?.teacher_id || '') ===
+       String(t.id)
+        ? 'selected'
+        : ''
+      }>
+
+      ${esc(t.full_name)}
+
+     </option>
+
+    `).join('')
+   }
 
   </select>
+
 
   <label>Язык</label>
 
   <select id="sl"></select>
 
+
   <label>Ученик</label>
 
   <select id="su"></select>
 
+
   <div class="formgrid">
 
    <div>
+
     <label>Дата</label>
 
     <input
      id="sd"
      type="date"
      value="${
-      old?.lesson_date||
+      old?.lesson_date ||
       iso(new Date())
      }">
+
    </div>
 
+
    <div>
+
     <label>Начало</label>
 
     <input
      id="ss"
      type="time"
      value="${
-      old?.start_time?.slice(0,5)||
+      old?.start_time?.slice(0,5) ||
       '15:00'
      }">
+
    </div>
 
+
    <div>
+
     <label>Конец</label>
 
     <input
      id="se"
      type="time"
      value="${
-      old?.end_time?.slice(0,5)||
+      old?.end_time?.slice(0,5) ||
       '16:00'
      }">
+
    </div>
 
   </div>
+
 
   <div
    class="actions"
@@ -1298,7 +1855,7 @@ function scheduleModal(id=null){
 
    <button
     class="btn"
-    onclick="saveSchedule('${id||''}')">
+    onclick="saveSchedule('${id || ''}')">
     Сохранить
    </button>
 
@@ -1309,56 +1866,65 @@ function scheduleModal(id=null){
    </button>
 
   </div>
+
  `);
 
- $('st').onchange=async()=>{
 
-  await reloadScheduleForm({
-   ...old,
-   teacher_id:$('st').value,
-   language:null,
-   student_id:null
-  });
+ $('st').onchange =
+  async () => {
 
- };
+   await reloadScheduleForm({
+    ...old,
+    teacher_id:$('st').value,
+    language:null,
+    student_id:null
+   });
 
- $('sl').onchange=async()=>{
+  };
 
-  await reloadScheduleForm({
-   ...old,
-   teacher_id:$('st').value,
-   language:$('sl').value,
-   student_id:null
-  });
 
- };
+ $('sl').onchange =
+  async () => {
 
- reloadScheduleForm(old);
+   await reloadScheduleForm({
+    ...old,
+    teacher_id:$('st').value,
+    language:$('sl').value,
+    student_id:null
+   });
+
+  };
+
+
+ await reloadScheduleForm(old);
+
 }
+
 
 async function saveSchedule(id){
 
- const teacherId=
+ const teacherId =
   $('st')?.value;
 
- const studentId=
+ const studentId =
   $('su')?.value;
 
- const language=
+ const language =
   $('sl')?.value;
 
- const lessonDate=
-  $('sd')?.value||'';
+ const lessonDate =
+  $('sd')?.value || '';
 
- const startTime=
-  $('ss')?.value||'';
+ const startTime =
+  $('ss')?.value || '';
 
- const endTime=
-  $('se')?.value||'';
+ const endTime =
+  $('se')?.value || '';
+
 
  if(
-  !lessonDate||
-  !startTime||
+  !lessonDate ||
+  !startTime ||
   !endTime
  ){
 
@@ -1367,23 +1933,42 @@ async function saveSchedule(id){
   );
 
   return;
+
  }
 
- const t=profile(teacherId);
- const s=profile(studentId);
 
- if(!t||!s||!language){
+ if(startTime >= endTime){
+
+  alert(
+   'Время окончания должно быть позже времени начала.'
+  );
+
+  return;
+
+ }
+
+
+ const t =
+  profile(teacherId);
+
+ const s =
+  profile(studentId);
+
+
+ if(!t || !s || !language){
 
   alert(
    'Выберите преподавателя, язык и ученика.'
   );
 
   return;
+
  }
 
+
  if(
-  currentUser.role==='teacher'&&
-  String(t.id)!==
+  currentUser.role === 'teacher' &&
+  String(t.id) !==
   String(currentUser.id)
  ){
 
@@ -1392,7 +1977,9 @@ async function saveSchedule(id){
   );
 
   return;
+
  }
+
 
  if(
   !langsForTeacher(t)
@@ -1404,7 +1991,9 @@ async function saveSchedule(id){
   );
 
   return;
+
  }
+
 
  if(
   !langsForStudent(s)
@@ -1416,10 +2005,12 @@ async function saveSchedule(id){
   );
 
   return;
+
  }
 
+
  if(
-  String(s.teacher_id)!==
+  String(s.teacher_id) !==
   String(t.id)
  ){
 
@@ -1428,125 +2019,173 @@ async function saveSchedule(id){
   );
 
   return;
+
  }
 
- const p={
-  lesson_date:lessonDate,
-  start_time:startTime,
-  end_time:endTime,
+
+ const p = {
+
+  lesson_date:
+   lessonDate,
+
+  start_time:
+   startTime,
+
+  end_time:
+   endTime,
+
   language,
-  teacher_id:t.id,
-  student_id:s.id
+
+  teacher_id:
+   t.id,
+
+  student_id:
+   s.id
+
  };
 
- const r=
+
+ const r =
   id
-   ?await sb
-     .from('schedule')
-     .update(p)
-     .eq('id',id)
-   :await sb
-     .from('schedule')
-     .insert(p);
+   ? await sb
+      .from('schedule')
+      .update(p)
+      .eq('id',id)
+
+   : await sb
+      .from('schedule')
+      .insert(p);
+
 
  if(r.error){
 
-  alert(r.error.message);
+  alert(
+   r.error.message
+  );
 
   return;
+
  }
+
 
  closeModal();
 
  await reloadData();
+
  await render();
+
 }
 
+
 async function editSchedule(id){
+
  scheduleModal(id);
+
 }
+
 
 async function deleteSchedule(id){
 
  if(!confirm(
   'Удалить занятие?'
- ))return;
+ )) return;
 
- const r=
+
+ const r =
   await sb
    .from('schedule')
    .delete()
    .eq('id',id);
 
+
  if(r.error){
 
-  alert(r.error.message);
+  alert(
+   r.error.message
+  );
 
   return;
+
  }
 
+
  await reloadData();
+
  await render();
+
 }
 
-/* =========================
+
+/* =========================================================
    HOMEWORK
-========================= */
+========================================================= */
 
 function homeworkForMe(){
 
- return homeworkRows.filter(h=>{
+ return homeworkRows.filter(h => {
 
-  if(currentUser.role==='admin')
+  if(currentUser.role === 'admin')
    return true;
 
-  if(currentUser.role==='teacher')
-   return String(h.teacher_id)===
+  if(currentUser.role === 'teacher')
+   return String(h.teacher_id) ===
           String(currentUser.id);
 
-  return String(h.student_id)===
+  return String(h.student_id) ===
          String(currentUser.id);
+
  });
+
 }
+
 
 function submissionFor(hid,sid){
 
  return submissionRows.find(
-  x=>
-   String(x.homework_id)===
-   String(hid)&&
-   String(x.student_id)===
+  x =>
+   String(x.homework_id) ===
+   String(hid)
+   &&
+   String(x.student_id) ===
    String(sid)
  );
+
 }
+
 
 async function renderHomework(){
 
- let rows=homeworkForMe();
+ const rows =
+  homeworkForMe();
 
- $('content').innerHTML=`
+
+ $('content').innerHTML = `
 
   <div class="card">
 
    ${
-    currentUser.role!=='student'
-     ?`
+    currentUser.role !== 'student'
+     ? `
+
       <button
        class="btn"
        onclick="homeworkModal()">
        Создать ДЗ
       </button>
+
      `
-     :''
+     : ''
    }
 
   </div>
+
 
   <div class="card">
 
    <table>
 
     <thead>
+
      <tr>
       <th>Задание</th>
       <th>Язык</th>
@@ -1555,101 +2194,179 @@ async function renderHomework(){
       <th>Учитель</th>
       <th></th>
      </tr>
+
     </thead>
+
 
     <tbody>
 
      ${
-      rows.map(h=>{
+      rows.length
+       ? rows.map(h => {
 
-       let t=profile(h.teacher_id);
+        const t =
+         profile(h.teacher_id);
 
-       return`
+        const sub =
+         currentUser.role === 'student'
+          ? submissionFor(
+             h.id,
+             currentUser.id
+            )
+          : null;
+
+
+        return `
+
+         <tr>
+
+          <td>
+
+           <b>
+            ${esc(h.title)}
+           </b>
+
+           <br>
+
+           <span class="muted">
+            ${esc(
+             h.description || ''
+            )}
+           </span>
+
+
+           ${
+            h.link
+             ? `
+
+              <br>
+
+              <a
+               href="${esc(h.link)}"
+               target="_blank"
+               rel="noopener">
+               Открыть ссылку
+              </a>
+
+             `
+             : ''
+           }
+
+
+           ${
+            sub
+             ? `
+
+              <br>
+
+              <span
+               class="badge ${
+                sub.status === 'checked'
+                 ? 'green'
+                 : ''
+               }">
+
+               ${
+                sub.status === 'checked'
+                 ? 'Проверено'
+                 : 'Сдано'
+               }
+
+              </span>
+
+             `
+             : ''
+           }
+
+          </td>
+
+
+          <td>
+           ${esc(h.language)}
+          </td>
+
+
+          <td>
+           ${esc(h.due_date || '—')}
+          </td>
+
+
+          <td>
+           ${esc(
+            profile(h.student_id)
+             ?.full_name || '—'
+           )}
+          </td>
+
+
+          <td>
+           ${esc(
+            t?.full_name || '—'
+           )}
+          </td>
+
+
+          <td class="actions">
+
+           ${
+            currentUser.role === 'student'
+
+             ? `
+
+              <button
+               class="btn sm"
+               onclick="submitHomeworkModal('${h.id}')">
+               ${
+                sub
+                 ? 'Изменить сдачу'
+                 : 'Сдать'
+               }
+              </button>
+
+             `
+
+             : `
+
+              <button
+               class="btn sm gray"
+               onclick="homeworkModal('${h.id}')">
+               Изменить
+              </button>
+
+              <button
+               class="btn sm"
+               onclick="openCheckList('${h.id}')">
+               Проверить
+              </button>
+
+              <button
+               class="btn sm red"
+               onclick="deleteHomework('${h.id}')">
+               Удалить
+              </button>
+
+             `
+           }
+
+          </td>
+
+         </tr>
+
+        `;
+
+       }).join('')
+
+       : `
+
         <tr>
-
-         <td>
-          <b>${esc(h.title)}</b>
-          <br>
-          <span class="muted">
-           ${esc(h.description||'')}
-          </span>
-
-          ${
-           h.link
-            ?`
-             <br>
-             <a
-              href="${esc(h.link)}"
-              target="_blank"
-              rel="noopener">
-              Открыть ссылку
-             </a>
-            `
-            :''
-          }
-
+         <td
+          colspan="6"
+          class="empty">
+          Нет заданий
          </td>
-
-         <td>${esc(h.language)}</td>
-
-         <td>${esc(h.due_date||'—')}</td>
-
-         <td>
-          ${esc(profile(h.student_id)?.full_name||'—')}
-         </td>
-
-         <td>
-          ${esc(t?.full_name||'—')}
-         </td>
-
-         <td class="actions">
-
-          ${
-           currentUser.role==='student'
-            ?`
-             <button
-              class="btn sm"
-              onclick="submitHomeworkModal('${h.id}')">
-              Сдать
-             </button>
-            `
-            :`
-             <button
-              class="btn sm gray"
-              onclick="homeworkModal('${h.id}')">
-              Изменить
-             </button>
-
-             <button
-              class="btn sm"
-              onclick="openCheckList('${h.id}')">
-              Проверить
-             </button>
-
-             <button
-              class="btn sm red"
-              onclick="deleteHomework('${h.id}')">
-              Удалить
-             </button>
-            `
-          }
-
-         </td>
-
         </tr>
-       `;
 
-      }).join('')||
-
-      `
-       <tr>
-        <td
-         colspan="6"
-         class="empty">
-         Нет заданий
-        </td>
-       </tr>
-      `
+       `
      }
 
     </tbody>
@@ -1657,71 +2374,111 @@ async function renderHomework(){
    </table>
 
   </div>
+
  `;
+
 }
 
-/* =========================
+
+/* =========================================================
    HOMEWORK FORM
-========================= */
+========================================================= */
 
-async function reloadHomeworkForm(old=null){
+async function reloadHomeworkForm(old = null){
 
- const te=$('ht');
- const le=$('hl');
- const se=$('hstudents');
+ const te =
+  $('ht');
 
- if(!te||!le||!se)
+ const le =
+  $('hl');
+
+ const se =
+  $('hstudents');
+
+
+ if(!te || !le || !se)
   return;
 
- const t=profile(te.value);
+
+ const t =
+  profile(te.value);
+
 
  if(!t){
 
-  le.innerHTML='';
+  le.innerHTML = '';
 
-  se.innerHTML='';
+  se.innerHTML = '';
 
   return;
+
  }
 
- const teacherLanguages=
+
+ const teacherLanguages =
   langsForTeacher(t);
 
- le.innerHTML=
+
+ le.innerHTML =
   teacherLanguages
-   .map(l=>`
+   .map(l => `
+
     <option
      value="${esc(l)}"
      ${
-      String(old?.language||'')===
+      String(old?.language || '') ===
       String(l)
-       ?'selected'
-       :''
+       ? 'selected'
+       : ''
      }>
+
      ${esc(l)}
+
     </option>
+
    `)
    .join('');
 
- const lang=le.value;
 
- const selected=old?.student_id?[String(old.student_id)]:[];
+ if(!teacherLanguages.length){
 
- const list=
+  se.innerHTML =
+   '<span class="muted">Преподавателю не назначены языки.</span>';
+
+  return;
+
+ }
+
+
+ const lang =
+  le.value;
+
+
+ const selected =
+  old?.student_id
+   ? [String(old.student_id)]
+   : [];
+
+
+ const list =
   (await dbStudents(t))
-   .filter(s=>
-    String(s.teacher_id)===
-    String(t.id)&&
+   .filter(s =>
+    String(s.teacher_id) ===
+    String(t.id)
+    &&
     (
-     !lang||
+     !lang ||
      langsForStudent(s)
       .includes(lang)
     )
    );
 
- se.innerHTML=
+
+ se.innerHTML =
   list.length
-   ?list.map(s=>`
+
+   ? list.map(s => `
+
     <label class="check">
 
      <input
@@ -1731,42 +2488,55 @@ async function reloadHomeworkForm(old=null){
        selected.includes(
         String(s.id)
        )
-        ?'checked'
-        :''
+        ? 'checked'
+        : ''
       }>
 
      ${esc(s.full_name)}
 
     </label>
+
    `).join('')
 
-   :`
+   : `
+
     <span class="muted">
      Нет учеников с этим языком
     </span>
+
    `;
+
 }
 
-function homeworkModal(id=null){
 
- const old=
+function homeworkModal(id = null){
+
+ if(currentUser.role === 'student')
+  return;
+
+
+ const old =
   id
-   ?homeworkRows.find(
-    x=>String(x.id)===String(id)
-   )
-   :null;
+   ? homeworkRows.find(
+      x =>
+       String(x.id) ===
+       String(id)
+     )
+   : null;
 
- const ts=
-  currentUser.role==='admin'
-   ?teachers()
-   :[currentUser];
+
+ const ts =
+  currentUser.role === 'admin'
+   ? teachers()
+   : [currentUser];
+
 
  open(`
 
   <div class="modalhead">
 
    <h3>
-    ${old?'Изменить':'Новое ДЗ'}
+    ${old ? 'Изменить' : 'Новое ДЗ'}
    </h3>
 
    <button
@@ -1777,51 +2547,74 @@ function homeworkModal(id=null){
 
   </div>
 
+
   <label>Преподаватель</label>
 
   <select id="ht">
 
-   ${ts.map(t=>`
-    <option
-     value="${t.id}"
-     ${
-      String(old?.teacher_id||'')===
-      String(t.id)
-       ?'selected'
-       :''
-     }>
-     ${esc(t.full_name)}
-    </option>
-   `).join('')}
+   ${
+    ts.map(t => `
+
+     <option
+      value="${t.id}"
+      ${
+       String(old?.teacher_id || '') ===
+       String(t.id)
+        ? 'selected'
+        : ''
+      }>
+
+      ${esc(t.full_name)}
+
+     </option>
+
+    `).join('')
+   }
 
   </select>
 
+
   <label>Язык</label>
+
   <select id="hl"></select>
 
+
   <label>Название</label>
+
   <input
    id="hname"
-   value="${esc(old?.title||'')}">
+   value="${esc(old?.title || '')}">
+
 
   <label>Описание</label>
-  <textarea id="hdesc">${esc(
-   old?.description||''
-  )}</textarea>
+
+  <textarea
+   id="hdesc">${esc(
+    old?.description || ''
+   )}</textarea>
+
 
   <label>Ссылка</label>
+
   <input
    id="hlink"
-   value="${esc(old?.link||'')}">
+   value="${esc(
+    old?.link || ''
+   )}">
+
 
   <label>Срок</label>
+
   <input
    id="hdue"
    type="date"
-   value="${old?.due_date||''}">
+   value="${old?.due_date || ''}">
+
 
   <label>Ученики</label>
+
   <div id="hstudents"></div>
+
 
   <div
    class="actions"
@@ -1829,7 +2622,7 @@ function homeworkModal(id=null){
 
    <button
     class="btn"
-    onclick="saveHomework('${id||''}')">
+    onclick="saveHomework('${id || ''}')">
     Сохранить
    </button>
 
@@ -1840,37 +2633,54 @@ function homeworkModal(id=null){
    </button>
 
   </div>
+
  `);
 
- $('ht').onchange=()=>{
+
+ $('ht').onchange = () => {
 
   reloadHomeworkForm({
+
    ...old,
-   teacher_id:$('ht').value,
-   student_id:null
+
+   teacher_id:
+    $('ht').value,
+
+   student_id:
+    null
+
   });
 
  };
 
- $('hl').onchange=()=>{
+
+ $('hl').onchange = () => {
 
   reloadHomeworkForm({
+
    ...old,
-   language:$('hl').value
+
+   language:
+    $('hl').value
+
   });
 
  };
+
 
  reloadHomeworkForm(old);
+
 }
+
 
 async function saveHomework(id){
 
- const idsSelected=[
+ const idsSelected = [
   ...document.querySelectorAll(
    '#hstudents input:checked'
   )
- ].map(x=>x.value);
+ ].map(x => x.value);
+
 
  if(!idsSelected.length){
 
@@ -1879,12 +2689,20 @@ async function saveHomework(id){
   );
 
   return;
+
  }
 
- const teacherId=$('ht').value;
- const language=$('hl').value;
 
- const t=profile(teacherId);
+ const teacherId =
+  $('ht').value;
+
+ const language =
+  $('hl').value;
+
+
+ const t =
+  profile(teacherId);
+
 
  if(!t){
 
@@ -1893,11 +2711,13 @@ async function saveHomework(id){
   );
 
   return;
+
  }
 
+
  if(
-  currentUser.role==='teacher'&&
-  String(t.id)!==
+  currentUser.role === 'teacher' &&
+  String(t.id) !==
   String(currentUser.id)
  ){
 
@@ -1906,7 +2726,9 @@ async function saveHomework(id){
   );
 
   return;
+
  }
+
 
  if(
   !langsForTeacher(t)
@@ -1918,21 +2740,27 @@ async function saveHomework(id){
   );
 
   return;
+
  }
 
- const valid=
-  idsSelected.every(id=>{
 
-   let s=profile(id);
+ const valid =
+  idsSelected.every(id => {
 
-   return(
-    s&&
-    String(s.teacher_id)===
-    String(t.id)&&
+   const s =
+    profile(id);
+
+   return (
+    s &&
+    String(s.teacher_id) ===
+    String(t.id)
+    &&
     langsForStudent(s)
      .includes(language)
    );
+
   });
+
 
  if(!valid){
 
@@ -1941,286 +2769,288 @@ async function saveHomework(id){
   );
 
   return;
+
  }
 
- const due=$('hdue').value;
- if(!due){alert('Укажите срок сдачи.');return;}
- if(id&&idsSelected.length!==1){alert('При изменении выберите ровно одного ученика.');return;}
- const common={teacher_id:teacherId,language,title:$('hname').value.trim(),description:$('hdesc').value,link:$('hlink').value.trim()||null,due_date:due};
- if(!common.title){alert('Введите название ДЗ.');return;}
- const r=id
-  ?await sb.from('homework').update({...common,student_id:idsSelected[0]}).eq('id',id)
-  :await sb.from('homework').insert(idsSelected.map(student_id=>({...common,student_id})));
+
+ const due =
+  $('hdue').value;
+
+
+ if(!due){
+
+  alert(
+   'Укажите срок сдачи.'
+  );
+
+  return;
+
+ }
+
+
+ if(
+  id &&
+  idsSelected.length !== 1
+ ){
+
+  alert(
+   'При изменении выберите ровно одного ученика.'
+  );
+
+  return;
+
+ }
+
+
+ const common = {
+
+  teacher_id:
+   teacherId,
+
+  language,
+
+  title:
+   $('hname').value.trim(),
+
+  description:
+   $('hdesc').value,
+
+  link:
+   $('hlink').value.trim() ||
+   null,
+
+  due_date:
+   due
+
+ };
+
+
+ if(!common.title){
+
+  alert(
+   'Введите название ДЗ.'
+  );
+
+  return;
+
+ }
+
+
+ const r =
+  id
+
+   ? await sb
+      .from('homework')
+      .update({
+       ...common,
+       student_id:
+        idsSelected[0]
+      })
+      .eq('id',id)
+
+   : await sb
+      .from('homework')
+      .insert(
+       idsSelected.map(
+        student_id => ({
+         ...common,
+         student_id
+        })
+       )
+      );
+
 
  if(r.error){
 
-  alert(r.error.message);
+  alert(
+   r.error.message
+  );
 
   return;
+
  }
+
 
  closeModal();
 
  await reloadData();
+
  await render();
+
 }
+
 
 async function deleteHomework(id){
 
  if(!confirm(
   'Удалить ДЗ и связанные ответы?'
- ))return;
+ )) return;
+
 
  await sb
   .from('submissions')
   .delete()
   .eq('homework_id',id);
 
+
  await sb
   .from('grades')
   .delete()
   .eq('homework_id',id);
 
- const r=
+
+ const r =
   await sb
    .from('homework')
    .delete()
    .eq('id',id);
 
+
  if(r.error){
 
-  alert(r.error.message);
+  alert(
+   r.error.message
+  );
 
   return;
+
  }
+
 
  await reloadData();
+
  await render();
+
 }
 
-/* =========================
+
+/* =========================================================
    HOMEWORK SUBMISSION
-========================= */
+========================================================= */
 
 function decodeSubmission(s){
- if(!s)return {answer:'',link:''};
- const raw=String(s.comment||'');
- if(raw.startsWith('LANLAND_SUBMISSION_V1|')){
-  try{return {...JSON.parse(raw.slice(22))}}catch(e){}
+
+ if(!s)
+  return {
+   answer:'',
+   link:''
+  };
+
+
+ const raw =
+  String(s.comment || '');
+
+
+ const prefix =
+  'LANLAND_SUBMISSION_V1|';
+
+
+ if(raw.startsWith(prefix)){
+
+  try{
+
+   return {
+    answer:'',
+    link:'',
+    ...JSON.parse(
+     raw.slice(prefix.length)
+    )
+   };
+
+  }catch(e){}
+
  }
- return {answer:raw,link:''};
-}
-function encodeSubmission(answer,link){
- return 'LANLAND_SUBMISSION_V1|'+JSON.stringify({answer:String(answer||''),link:String(link||'')});
-}
-function fileUrl(path){
- if(!path)return'';
- if(/^https?:\/\//i.test(path))return path;
- return sb.storage.from('homework-files').getPublicUrl(path).data.publicUrl;
-}
-function submitHomeworkModal(id){
- const h=homeworkRows.find(x=>String(x.id)===String(id));
- const s=submissionFor(id,currentUser.id);
- const d=decodeSubmission(s);
- open(`
-  <div class="modalhead"><h3>Сдать ДЗ</h3><button class="close" onclick="closeModal()">×</button></div>
-  <p><b>${esc(h?.title||'')}</b></p>
-  <label>Ответ</label>
-  <textarea id="answer" placeholder="Введите ответ. Можно оставить пустым, если прикладываете файл или ссылку.">${esc(d.answer)}</textarea>
-  <label>Ссылка (необязательно)</label>
-  <input id="answerlink" type="url" placeholder="https://..." value="${esc(d.link)}">
-  <label>Фото / файл (необязательно)</label>
-  <input id="answerfile" type="file" accept="image/*,.pdf,.doc,.docx,.txt">
-  ${s?.file_path?`<p class="muted">Файл уже прикреплён: <a href="${esc(fileUrl(s.file_path))}" target="_blank" rel="noopener">Открыть</a></p>`:''}
-  <div class="actions" style="margin-top:15px"><button class="btn" onclick="submitHomework('${id}')">Отправить</button></div>
- `);
-}
-async function submitHomework(id){
- const answer=$('answer').value.trim();
- const link=$('answerlink').value.trim();
- const file=$('answerfile')?.files?.[0]||null;
- const old=submissionFor(id,currentUser.id);
- if(!answer&&!link&&!file){alert('Добавьте ответ, ссылку или файл.');return;}
- let filePath=old?.file_path||null;
- if(file){
-  const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-  const path=`${currentUser.id}/${id}/${Date.now()}_${safe}`;
-  const up=await sb.storage.from('homework-files').upload(path,file,{upsert:true,contentType:file.type||'application/octet-stream'});
-  if(up.error){alert('Ошибка загрузки файла: '+up.error.message);return;}
-  filePath=up.data.path;
- }
- const p={homework_id:id,student_id:currentUser.id,comment:encodeSubmission(answer,link),file_path:filePath,status:'submitted'};
- const r=old?await sb.from('submissions').update(p).eq('id',old.id):await sb.from('submissions').insert(p);
- if(r.error){alert(r.error.message);return;}
- closeModal();await reloadData();await render();
+
+
+ return {
+  answer:raw,
+  link:''
+ };
+
 }
 
-/* =========================
-   GRADES
-========================= */
 
-function visibleGrades(){
+function encodeSubmission(
+ answer,
+ link
+){
 
- return gradeRows.filter(g=>{
-
-  if(currentUser.role==='admin')
-   return true;
-
-  if(currentUser.role==='teacher')
-   return String(g.teacher_id)===
-          String(currentUser.id);
-
-  return String(g.student_id)===
-         String(currentUser.id);
- });
-}
-
-function weightedAverage(rows){
-
- let a=rows.filter(
-  x=>x.grade!=null
+ return (
+  'LANLAND_SUBMISSION_V1|' +
+  JSON.stringify({
+   answer:
+    String(answer || ''),
+   link:
+    String(link || '')
+  })
  );
 
- let s=0;
- let w=0;
-
- a.forEach(x=>{
-
-  let z=WT[x.type]||1;
-
-  s+=Number(x.grade)*z;
-  w+=z;
-
- });
-
- return w
-  ?(s/w).toFixed(2)
-  :'—';
 }
 
-async function renderGrades(){
 
- let rows=visibleGrades();
+function fileUrl(path){
 
- $('content').innerHTML=`
+ if(!path)
+  return '';
 
-  <div class="card">
+ if(
+  /^https?:\/\//i.test(path)
+ )
+  return path;
 
-   ${
-    currentUser.role!=='student'
-     ?`
-      <button
-       class="btn"
-       onclick="gradeModal()">
-       Добавить оценку
-      </button>
-     `
-     :''
-   }
 
-   <div
-    style="
-     margin-top:12px;
-     font-size:20px
-    ">
-    Средний:
-    <b>${weightedAverage(rows)}</b>
-   </div>
+ return sb.storage
+  .from('homework-files')
+  .getPublicUrl(path)
+  .data
+  .publicUrl;
 
-  </div>
-
-  <div class="card">
-
-   <table>
-
-    <thead>
-     <tr>
-      <th>Ученик</th>
-      <th>Предмет</th>
-      <th>Тип</th>
-      <th>Оценка</th>
-      <th></th>
-     </tr>
-    </thead>
-
-    <tbody>
-
-     ${
-      rows.map(g=>`
-
-       <tr>
-
-        <td>
-         ${esc(
-          profile(g.student_id)
-           ?.full_name||'—'
-         )}
-        </td>
-
-        <td>${esc(g.language)}</td>
-
-        <td>${esc(g.type)}</td>
-
-        <td>
-         <b>${esc(g.grade)}</b>
-        </td>
-
-        <td>
-
-         ${
-          currentUser.role!=='student'
-           ?`
-            <button
-             class="btn sm red"
-             onclick="deleteGrade('${g.id}')">
-             Удалить
-            </button>
-           `
-           :''
-         }
-
-        </td>
-
-       </tr>
-
-      `).join('')||
-
-      `
-       <tr>
-        <td
-         colspan="5"
-         class="empty">
-         Нет оценок
-        </td>
-       </tr>
-      `
-     }
-
-    </tbody>
-
-   </table>
-
-  </div>
- `;
 }
 
-function gradeModal(){
 
- const ts=
-  currentUser.role==='admin'
-   ?teachers()
-   :[currentUser];
+function submitHomeworkModal(id){
 
- const ss=
-  currentUser.role==='admin'
-   ?students()
-   :studentsOf(currentUser);
+ if(currentUser.role !== 'student')
+  return;
+
+
+ const h =
+  homeworkRows.find(
+   x =>
+    String(x.id) ===
+    String(id)
+  );
+
+
+ if(!h){
+
+  alert(
+   'ДЗ не найдено.'
+  );
+
+  return;
+
+ }
+
+
+ const s =
+  submissionFor(
+   id,
+   currentUser.id
+  );
+
+
+ const d =
+  decodeSubmission(s);
+
 
  open(`
 
   <div class="modalhead">
 
-   <h3>Новая оценка</h3>
+   <h3>
+    Сдать ДЗ
+   </h3>
 
    <button
     class="close"
@@ -2230,45 +3060,543 @@ function gradeModal(){
 
   </div>
 
+
+  <p>
+   <b>
+    ${esc(h.title)}
+   </b>
+  </p>
+
+
+  <label>Ответ</label>
+
+  <textarea
+   id="answer"
+   placeholder="Введите ответ. Можно оставить пустым, если прикладываете файл или ссылку."
+  >${esc(d.answer)}</textarea>
+
+
+  <label>
+   Ссылка
+   <span class="muted">
+    (необязательно)
+   </span>
+  </label>
+
+  <input
+   id="answerlink"
+   type="url"
+   placeholder="https://..."
+   value="${esc(d.link)}">
+
+
+  <label>
+   Фото / файл
+   <span class="muted">
+    (необязательно)
+   </span>
+  </label>
+
+  <input
+   id="answerfile"
+   type="file"
+   accept="image/*,.pdf,.doc,.docx,.txt">
+
+
+  ${
+   s?.file_path
+    ? `
+
+     <p class="muted">
+
+      Файл уже прикреплён:
+
+      <a
+       href="${esc(
+        fileUrl(s.file_path)
+       )}"
+       target="_blank"
+       rel="noopener">
+       Открыть
+      </a>
+
+     </p>
+
+    `
+    : ''
+  }
+
+
+  <div
+   class="actions"
+   style="margin-top:15px">
+
+   <button
+    class="btn"
+    onclick="submitHomework('${id}')">
+    Отправить
+   </button>
+
+   <button
+    class="btn gray"
+    onclick="closeModal()">
+    Отмена
+   </button>
+
+  </div>
+
+ `);
+
+}
+
+
+async function submitHomework(id){
+
+ if(currentUser.role !== 'student')
+  return;
+
+
+ const answer =
+  $('answer').value.trim();
+
+
+ const link =
+  $('answerlink').value.trim();
+
+
+ const file =
+  $('answerfile')?.files?.[0] ||
+  null;
+
+
+ const old =
+  submissionFor(
+   id,
+   currentUser.id
+  );
+
+
+ if(
+  !answer &&
+  !link &&
+  !file
+ ){
+
+  alert(
+   'Добавьте ответ, ссылку или файл.'
+  );
+
+  return;
+
+ }
+
+
+ let filePath =
+  old?.file_path ||
+  null;
+
+
+ if(file){
+
+  const safe =
+   file.name.replace(
+    /[^a-zA-Z0-9._-]/g,
+    '_'
+   );
+
+
+  const path =
+   `${currentUser.id}/${id}/${Date.now()}_${safe}`;
+
+
+  const up =
+   await sb.storage
+    .from('homework-files')
+    .upload(
+     path,
+     file,
+     {
+      upsert:true,
+      contentType:
+       file.type ||
+       'application/octet-stream'
+     }
+    );
+
+
+  if(up.error){
+
+   alert(
+    'Ошибка загрузки файла: '+
+    up.error.message
+   );
+
+   return;
+
+  }
+
+
+  filePath =
+   up.data.path;
+
+ }
+
+
+ const p = {
+
+  homework_id:
+   id,
+
+  student_id:
+   currentUser.id,
+
+  comment:
+   encodeSubmission(
+    answer,
+    link
+   ),
+
+  file_path:
+   filePath,
+
+  status:
+   'submitted'
+
+ };
+
+
+ const r =
+  old
+
+   ? await sb
+      .from('submissions')
+      .update(p)
+      .eq('id',old.id)
+
+   : await sb
+      .from('submissions')
+      .insert(p);
+
+
+ if(r.error){
+
+  alert(
+   r.error.message
+  );
+
+  return;
+
+ }
+
+
+ closeModal();
+
+ await reloadData();
+
+ await render();
+
+}
+
+
+/* =========================================================
+   GRADES
+========================================================= */
+
+function visibleGrades(){
+
+ return gradeRows.filter(g => {
+
+  if(currentUser.role === 'admin')
+   return true;
+
+
+  if(currentUser.role === 'teacher'){
+
+   return String(g.teacher_id) ===
+          String(currentUser.id);
+
+  }
+
+
+  return String(g.student_id) ===
+         String(currentUser.id);
+
+ });
+
+}
+
+
+function weightedAverage(rows){
+
+ const a =
+  rows.filter(
+   x => x.grade != null
+  );
+
+
+ let s = 0;
+
+ let w = 0;
+
+
+ a.forEach(x => {
+
+  const z =
+   WT[x.type] || 1;
+
+  s +=
+   Number(x.grade) * z;
+
+  w += z;
+
+ });
+
+
+ return w
+  ? (s / w).toFixed(2)
+  : '—';
+
+}
+
+
+async function renderGrades(){
+
+ const rows =
+  visibleGrades();
+
+
+ $('content').innerHTML = `
+
+  <div class="card">
+
+   ${
+    currentUser.role !== 'student'
+     ? `
+
+      <button
+       class="btn"
+       onclick="gradeModal()">
+       Добавить оценку
+      </button>
+
+     `
+     : ''
+   }
+
+
+   <div
+    style="
+     margin-top:12px;
+     font-size:20px;
+    ">
+
+    Средний:
+    <b>
+     ${weightedAverage(rows)}
+    </b>
+
+   </div>
+
+  </div>
+
+
+  <div class="card">
+
+   <table>
+
+    <thead>
+
+     <tr>
+      <th>Ученик</th>
+      <th>Предмет</th>
+      <th>Тип</th>
+      <th>Оценка</th>
+      <th></th>
+     </tr>
+
+    </thead>
+
+
+    <tbody>
+
+     ${
+      rows.length
+
+       ? rows.map(g => `
+
+        <tr>
+
+         <td>
+          ${esc(
+           profile(g.student_id)
+            ?.full_name ||
+           '—'
+          )}
+         </td>
+
+         <td>
+          ${esc(g.language)}
+         </td>
+
+         <td>
+          ${esc(g.type)}
+         </td>
+
+         <td>
+          <b>
+           ${esc(g.grade)}
+          </b>
+         </td>
+
+         <td>
+
+          ${
+           currentUser.role !== 'student'
+            ? `
+
+             <button
+              class="btn sm red"
+              onclick="deleteGrade('${g.id}')">
+              Удалить
+             </button>
+
+            `
+            : ''
+          }
+
+         </td>
+
+        </tr>
+
+       `).join('')
+
+       : `
+
+        <tr>
+         <td
+          colspan="5"
+          class="empty">
+          Нет оценок
+         </td>
+        </tr>
+
+       `
+     }
+
+    </tbody>
+
+   </table>
+
+  </div>
+
+ `;
+
+}
+
+
+function gradeModal(){
+
+ const ts =
+  currentUser.role === 'admin'
+   ? teachers()
+   : [currentUser];
+
+
+ const ss =
+  currentUser.role === 'admin'
+   ? students()
+   : studentsOf(currentUser);
+
+
+ if(!ss.length){
+
+  alert(
+   'Нет доступных учеников.'
+  );
+
+  return;
+
+ }
+
+
+ if(!ts.length){
+
+  alert(
+   'Нет доступных преподавателей.'
+  );
+
+  return;
+
+ }
+
+
+ open(`
+
+  <div class="modalhead">
+
+   <h3>
+    Новая оценка
+   </h3>
+
+   <button
+    class="close"
+    onclick="closeModal()">
+    ×
+   </button>
+
+  </div>
+
+
   <label>Ученик</label>
 
   <select id="gs">
 
    ${
-    ss.map(s=>`
+    ss.map(s => `
+
      <option value="${s.id}">
       ${esc(s.full_name)}
      </option>
+
     `).join('')
    }
 
   </select>
+
 
   <label>Преподаватель</label>
 
   <select id="gt">
 
    ${
-    ts.map(t=>`
+    ts.map(t => `
+
      <option value="${t.id}">
       ${esc(t.full_name)}
      </option>
+
     `).join('')
    }
 
   </select>
+
 
   <label>Язык</label>
 
   <select id="gl">
 
    ${
-    LANG.map(x=>`
-     <option>${x}</option>
+    LANG.map(x => `
+
+     <option value="${esc(x)}">
+      ${esc(x)}
+     </option>
+
     `).join('')
    }
 
   </select>
+
 
   <label>Тип</label>
 
@@ -2276,13 +3604,18 @@ function gradeModal(){
 
    ${
     Object.keys(WT)
-     .map(x=>`
-      <option>${x}</option>
+     .map(x => `
+
+      <option value="${esc(x)}">
+       ${esc(x)}
+      </option>
+
      `)
      .join('')
    }
 
   </select>
+
 
   <label>Оценка</label>
 
@@ -2290,7 +3623,9 @@ function gradeModal(){
    id="gv"
    type="number"
    min="1"
-   max="5">
+   max="5"
+   step="1">
+
 
   <div
    class="actions"
@@ -2302,169 +3637,300 @@ function gradeModal(){
     Сохранить
    </button>
 
+   <button
+    class="btn gray"
+    onclick="closeModal()">
+    Отмена
+   </button>
+
   </div>
+
  `);
+
 }
+
 
 async function saveGrade(){
 
- const s=
-  profile($('gs').value);
+ if(
+  currentUser.role !== 'admin' &&
+  currentUser.role !== 'teacher'
+ )
+  return;
 
- const t=
-  profile($('gt').value);
 
- const language=
+ const s =
+  profile(
+   $('gs').value
+  );
+
+
+ const t =
+  profile(
+   $('gt').value
+  );
+
+
+ const language =
   $('gl').value;
 
+
  if(
-  !s||
-  !t||
+  !s ||
+  !t
+ ){
+
+  alert(
+   'Ученик или преподаватель не найден.'
+  );
+
+  return;
+
+ }
+
+
+ if(
+  currentUser.role === 'teacher' &&
+  String(t.id) !==
+  String(currentUser.id)
+ ){
+
+  alert(
+   'Можно выставлять оценки только своим ученикам.'
+  );
+
+  return;
+
+ }
+
+
+ if(
   !langsForTeacher(t)
-   .includes(language)||
+   .includes(language)
+ ){
+
+  alert(
+   'Этот язык не назначен преподавателю.'
+  );
+
+  return;
+
+ }
+
+
+ if(
   !langsForStudent(s)
-   .includes(language)||
-  String(s.teacher_id)!==
+   .includes(language)
+ ){
+
+  alert(
+   'Этот язык не назначен ученику.'
+  );
+
+  return;
+
+ }
+
+
+ if(
+  String(s.teacher_id) !==
   String(t.id)
  ){
 
   alert(
-   'Ученик, преподаватель и язык не соответствуют друг другу.'
+   'Ученик не привязан к этому преподавателю.'
   );
 
   return;
+
  }
 
- const value=
-  Number($('gv').value);
 
- if(!value||value<1||value>5){
+ const value =
+  Number(
+   $('gv').value
+  );
+
+
+ if(
+  !Number.isInteger(value) ||
+  value < 1 ||
+  value > 5
+ ){
 
   alert(
-   'Введите оценку от 1 до 5.'
+   'Введите целую оценку от 1 до 5.'
   );
 
   return;
+
  }
 
- const p={
-  student_id:s.id,
-  teacher_id:t.id,
+
+ const type =
+  $('gtype').value;
+
+
+ const p = {
+
+  student_id:
+   s.id,
+
+  teacher_id:
+   t.id,
+
   language,
-  type:$('gtype').value,
-  grade:value,
-  what:$('gtype').value
+
+  type,
+
+  grade:
+   value,
+
+  what:
+   type
+
  };
 
- const r=
+
+ const r =
   await sb
    .from('grades')
    .insert(p);
 
+
  if(r.error){
 
-  alert(r.error.message);
+  alert(
+   r.error.message
+  );
 
   return;
+
  }
+
 
  closeModal();
 
  await reloadData();
+
  await render();
+
 }
+
 
 async function deleteGrade(id){
 
+ if(currentUser.role === 'student')
+  return;
+
+
  if(!confirm(
   'Удалить оценку?'
- ))return;
+ )) return;
 
- const r=
+
+ const r =
   await sb
    .from('grades')
    .delete()
    .eq('id',id);
 
+
  if(r.error){
 
-  alert(r.error.message);
+  alert(
+   r.error.message
+  );
 
   return;
+
  }
 
+
  await reloadData();
+
  await render();
+
 }
 
-/* =========================
+
+/* =========================================================
    STUDENTS
-========================= */
+========================================================= */
 
 async function renderStudents(){
 
- let ss=
-  currentUser.role==='admin'
-   ?students()
-   :studentsOf(currentUser);
+ let ss =
+  currentUser.role === 'admin'
+   ? students()
+   : studentsOf(currentUser);
 
- $('content').innerHTML=`
+
+ $('content').innerHTML = `
 
   <div class="card">
 
    <table>
 
     <thead>
+
      <tr>
       <th>Ученик</th>
       <th>Email</th>
       <th>Языки</th>
       <th>Преподаватель</th>
      </tr>
+
     </thead>
+
 
     <tbody>
 
      ${
-      ss.map(s=>`
+      ss.length
 
-       <tr>
+       ? ss.map(s => `
 
-        <td>
-         ${esc(s.full_name)}
-        </td>
+        <tr>
 
-        <td>
-         ${esc(s.email||'—')}
-        </td>
+         <td>
+          ${esc(s.full_name)}
+         </td>
 
-        <td>
-         ${esc(
-          langsForStudent(s)
-           .join(', ')
-         )}
-        </td>
+         <td>
+          ${esc(s.email || '—')}
+         </td>
 
-        <td>
-         ${esc(
-          profile(s.teacher_id)
-           ?.full_name||'—'
-         )}
-        </td>
+         <td>
+          ${esc(
+           langsForStudent(s)
+            .join(', ')
+          )}
+         </td>
 
-       </tr>
+         <td>
+          ${esc(
+           profile(s.teacher_id)
+            ?.full_name ||
+           '—'
+          )}
+         </td>
 
-      `).join('')||
+        </tr>
 
-      `
-       <tr>
-        <td
-         colspan="4"
-         class="empty">
-         Нет учеников
-        </td>
-       </tr>
-      `
+       `).join('')
+
+       : `
+
+        <tr>
+         <td
+          colspan="4"
+          class="empty">
+          Нет учеников
+         </td>
+        </tr>
+
+       `
      }
 
     </tbody>
@@ -2472,19 +3938,29 @@ async function renderStudents(){
    </table>
 
   </div>
+
  `;
+
 }
 
-/* =========================
+
+/* =========================================================
    USERS
-========================= */
+========================================================= */
 
 async function renderUsers(){
 
- if(currentUser.role!=='admin')
+ if(currentUser.role !== 'admin'){
+
+  $('content').innerHTML =
+   '<div class="empty">Нет доступа.</div>';
+
   return;
 
- $('content').innerHTML=`
+ }
+
+
+ $('content').innerHTML = `
 
   <div class="card">
 
@@ -2496,11 +3972,13 @@ async function renderUsers(){
 
   </div>
 
+
   <div class="card">
 
    <table>
 
     <thead>
+
      <tr>
       <th>Имя</th>
       <th>Роль</th>
@@ -2509,54 +3987,71 @@ async function renderUsers(){
       <th>Учитель</th>
       <th></th>
      </tr>
+
     </thead>
+
 
     <tbody>
 
      ${
-      profiles.map(u=>`
+      profiles.length
 
-       <tr>
+       ? profiles.map(u => `
 
-        <td>
-         ${esc(u.full_name)}
-        </td>
+        <tr>
 
-        <td>
-         ${roleName(u.role)}
-        </td>
+         <td>
+          ${esc(u.full_name)}
+         </td>
 
-        <td>
-         ${esc(u.email||'—')}
-        </td>
+         <td>
+          ${roleName(u.role)}
+         </td>
 
-        <td>
-         ${esc(
-          langs(u.languages)
-           .join(', ')
-         )}
-        </td>
+         <td>
+          ${esc(u.email || '—')}
+         </td>
 
-        <td>
-         ${esc(
-          profile(u.teacher_id)
-           ?.full_name||'—'
-         )}
-        </td>
+         <td>
+          ${esc(
+           langs(u.languages)
+            .join(', ')
+          )}
+         </td>
 
-        <td>
+         <td>
+          ${esc(
+           profile(u.teacher_id)
+            ?.full_name ||
+           '—'
+          )}
+         </td>
 
-         <button
-          class="btn sm gray"
-          onclick="userModal('${u.id}')">
-          Изменить
-         </button>
+         <td>
 
-        </td>
+          <button
+           class="btn sm gray"
+           onclick="userModal('${u.id}')">
+           Изменить
+          </button>
 
-       </tr>
+         </td>
 
-      `).join('')
+        </tr>
+
+       `).join('')
+
+       : `
+
+        <tr>
+         <td
+          colspan="6"
+          class="empty">
+          Нет пользователей
+         </td>
+        </tr>
+
+       `
      }
 
     </tbody>
@@ -2564,22 +4059,30 @@ async function renderUsers(){
    </table>
 
   </div>
+
  `;
+
 }
 
-function userModal(id=null){
 
- const u=
+function userModal(id = null){
+
+ if(currentUser.role !== 'admin')
+  return;
+
+
+ const u =
   id
-   ?profile(id)
-   :null;
+   ? profile(id)
+   : null;
+
 
  open(`
 
   <div class="modalhead">
 
    <h3>
-    ${u?'Изменить':'Новый пользователь'}
+    ${u ? 'Изменить' : 'Новый пользователь'}
    </h3>
 
    <button
@@ -2590,16 +4093,22 @@ function userModal(id=null){
 
   </div>
 
+
   <label>Имя</label>
 
   <input
    id="uname"
-   value="${esc(u?.full_name||'')}">
+   value="${esc(
+    u?.full_name || ''
+   )}">
+
 
   ${
    u
-    ?''
-    :`
+    ? ''
+
+    : `
+
      <label>Email</label>
 
      <input
@@ -2611,8 +4120,10 @@ function userModal(id=null){
      <input
       id="up"
       type="password">
+
     `
   }
+
 
   <label>Роль</label>
 
@@ -2621,9 +4132,9 @@ function userModal(id=null){
    <option
     value="student"
     ${
-     u?.role==='student'
-      ?'selected'
-      :''
+     u?.role === 'student'
+      ? 'selected'
+      : ''
     }>
     Ученик
    </option>
@@ -2631,9 +4142,9 @@ function userModal(id=null){
    <option
     value="teacher"
     ${
-     u?.role==='teacher'
-      ?'selected'
-      :''
+     u?.role === 'teacher'
+      ? 'selected'
+      : ''
     }>
     Преподаватель
    </option>
@@ -2641,36 +4152,37 @@ function userModal(id=null){
    <option
     value="admin"
     ${
-     u?.role==='admin'
-      ?'selected'
-      :''
+     u?.role === 'admin'
+      ? 'selected'
+      : ''
     }>
     Администратор
    </option>
 
   </select>
 
+
   <label>Языки</label>
 
   <div>
 
    ${
-    LANG.map(l=>`
+    LANG.map(l => `
 
      <label class="check">
 
       <input
        class="ulang"
        type="checkbox"
-       value="${l}"
+       value="${esc(l)}"
        ${
         langs(u?.languages)
          .includes(l)
-         ?'checked'
-         :''
+         ? 'checked'
+         : ''
        }>
 
-      ${l}
+      ${esc(l)}
 
      </label>
 
@@ -2679,7 +4191,9 @@ function userModal(id=null){
 
   </div>
 
+
   <div id="teacherBox"></div>
+
 
   <div
    class="actions"
@@ -2687,18 +4201,28 @@ function userModal(id=null){
 
    <button
     class="btn"
-    onclick="saveUser('${id||''}')">
+    onclick="saveUser('${id || ''}')">
     Сохранить
    </button>
 
+   <button
+    class="btn gray"
+    onclick="closeModal()">
+    Отмена
+   </button>
+
   </div>
+
  `);
 
- const refresh=()=>{
 
-  $('teacherBox').innerHTML=
-   $('ur').value==='student'
-    ?`
+ const refresh = () => {
+
+  $('teacherBox').innerHTML =
+
+   $('ur').value === 'student'
+
+    ? `
 
      <label>Преподаватель</label>
 
@@ -2709,17 +4233,19 @@ function userModal(id=null){
       </option>
 
       ${
-       teachers().map(t=>`
+       teachers().map(t => `
 
         <option
          value="${t.id}"
          ${
-          String(u?.teacher_id||'')===
+          String(u?.teacher_id || '') ===
           String(t.id)
-           ?'selected'
-           :''
+           ? 'selected'
+           : ''
          }>
+
          ${esc(t.full_name)}
+
         </option>
 
        `).join('')
@@ -2728,45 +4254,64 @@ function userModal(id=null){
      </select>
 
     `
-    :'';
+
+    : '';
+
  };
 
- $('ur').onchange=refresh;
+
+ $('ur').onchange =
+  refresh;
+
 
  refresh();
+
 }
+
 
 async function saveUser(id){
 
- const role=
+ if(currentUser.role !== 'admin')
+  return;
+
+
+ const role =
   $('ur').value;
 
- const name=
+
+ const name =
   $('uname').value.trim();
 
- const languages=[
+
+ const languages = [
   ...document.querySelectorAll(
    '.ulang:checked'
   )
- ].map(x=>x.value);
+ ].map(
+  x => x.value
+ );
 
- const teacherId=
-  role==='student'
-   ?($('ut')?.value||null)
-   :null;
+
+ const teacherId =
+  role === 'student'
+   ? ($('ut')?.value || null)
+   : null;
+
 
  if(!name){
 
   alert(
-   'Введите имя'
+   'Введите имя.'
   );
 
   return;
+
  }
 
+
  if(
-  role==='teacher'||
-  role==='student'
+  role === 'teacher' ||
+  role === 'student'
  ){
 
   if(!languages.length){
@@ -2776,41 +4321,72 @@ async function saveUser(id){
    );
 
    return;
+
   }
+
  }
+
+
+ if(
+  role === 'student' &&
+  !teacherId
+ ){
+
+  alert(
+   'Назначьте преподавателя ученику.'
+  );
+
+  return;
+
+ }
+
 
  if(id){
 
-  const p={
-   full_name:name,
+  const p = {
+
+   full_name:
+    name,
+
    role,
+
    languages,
+
    teacher_id:
-    role==='student'
-     ?teacherId
-     :null
+    role === 'student'
+     ? teacherId
+     : null
+
   };
 
-  const r=
+
+  const r =
    await sb
     .from('profiles')
     .update(p)
     .eq('id',id);
 
+
   if(r.error){
 
-   alert(r.error.message);
+   alert(
+    r.error.message
+   );
 
    return;
+
   }
+
 
  }else{
 
-  const email=
+  const email =
    $('ul').value.trim();
 
-  const password=
+
+  const password =
    $('up').value;
+
 
   if(
    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -2822,20 +4398,26 @@ async function saveUser(id){
    );
 
    return;
+
   }
 
-  if(password.length<6){
+
+  if(password.length < 6){
 
    alert(
     'Пароль должен содержать минимум 6 символов.'
    );
 
    return;
+
   }
+
 
   const {
    data:{session}
-  }=await sb.auth.getSession();
+  } =
+   await sb.auth.getSession();
+
 
   if(!session){
 
@@ -2844,12 +4426,14 @@ async function saveUser(id){
    );
 
    return;
+
   }
 
-  const r=
+
+  const r =
    await fetch(
-    SUPABASE_URL+
-    '/functions/v1/'+
+    SUPABASE_URL +
+    '/functions/v1/' +
     ADMIN_FUNCTION,
     {
      method:'POST',
@@ -2857,150 +4441,385 @@ async function saveUser(id){
      headers:{
       'Content-Type':
        'application/json',
+
       'Authorization':
-       'Bearer '+
+       'Bearer ' +
        session.access_token
      },
 
-     body:JSON.stringify({
-      action:'create',
-      email,
-      password,
-      full_name:name,
-      role,
-      languages,
-      teacher_id:teacherId
-     })
+     body:
+      JSON.stringify({
+       action:'create',
+       email,
+       password,
+       full_name:name,
+       role,
+       languages,
+       teacher_id:teacherId
+      })
     }
    );
 
-  let j={};
+
+  let j = {};
 
   try{
-   j=await r.json();
+
+   j = await r.json();
+
   }catch(e){}
+
 
   if(!r.ok){
 
    alert(
-    j.error||
-    j.message||
-    'Ошибка создания'
+    j.error ||
+    j.message ||
+    'Ошибка создания пользователя.'
    );
 
    return;
+
   }
+
  }
+
 
  closeModal();
 
  await reloadData();
+
  await render();
+
 }
 
-/* =========================
+
+/* =========================================================
    ANALYTICS
-========================= */
+========================================================= */
 
 async function renderAnalytics(){
 
- $('content').innerHTML=`
+ if(currentUser.role !== 'admin'){
+
+  $('content').innerHTML =
+   '<div class="empty">Нет доступа.</div>';
+
+  return;
+
+ }
+
+
+ $('content').innerHTML = `
 
   <div class="grid">
 
    <div class="stat">
     Ученики
-    <b>${students().length}</b>
+    <b>
+     ${students().length}
+    </b>
    </div>
 
    <div class="stat">
     Преподаватели
-    <b>${teachers().length}</b>
+    <b>
+     ${teachers().length}
+    </b>
    </div>
 
    <div class="stat">
     Оценки
-    <b>${gradeRows.length}</b>
+    <b>
+     ${gradeRows.length}
+    </b>
    </div>
 
    <div class="stat">
     ДЗ
-    <b>${homeworkRows.length}</b>
+    <b>
+     ${homeworkRows.length}
+    </b>
    </div>
 
    <div class="stat">
     Занятия
-    <b>${scheduleRows.length}</b>
+    <b>
+     ${scheduleRows.length}
+    </b>
    </div>
 
    <div class="stat">
     Сообщения
-    <b>${messageRows.length}</b>
+    <b>
+     ${messageRows.length}
+    </b>
    </div>
 
   </div>
+
  `;
+
 }
 
-/* =========================
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+async function renderSettings(){
+
+ if(currentUser.role !== 'admin'){
+
+  $('content').innerHTML =
+   '<div class="empty">Нет доступа.</div>';
+
+  return;
+
+ }
+
+
+ $('content').innerHTML = `
+
+  <div class="card">
+
+   <h3>
+    Настройки LanLand
+   </h3>
+
+   <p class="muted">
+    Основные параметры системы.
+   </p>
+
+   <table>
+
+    <tbody>
+
+     <tr>
+      <td>
+       Название
+      </td>
+      <td>
+       <b>LanLand</b>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       Роль
+      </td>
+      <td>
+       ${roleName(currentUser.role)}
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       Пользователь
+      </td>
+      <td>
+       ${esc(currentUser.full_name)}
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       Email
+      </td>
+      <td>
+       ${esc(currentUser.email || '—')}
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       Языки
+      </td>
+      <td>
+       ${esc(
+        langs(currentUser.languages)
+         .join(', ') ||
+        'Все'
+       )}
+      </td>
+     </tr>
+
+    </tbody>
+
+   </table>
+
+  </div>
+
+
+  <div class="card">
+
+   <h3>
+    Типы оценок
+   </h3>
+
+   <table>
+
+    <thead>
+     <tr>
+      <th>Тип</th>
+      <th>Вес</th>
+     </tr>
+    </thead>
+
+    <tbody>
+
+     ${
+      Object.entries(WT)
+       .map(
+        ([type,weight]) => `
+
+         <tr>
+          <td>
+           ${esc(type)}
+          </td>
+
+          <td>
+           <b>
+            ${weight}
+           </b>
+          </td>
+         </tr>
+
+        `
+       )
+       .join('')
+     }
+
+    </tbody>
+
+   </table>
+
+  </div>
+
+
+  <div class="card">
+
+   <h3>
+    Языки школы
+   </h3>
+
+   <div class="actions">
+
+    ${
+     LANG.map(
+      l =>
+       `<span class="badge">
+        ${esc(l)}
+       </span>`
+     ).join('')
+    }
+
+   </div>
+
+  </div>
+
+ `;
+
+}
+
+
+/* =========================================================
    CHAT
-========================= */
+========================================================= */
 
 function chatPeople(){
 
  return profiles.filter(
-  x=>
-   x.id!==currentUser.id&&
-   (
-    currentUser.role==='admin'||
-    x.role==='admin'||
-    (
-     currentUser.role==='teacher'&&
-     String(x.teacher_id)===
-     String(currentUser.id)
-    )||
-    (
-     currentUser.role==='student'&&
-     String(x.teacher_id)===
-     String(currentUser.id)
-    )
+  x => {
+
+   if(
+    String(x.id) ===
+    String(currentUser.id)
    )
+    return false;
+
+
+   if(currentUser.role === 'admin')
+    return true;
+
+
+   if(x.role === 'admin')
+    return true;
+
+
+   if(
+    currentUser.role === 'teacher' &&
+    String(x.teacher_id) ===
+    String(currentUser.id)
+   )
+    return true;
+
+
+   if(
+    currentUser.role === 'student' &&
+    String(x.teacher_id) ===
+    String(currentUser.id)
+   )
+    return true;
+
+
+   return false;
+
+  }
  );
+
 }
+
 
 async function renderChat(){
 
- const ps=chatPeople();
+ const ps =
+  chatPeople();
 
- $('content').innerHTML=`
+
+ $('content').innerHTML = `
 
   <div class="chat">
 
    <div class="people">
 
     ${
-     ps.map(p=>`
+     ps.length
 
-      <div
-       class="person"
-       onclick="selectChat('${p.id}')">
+      ? ps.map(p => `
 
-       ${esc(p.full_name)}
+       <div
+        class="person ${
+         String(chatUser) ===
+         String(p.id)
+          ? 'active'
+          : ''
+        }"
+        onclick="selectChat('${p.id}')">
 
-       <br>
+        ${esc(p.full_name)}
 
-       <small class="muted">
-        ${roleName(p.role)}
-       </small>
+        <br>
 
-      </div>
+        <small class="muted">
+         ${roleName(p.role)}
+        </small>
 
-     `).join('')||
+       </div>
 
-     '<div class="empty">Нет пользователей</div>'
+      `).join('')
+
+      : `
+
+       <div class="empty">
+        Нет пользователей
+       </div>
+
+      `
     }
 
    </div>
+
 
    <div class="messages">
 
@@ -3008,17 +4827,21 @@ async function renderChat(){
      id="msgs"
      class="msgs">
 
-     <div class="empty">
-      Выберите пользователя
-     </div>
+     ${
+      chatUser
+       ? '<div class="empty">Загрузка...</div>'
+       : '<div class="empty">Выберите пользователя</div>'
+     }
 
     </div>
+
 
     <div class="send">
 
      <input
       id="msg"
-      placeholder="Сообщение">
+      placeholder="Сообщение"
+      onkeydown="if(event.key==='Enter')sendChat()">
 
      <button
       class="btn"
@@ -3031,83 +4854,526 @@ async function renderChat(){
    </div>
 
   </div>
+
  `;
+
+
+ if(chatUser)
+  await loadChatMessages();
+
 }
+
 
 async function selectChat(id){
 
- chatUser=id;
+ const allowed =
+  chatPeople().some(
+   p =>
+    String(p.id) ===
+    String(id)
+  );
 
- await loadChatMessages();
+
+ if(!allowed){
+
+  alert(
+   'Нет доступа к этому пользователю.'
+  );
+
+  return;
+
+ }
+
+
+ chatUser = id;
+
+ await renderChat();
+
 }
+
 
 async function loadChatMessages(){
- if(!chatUser)return;
- const a=currentUser.id,b=chatUser;
- const {data,error}=await sb.from('messages').select('*').or(`and(user_a.eq.${a},user_b.eq.${b}),and(user_a.eq.${b},user_b.eq.${a})`).order('created_at');
- if(error){console.error('CHAT:',error);return;}
- $('msgs').innerHTML=(data||[]).map(m=>`<div class="msg ${String(m.sender_id)===String(currentUser.id)?'mine':''}">${esc(m.body)}</div>`).join('')||'<div class="empty">Нет сообщений</div>';
- $('msgs').scrollTop=$('msgs').scrollHeight;
-}
-async function sendChat(){
- const body=$('msg').value.trim();
- if(!body||!chatUser)return;
- const userA=String(currentUser.id)<String(chatUser)?currentUser.id:chatUser;
- const userB=String(currentUser.id)<String(chatUser)?chatUser:currentUser.id;
- const r=await sb.from('messages').insert({sender_id:currentUser.id,user_a:userA,user_b:userB,body});
- if(r.error){alert(r.error.message);return;}
- $('msg').value='';await loadChatMessages();
+
+ if(!chatUser)
+  return;
+
+
+ const a =
+  currentUser.id;
+
+ const b =
+  chatUser;
+
+
+ const {
+  data,
+  error
+ } =
+  await sb
+   .from('messages')
+   .select('*')
+   .or(
+    `and(user_a.eq.${a},user_b.eq.${b}),and(user_a.eq.${b},user_b.eq.${a})`
+   )
+   .order('created_at');
+
+
+ if(error){
+
+  console.error(
+   'CHAT:',
+   error
+  );
+
+  $('msgs').innerHTML = `
+
+   <div class="errorbox">
+    ${esc(error.message)}
+   </div>
+
+  `;
+
+  return;
+
+ }
+
+
+ $('msgs').innerHTML =
+
+  (data || [])
+   .map(
+    m => `
+
+     <div
+      class="msg ${
+       String(m.sender_id) ===
+       String(currentUser.id)
+        ? 'mine'
+        : ''
+      }">
+
+      ${esc(m.body)}
+
+     </div>
+
+    `
+   )
+   .join('')
+
+   ||
+
+   '<div class="empty">Нет сообщений</div>';
+
+
+ $('msgs').scrollTop =
+  $('msgs').scrollHeight;
+
 }
 
-/* =========================
+
+async function sendChat(){
+
+ if(!chatUser){
+
+  alert(
+   'Выберите пользователя.'
+  );
+
+  return;
+
+ }
+
+
+ const body =
+  $('msg')?.value.trim();
+
+
+ if(!body)
+  return;
+
+
+ const allowed =
+  chatPeople().some(
+   p =>
+    String(p.id) ===
+    String(chatUser)
+  );
+
+
+ if(!allowed){
+
+  alert(
+   'Нет доступа к этому пользователю.'
+  );
+
+  return;
+
+ }
+
+
+ const userA =
+  String(currentUser.id) <
+  String(chatUser)
+   ? currentUser.id
+   : chatUser;
+
+
+ const userB =
+  String(currentUser.id) <
+  String(chatUser)
+   ? chatUser
+   : currentUser.id;
+
+
+ const r =
+  await sb
+   .from('messages')
+   .insert({
+    sender_id:
+     currentUser.id,
+
+    user_a:
+     userA,
+
+    user_b:
+     userB,
+
+    body
+   });
+
+
+ if(r.error){
+
+  alert(
+   r.error.message
+  );
+
+  return;
+
+ }
+
+
+ $('msg').value = '';
+
+ await loadChatMessages();
+
+}
+
+
+/* =========================================================
    CHECK HOMEWORK
-========================= */
+========================================================= */
 
 async function openCheckList(id){
 
- checkHw=id;
+ if(
+  currentUser.role !== 'teacher' &&
+  currentUser.role !== 'admin'
+ )
+  return;
+
+
+ const h =
+  homeworkRows.find(
+   x =>
+    String(x.id) ===
+    String(id)
+  );
+
+
+ if(!h){
+
+  alert(
+   'ДЗ не найдено.'
+  );
+
+  return;
+
+ }
+
+
+ if(
+  currentUser.role === 'teacher' &&
+  String(h.teacher_id) !==
+  String(currentUser.id)
+ ){
+
+  alert(
+   'Можно проверять только ДЗ своих учеников.'
+  );
+
+  return;
+
+ }
+
+
+ checkHw = id;
+
+ page = 'check';
+
+ renderNav();
 
  await renderCheck();
+
 }
 
+
 async function renderCheck(){
- const h=homeworkRows.find(x=>String(x.id)===String(checkHw));
- if(!h){$('content').innerHTML='<div class="empty">Выберите ДЗ</div>';return;}
- const s=profile(h.student_id);
- const sub=s?submissionFor(h.id,s.id):null;
- const d=decodeSubmission(sub);
- $('content').innerHTML=`
-  <div class="card"><h3>${esc(h.title)}</h3>
-   ${s?`<div class="card"><b>${esc(s.full_name)}</b><p>${esc(d.answer||'Ответ не отправлен')}</p>
-   ${d.link?`<p><a href="${esc(d.link)}" target="_blank" rel="noopener">Открыть ссылку ученика</a></p>`:''}
-   ${sub?.file_path?`<p><a href="${esc(fileUrl(sub.file_path))}" target="_blank" rel="noopener">Открыть прикреплённый файл</a></p>`:''}
-   ${sub?.status==='checked'?`<p class="muted">Проверено: ${esc(sub.grade??'—')} / 5</p>`:''}
-   <button class="btn sm" style="margin-top:8px" onclick="openCheck('${h.id}','${s.id}')">Проверить</button></div>`:'<div class="empty">Ученик не найден</div>'}
-  </div>`;
+
+ if(
+  currentUser.role !== 'teacher' &&
+  currentUser.role !== 'admin'
+ ){
+
+  $('content').innerHTML =
+   '<div class="empty">Нет доступа.</div>';
+
+  return;
+
+ }
+
+
+ const h =
+  homeworkRows.find(
+   x =>
+    String(x.id) ===
+    String(checkHw)
+  );
+
+
+ if(!h){
+
+  $('content').innerHTML = `
+
+   <div class="empty">
+    Выберите ДЗ для проверки.
+   </div>
+
+  `;
+
+  return;
+
+ }
+
+
+ const s =
+  profile(h.student_id);
+
+
+ const sub =
+  s
+   ? submissionFor(
+      h.id,
+      s.id
+     )
+   : null;
+
+
+ const d =
+  decodeSubmission(sub);
+
+
+ $('title').textContent =
+  'Проверка';
+
+
+ $('content').innerHTML = `
+
+  <div class="card">
+
+   <h3>
+    ${esc(h.title)}
+   </h3>
+
+   <p class="muted">
+    ${esc(h.language)}
+   </p>
+
+
+   ${
+    s
+
+     ? `
+
+      <div class="card">
+
+       <b>
+        ${esc(s.full_name)}
+       </b>
+
+
+       <p>
+        ${
+         d.answer
+          ? esc(d.answer)
+          : '<span class="muted">Ответ не отправлен</span>'
+        }
+       </p>
+
+
+       ${
+        d.link
+         ? `
+
+          <p>
+           <a
+            href="${esc(d.link)}"
+            target="_blank"
+            rel="noopener">
+            Открыть ссылку ученика
+           </a>
+          </p>
+
+         `
+         : ''
+       }
+
+
+       ${
+        sub?.file_path
+         ? `
+
+          <p>
+           <a
+            href="${esc(
+             fileUrl(
+              sub.file_path
+             )
+            )}"
+            target="_blank"
+            rel="noopener">
+            Открыть прикреплённый файл
+           </a>
+          </p>
+
+         `
+         : ''
+       }
+
+
+       ${
+        sub?.status === 'checked'
+         ? `
+
+          <p>
+
+           <span class="badge green">
+            Проверено: ${
+             esc(
+              sub.grade ?? '—'
+             )
+            } / 5
+           </span>
+
+          </p>
+
+         `
+         : `
+
+          <p>
+
+           <span class="badge">
+            ${
+             sub
+              ? 'Сдано'
+              : 'Не сдано'
+            }
+           </span>
+
+          </p>
+
+         `
+       }
+
+
+       <button
+        class="btn sm"
+        style="margin-top:8px"
+        onclick="openCheck('${h.id}','${s.id}')">
+        Проверить
+       </button>
+
+      </div>
+
+     `
+
+     : `
+
+      <div class="empty">
+       Ученик не найден.
+      </div>
+
+     `
+   }
+
+  </div>
+
+ `;
+
 }
+
 
 function openCheck(hid,sid){
 
- const sub=
+ if(
+  currentUser.role !== 'teacher' &&
+  currentUser.role !== 'admin'
+ )
+  return;
+
+
+ const h =
+  homeworkRows.find(
+   x =>
+    String(x.id) ===
+    String(hid)
+  );
+
+
+ if(
+  currentUser.role === 'teacher' &&
+  String(h?.teacher_id) !==
+  String(currentUser.id)
+ ){
+
+  alert(
+   'Нет доступа.'
+  );
+
+  return;
+
+ }
+
+
+ const sub =
   submissionFor(
    hid,
    sid
   );
 
- const g=
+
+ const g =
   gradeRows.find(
-   x=>
-    String(x.homework_id)===
-    String(hid)&&
-    String(x.student_id)===
+   x =>
+    String(x.homework_id) ===
+    String(hid)
+    &&
+    String(x.student_id) ===
     String(sid)
   );
+
+
+ const d =
+  decodeSubmission(sub);
+
 
  open(`
 
   <div class="modalhead">
 
-   <h3>Проверка</h3>
+   <h3>
+    Проверка
+   </h3>
 
    <button
     class="close"
@@ -3117,51 +5383,338 @@ function openCheck(hid,sid){
 
   </div>
 
+
   <p>
-   ${esc(
-    sub?.answer||
-    'Нет ответа'
-   )}
+
+   <b>
+    Ответ ученика:
+   </b>
+
   </p>
 
-  <label>Оценка</label>
+
+  <div
+   class="card"
+   style="background:#f7f7fa">
+
+   ${
+    d.answer
+     ? esc(d.answer)
+     : '<span class="muted">Нет текстового ответа</span>'
+   }
+
+  </div>
+
+
+  ${
+   d.link
+    ? `
+
+     <p>
+      <a
+       href="${esc(d.link)}"
+       target="_blank"
+       rel="noopener">
+       Открыть ссылку ученика
+      </a>
+     </p>
+
+    `
+    : ''
+  }
+
+
+  ${
+   sub?.file_path
+    ? `
+
+     <p>
+      <a
+       href="${esc(
+        fileUrl(
+         sub.file_path
+        )
+       )}"
+       target="_blank"
+       rel="noopener">
+       Открыть прикреплённый файл
+      </a>
+     </p>
+
+    `
+    : ''
+  }
+
+
+  <label>
+   Оценка
+  </label>
 
   <input
    id="cv"
    type="number"
    min="1"
    max="5"
-   value="${g?.grade||''}">
+   step="1"
+   value="${g?.grade || ''}">
 
-  <label>Комментарий</label>
 
-  <textarea id="cc">${esc(
-   g?.comment||''
-  )}</textarea>
+  <label>
+   Комментарий
+  </label>
 
-  <button
-   class="btn"
-   onclick="finishCheck(
-    '${hid}',
-    '${sid}',
-    '${g?.id||''}'
-   )">
-   Сохранить
-  </button>
+  <textarea
+   id="cc">${esc(
+    g?.comment || ''
+   )}</textarea>
+
+
+  <div
+   class="actions"
+   style="margin-top:15px">
+
+   <button
+    class="btn"
+    onclick="finishCheck(
+     '${hid}',
+     '${sid}',
+     '${g?.id || ''}'
+    )">
+    Сохранить
+   </button>
+
+   <button
+    class="btn gray"
+    onclick="closeModal()">
+    Отмена
+   </button>
+
+  </div>
+
  `);
+
 }
 
-async function finishCheck(hid,sid,gid){
- const h=homeworkRows.find(x=>String(x.id)===String(hid));
- const value=Number($('cv').value);
- if(!h){alert('ДЗ не найдено.');return;}
- if(!value||value<1||value>5){alert('Введите оценку от 1 до 5.');return;}
- const p={homework_id:hid,student_id:sid,teacher_id:h.teacher_id,language:h.language,type:'ДЗ',grade:value,what:h.title,comment:$('cc').value.trim()||null};
- const r=gid?await sb.from('grades').update(p).eq('id',gid):await sb.from('grades').insert(p);
- if(r.error){alert(r.error.message);return;}
- await sb.from('submissions').update({grade:value,status:'checked',teacher_comment:$('cc').value.trim()||null,checked_at:new Date().toISOString()}).eq('homework_id',hid).eq('student_id',sid);
- closeModal();await reloadData();await renderCheck();
+
+async function finishCheck(
+ hid,
+ sid,
+ gid
+){
+
+ if(
+  currentUser.role !== 'teacher' &&
+  currentUser.role !== 'admin'
+ )
+  return;
+
+
+ const h =
+  homeworkRows.find(
+   x =>
+    String(x.id) ===
+    String(hid)
+  );
+
+
+ if(!h){
+
+  alert(
+   'ДЗ не найдено.'
+  );
+
+  return;
+
+ }
+
+
+ if(
+  currentUser.role === 'teacher' &&
+  String(h.teacher_id) !==
+  String(currentUser.id)
+ ){
+
+  alert(
+   'Нет доступа.'
+  );
+
+  return;
+
+ }
+
+
+ const value =
+  Number(
+   $('cv').value
+  );
+
+
+ if(
+  !Number.isInteger(value) ||
+  value < 1 ||
+  value > 5
+ ){
+
+  alert(
+   'Введите оценку от 1 до 5.'
+  );
+
+  return;
+
+ }
+
+
+ const comment =
+  $('cc').value.trim();
+
+
+ const p = {
+
+  homework_id:
+   hid,
+
+  student_id:
+   sid,
+
+  teacher_id:
+   h.teacher_id,
+
+  language:
+   h.language,
+
+  type:
+   'ДЗ',
+
+  grade:
+   value,
+
+  what:
+   h.title,
+
+  comment:
+   comment || null
+
+ };
+
+
+ const r =
+  gid
+
+   ? await sb
+      .from('grades')
+      .update(p)
+      .eq('id',gid)
+
+   : await sb
+      .from('grades')
+      .insert(p);
+
+
+ if(r.error){
+
+  alert(
+   r.error.message
+  );
+
+  return;
+
+ }
+
+
+ const submissionUpdate =
+  await sb
+   .from('submissions')
+   .update({
+
+    grade:
+     value,
+
+    status:
+     'checked',
+
+    teacher_comment:
+     comment || null,
+
+    checked_at:
+     new Date().toISOString()
+
+   })
+   .eq(
+    'homework_id',
+    hid
+   )
+   .eq(
+    'student_id',
+    sid
+   );
+
+
+ if(submissionUpdate.error){
+
+  console.warn(
+   'SUBMISSION CHECK UPDATE:',
+   submissionUpdate.error
+  );
+
+ }
+
+
+ closeModal();
+
+ await reloadData();
+
+ await renderCheck();
+
 }
+
+
+/* =========================================================
+   KEYBOARD / SESSION
+========================================================= */
+
+$('pass')?.addEventListener(
+ 'keydown',
+ e => {
+
+  if(e.key === 'Enter')
+   login();
+
+ }
+);
+
+
+window.addEventListener(
+ 'load',
+ init
+);
+
+
+/* =========================================================
+   AUTH STATE LISTENER
+========================================================= */
+
+sb.auth.onAuthStateChange(
+ async (event,session) => {
+
+  if(
+   event === 'SIGNED_OUT'
+  ){
+
+   currentUser = null;
+
+   $('app')?.classList.add(
+    'hidden'
+   );
+
+   $('login')?.classList.remove(
+    'hidden'
+   );
+
+  }
+
+ }
+);
+
 </script>
 
 </body>
