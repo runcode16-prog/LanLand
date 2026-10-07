@@ -188,9 +188,77 @@ main{max-width:1280px;margin:0 auto}
 #rail{display:block;position:sticky;top:0;height:100vh;overflow:auto;padding:36px 28px 36px 0}
 #app.norail{grid-template-columns:250px minmax(0,1fr)}#app.norail #rail{display:none}
 }
+.hero2{display:flex;align-items:center;gap:22px;background:#111827;color:#fff}.hero2 .lbl,.hero2 small{color:#9CA3AF}
+.lvl{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--lime) var(--p,0%),#2B3444 0);position:relative;flex:none}
+.lvl::before{content:'';position:absolute;inset:8px;border-radius:50%;background:#111827}.lvl b{position:relative;font:600 30px Unbounded,sans-serif}
+.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,15px);grid-auto-columns:15px;gap:4px;overflow-x:auto;padding-bottom:4px}
+.heat i{border-radius:4px;background:#EEF0F3}.heat i.a1{background:#D7EEA8}.heat i.a2{background:#A7D83F}.heat i.a3{background:#5FA800}.heat i.f{opacity:0}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.bd{border-radius:18px;padding:14px;background:#F3F5F7;text-align:center;filter:grayscale(1);opacity:.5;transition:.2s}
+.bd.on{background:var(--lime);filter:none;opacity:1}.bd.on:hover{transform:translateY(-3px) rotate(-1.5deg)}
+.bd .i{font-size:30px}.bd b{display:block;font-size:13px}.bd small{font-size:11px;color:#4B5563}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.tile{--x:#6B7280;border:0;border-radius:26px;padding:22px;text-align:left;color:#fff;background:var(--x);position:relative;overflow:hidden;min-height:130px;cursor:pointer;transition:.2s}
+.tile:hover{transform:translateY(-4px) rotate(-1deg)}.tile .g{position:absolute;right:14px;top:6px;font:600 60px Unbounded,sans-serif;opacity:.25}
+.tile b{font:600 18px Unbounded,sans-serif;display:block;margin-top:34px}.tile small{opacity:.9}
+.qopt{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:16px;padding:14px 16px;font-weight:600;margin-top:10px;cursor:pointer;transition:.15s}
+.qopt:hover{border-color:var(--ink)}.qopt.ok{background:#CFF3E6;border-color:#16B38A}.qopt.bad{background:#FFE0DD;border-color:#FF5A4F}
+.word{font:600 38px Unbounded,sans-serif;letter-spacing:-.03em;text-align:center;padding:18px 0 8px}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+.kp{background:#F3F5F7;border-radius:16px;padding:12px}.kp b{font:600 22px Unbounded,sans-serif;display:block}.kp small{color:var(--mute);font-weight:600;font-size:12px}
+.pod{display:flex;gap:10px;align-items:flex-end}.pod>div{flex:1;border-radius:18px 18px 0 0;padding:12px;text-align:center;background:#F3F5F7;transition:.2s}.pod>div:hover{transform:translateY(-3px)}
+.pod .p1{background:var(--lime);min-height:124px}.pod .p2{min-height:100px}.pod .p3{min-height:84px}.pod small{display:block;color:#4B5563}
+.row.click{cursor:pointer;border-radius:14px;transition:.15s}.row.click:hover{background:#F8F9FB}
+@media(max-width:820px){.hero2{flex-direction:column;align-items:flex-start}.word{font-size:30px}}
+/* ===== мягкие эффекты и языковые акценты ===== */
+:root{--c1:#9DB8FF;--c2:#FFB3AC;--c3:#8FE3C4;--c4:#FFD58A;--lc:var(--en)}
+html[data-lang=en]{--lc:var(--en);--c1:#9DB8FF;--c2:#C7D6FF;--c3:#7FA0FF;--c4:#BFD2FF}
+html[data-lang=zh]{--lc:var(--zh);--c1:#FFB3AC;--c2:#FFD0CB;--c3:#FF8E85;--c4:#FFC8C2}
+html[data-lang=fr]{--lc:var(--fr);--c1:#8FE3C4;--c2:#B7F0DB;--c3:#6FD8B2;--c4:#C9F5E6}
+html[data-lang=de]{--lc:var(--de);--c1:#FFD58A;--c2:#FFE4B5;--c3:#FFC565;--c4:#FFEBC7}
+#auth,#app{position:relative;z-index:1}
+#bgfx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+#bgfx i{position:absolute;border-radius:50%;filter:blur(34px);opacity:.38;transition:background-color 1.2s;will-change:transform}
+#bgfx i:nth-child(1){width:360px;height:360px;left:-90px;top:10%;background:var(--c1);animation:dr1 64s ease-in-out infinite alternate}
+#bgfx i:nth-child(2){width:300px;height:300px;right:-70px;top:-60px;background:var(--c2);animation:dr2 76s ease-in-out infinite alternate}
+#bgfx i:nth-child(3){width:420px;height:420px;left:32%;bottom:-170px;background:var(--c3);animation:dr3 90s ease-in-out infinite alternate}
+#bgfx i:nth-child(4){width:240px;height:240px;right:12%;bottom:14%;background:var(--c4);animation:dr4 72s ease-in-out infinite alternate}
+@keyframes dr1{to{transform:translate(140px,70px) scale(1.12)}}@keyframes dr2{to{transform:translate(-120px,110px) scale(.92)}}
+@keyframes dr3{to{transform:translate(-160px,-60px) scale(1.1)}}@keyframes dr4{to{transform:translate(-90px,-100px) scale(1.15)}}
+@keyframes drm{to{transform:translate(40px,30px) scale(1.05)}}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}}
+main :is(.row,.lcard,.chip,.bd){animation:fi .45s cubic-bezier(.2,.8,.2,1) backwards}
+main :is(.row,.lcard,.chip,.bd):nth-child(2){animation-delay:.05s}main :is(.row,.lcard,.chip,.bd):nth-child(3){animation-delay:.1s}
+main :is(.row,.lcard,.chip,.bd):nth-child(4){animation-delay:.15s}main :is(.row,.lcard,.chip,.bd):nth-child(5){animation-delay:.2s}main :is(.row,.lcard,.chip,.bd):nth-child(n+6){animation-delay:.25s}
+.btn,.tile,.qopt,.fchip,.seg button,.thc{position:relative;overflow:hidden}
+.rpl{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);animation:rpl .65s ease-out forwards;pointer-events:none}
+@keyframes rpl{to{transform:scale(1);opacity:0}}
+.lt{margin-top:auto;padding:0 6px}.lt+.who{margin-top:12px}.lt .lbl{font-size:11px;margin-bottom:6px}
+.thcs{display:flex;gap:6px;flex-wrap:wrap}
+.thc{border:0;border-radius:99px;padding:6px 12px;font:700 12px Onest,sans-serif;background:rgba(17,24,39,.07);color:var(--mute);cursor:pointer;transition:.2s}
+.thc:hover{transform:translateY(-2px)}.thc.on{background:var(--ink);color:#fff}
+html[data-lang] main>h1{background-image:linear-gradient(100deg,#111827 30%,var(--lc))}
+html[data-lang] .big{background-image:linear-gradient(120deg,#111827 20%,var(--lc))}
+html[data-lang] main>h1::before,html[data-lang] main>h1::after{color:var(--lc);-webkit-text-fill-color:var(--lc);font-family:Georgia,'Noto Serif',serif;font-weight:400}
+html[data-lang=en] main>h1::before{content:'“'}html[data-lang=en] main>h1::after{content:'”'}
+html[data-lang=zh] main>h1::before{content:'「'}html[data-lang=zh] main>h1::after{content:'」'}
+html[data-lang=fr] main>h1::before{content:'«\00a0'}html[data-lang=fr] main>h1::after{content:'\00a0»'}
+html[data-lang=de] main>h1::before{content:'„'}html[data-lang=de] main>h1::after{content:'“'}
+html[data-lang=en] .banner::after{content:'Aa Zz'}html[data-lang=zh] .banner::after{content:'汉 语'}
+html[data-lang=fr] .banner::after{content:'é à ç'}html[data-lang=de] .banner::after{content:'ä ö ß'}
+html[data-lang=en] .banner .lbl::after{content:' · Hello'}html[data-lang=zh] .banner .lbl::after{content:' · 你好'}
+html[data-lang=fr] .banner .lbl::after{content:' · Bonjour'}html[data-lang=de] .banner .lbl::after{content:' · Hallo'}
+@media(max-width:820px),(pointer:coarse){
+#bgfx i{filter:blur(26px);opacity:.26}#bgfx i:nth-child(n+3){display:none}
+#bgfx i:nth-child(1){animation:drm 120s ease-in-out infinite alternate}#bgfx i:nth-child(2){animation:drm 150s ease-in-out infinite alternate}
+main>*{animation-duration:.35s}main :is(.row,.lcard,.chip,.bd){animation-duration:.3s}
+.lt{display:none}}
+@media(hover:none){.card:hover,.lcard:hover,.tile:hover,.pod>div:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){#bgfx i{animation:none!important}.rpl{display:none}main>*,main :is(.row,.lcard,.chip,.bd){animation:none!important}}
 </style>
 </head>
 <body>
+<div id="bgfx" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
 <section id="auth" class="hide">
   <div class="hero">
@@ -214,6 +282,7 @@ main{max-width:1280px;margin:0 auto}
   <aside>
     <div class="logo"><span class="mark"><i></i><i></i><i></i><i></i></span>LanLand</div>
     <nav id="nav"></nav>
+    <div id="ltheme" class="lt"></div>
     <div class="who"><b id="wName"></b><span id="wRole"></span></div>
   </aside>
   <main id="main"></main>
@@ -330,7 +399,7 @@ function showApp(){
   try { LR = JSON.parse(localStorage.getItem('lr_' + me.id) || '{}'); } catch (_) { LR = {}; }
   if (!rt) rt = db.channel('msgs-' + me.id).on('postgres_changes', {event:'INSERT', schema:'public', table:'lan_messages'}, p => onMsg(p.new)).subscribe();
   if (!navItems().some(x => x[0] === page)) page = 'home';
-  go(page);
+  go(page); lvlCheck(); drawTheme();
 }
 function go(p){
   page = p;
@@ -565,19 +634,23 @@ function homeView(){
     <div class="card"><div class="lbl">${isStaff() ? 'Ждут проверки' : 'Активных заданий'}</div><div class="big">${isStaff() ? wait : open.length}</div></div>
     <div class="card"><div class="lbl">Занятий впереди</div><div class="big">${upc.length}</div></div></div>
   <div class="two2" style="margin-top:16px"><div class="card"><div class="lbl">✨ Фраза дня · ${e(LANG[lk] || '')}</div><div class="phrase">${e(ph[0])}</div><div class="lbl">${e(ph[1])}</div></div>${side}</div>
+  ${isStaff() ? pulse() : ''}
   <div class="day">Ближайшие занятия</div>
   ${upc.length ? chainHtml(upc.slice(0, 4), true) : '<div class="card empty">Ближайших занятий нет.</div>'}`;
 }
 
 /* ---------- students / teachers / users ---------- */
 function studentsView(){
-  const list = myStudents();
-  const html = '<h1>Ученики</h1><p class="sub">' + (me.role === 'admin' ? 'Все ученики школы.' : 'Только ваши ученики.') + '</p>';
+  const list = myStudents(), st = Object.fromEntries(list.map(p => [p.id, stat(p.id)]));
+  let html = '<h1>Ученики</h1><p class="sub">' + (me.role === 'admin' ? 'Все ученики школы. ' : 'Ваши ученики. ') + 'Нажмите на ученика, чтобы открыть досье со статистикой.</p>';
   if (!list.length) return html + '<div class="card empty">Учеников пока нет.</div>';
+  const top = list.slice().sort((a, b) => st[b.id].xp - st[a.id].xp).filter(p => st[p.id].xp > 0).slice(0, 3);
+  if (top.length) html += `<div class="card"><h3>🏅 Рейтинг по XP</h3><div class="pod">${[1, 0, 2].filter(i => top[i]).map(i => `<div class="p${i + 1}" onclick="openDossier('${top[i].id}')" style="cursor:pointer"><div style="font-size:26px">${['🥇', '🥈', '🥉'][i]}</div><b>${e(nm(top[i].id))}</b><small>${st[top[i].id].xp} XP · ур. ${st[top[i].id].lvl}</small></div>`).join('')}</div></div>`;
   return html + '<div class="card">' + list.map(p => {
-    const t = P[p.teacher_id], langs = (p.languages || []).map(l => `<span class="pill">${e(l)}</span>`).join(' ');
-    return `<div class="row"><div class="grow"><b>${e(p.full_name)}</b><small>${me.role === 'admin' ? 'Учитель: ' + e(t ? t.full_name : 'не назначен') + ' ' : ''}${langs}</small></div>
-      <div><span class="lbl">Средний балл</span> <b>${f2(avg(GR.filter(g => g.student_id === p.id)))}</b></div></div>`;
+    const x = st[p.id], t = P[p.teacher_id], langs = (p.languages || []).map(l => `<span class="pill">${e(l)}</span>`).join(' ');
+    return `<div class="row click" onclick="openDossier('${p.id}')"><span class="av" style="background:${hue(p.id)}">${e(ini(p.full_name))}</span>
+      <div class="grow"><b>${e(p.full_name)}</b><small>${me.role === 'admin' ? 'Учитель: ' + e(t ? t.full_name : 'не назначен') + ' · ' : ''}Ур. ${x.lvl} · ${x.title}${x.late ? ' · ⚠ просрочено: ' + x.late : ''}${x.wait ? ' · ждёт проверки: ' + x.wait : ''}</small>${langs}</div>
+      <div style="text-align:right"><span class="lbl">Средний балл</span><br><b>${f2(x.avg)} ${arrow(x.trend)}</b></div></div>`;
   }).join('') + '</div>';
 }
 function teachersView(){
@@ -597,8 +670,29 @@ const setLang = (t, k, on) => run(on ? db.from('teacher_languages').insert({teac
 function addEnr(ev){ ev.preventDefault(); const f = new FormData(ev.target); run(db.from('profiles').update({teacher_id:f.get('t')}).eq('id', f.get('s')), 'Ученик назначен'); return false; }
 const unassign = id => run(db.from('profiles').update({teacher_id:null}).eq('id', id), 'Ученик откреплён');
 function usersView(){
-  return `<h1>Пользователи</h1><p class="sub">Управление ролями.</p><div class="card">${Object.values(P).map(p => `<div class="row"><div class="grow"><b>${e(p.full_name)}</b></div>
-    <select style="width:170px" onchange="setRole('${p.id}',this.value)">${Object.entries(ROLE).map(([k,v]) => `<option value="${k}" ${p.role === k ? 'selected' : ''}>${v}</option>`).join('')}</select></div>`).join('')}</div>`;
+  const arr = Object.values(P).sort((a, b) => ROLE[a.role].localeCompare(ROLE[b.role]) || (a.full_name || '').localeCompare(b.full_name || ''));
+  return `<h1>Пользователи</h1><p class="sub">Роли и удаление аккаунтов.</p><div class="card">${arr.map(p => `<div class="row"><span class="av" style="background:${hue(p.id)}">${e(ini(p.full_name))}</span>
+    <div class="grow"><b>${e(p.full_name)}</b><small>${e(p.email || '')}</small></div>
+    <select style="width:150px" onchange="setRole('${p.id}',this.value)">${Object.entries(ROLE).map(([k, v]) => `<option value="${k}" ${p.role === k ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    ${p.id === me.id ? '' : `<button class="btn del" onclick="askDel('${p.id}')">Удалить</button>`}</div>`).join('')}</div>`;
+}
+function askDel(id){
+  const p = P[id], n = Object.values(P).filter(x => x.teacher_id === id).length, g = GRP.filter(x => x.teacher_id === id).length;
+  if (p.role === 'teacher' && (n || g)) return openModal(`<h2 style="font-size:22px">Пока нельзя удалить</h2><p class="lbl" style="margin:10px 0 18px">У учителя ${e(p.full_name)} остались ученики (${n}) и группы (${g}). Сначала открепите учеников в разделе «Учителя» и удалите группы.</p><div class="acts" style="justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Понятно</button></div>`);
+  const what = p.role === 'student' ? 'Оценки, сданные задания, занятия и членство в группах этого ученика будут удалены.' : p.role === 'teacher' ? 'Оценки, задания и занятия, созданные этим учителем, тоже будут удалены.' : 'Это аккаунт администратора.';
+  openModal(`<h2 style="font-size:22px">Удалить ${e(p.full_name)}?</h2><p class="lbl" style="margin:10px 0 18px">Аккаунт удаляется навсегда, вернуть его нельзя. ${what}</p>
+    <div class="acts" style="justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Отмена</button><button class="btn" style="background:var(--zh)" id="delGo" onclick="doDel('${id}')">Удалить навсегда</button></div>`);
+}
+async function doDel(id){
+  const b = $('#delGo'); b.disabled = true; b.textContent = 'Удаляем…';
+  const {data, error} = await db.functions.invoke('create-user', {body:{action:'delete', user_id:id}});
+  if (error || (data && data.error)) {
+    let m = (data && data.error) || error.message; try { m = (await error.context.json()).error || m; } catch (_) {}
+    if (m === 'Неверная роль') m = 'Обновите функцию create-user в Supabase: вставьте новый код из create-user.ts и нажмите Deploy.';
+    if (/Failed to send|not.?found|404/i.test(m)) m = 'Функция create-user не найдена в Supabase.';
+    b.disabled = false; b.textContent = 'Удалить навсегда'; return toast(m);
+  }
+  closeModal(); refresh('Пользователь удалён');
 }
 const setRole = (id, r) => run(db.from('profiles').update({role:r}).eq('id', id), 'Роль изменена');
 
@@ -607,6 +701,7 @@ function settingsView(){
   return `<h1>Настройки</h1><p class="sub">Ваш профиль.</p><div class="card" style="max-width:460px"><form onsubmit="return saveName(event)">
     <label>Имя и фамилия</label><input name="n" value="${e(me.full_name)}" required><label>Роль</label><input value="${ROLE[me.role]}" disabled>
     <button class="btn" style="margin-top:18px">Сохранить изменения</button></form></div>
+    <div class="card" style="max-width:460px"><h3>Язык оформления</h3><p class="lbl" style="margin-bottom:10px">Небольшие акценты в стиле выбранного языка. «Авто» — обычный вид.</p><div class="thcs">${themeChips()}</div></div>
     <button class="btn ghost" onclick="db.auth.signOut()">Выйти</button>`;
 }
 async function saveName(ev){
@@ -666,7 +761,8 @@ function navItems(){
   const n = [['home','Главная','🏠'], ['schedule','Расписание','🗓'], ['homework','Домашка','📚'], ['grades','Оценки','⭐'], ['groups','Группы','👥'], ['chat','Чат','💬']];
   if (isStaff()) n.push(['students','Ученики','🎓']);
   if (me.role === 'admin') n.push(['teachers','Учителя','🧑‍🏫'], ['users','Пользователи','🛡'], ['create','Создать аккаунт','➕']);
-  n.push(['settings','Настройки','⚙️']); return n;
+  if (!isStaff()) n.push(['progress','Прогресс','🏅']);
+  n.push(['trainer','Тренажёр','🎮'], ['settings','Настройки','⚙️']); return n;
 }
 function drawNav(){
   const u = unrAll();
@@ -693,7 +789,7 @@ function groupsView(){
   return html + gs.map(g => {
     const ms = members(g.id), out = myStudents().filter(s => !ms.includes(s.id));
     return `<div class="card hwc t-${g.language}"><div class="row" style="border:0;padding:0 0 6px"><div class="grow"><h3 style="margin:0">${dot(g.language)}${e(g.name)}</h3><small class="lbl">${e(LANG[g.language] || '')} · учитель: ${e(nm(g.teacher_id))} · ${ms.length} уч.</small></div><button class="btn ghost" onclick="openChat('g:${g.id}')">💬 Чат</button></div>
-      <div class="chips">${ms.map(s => `<span class="chip s-plain">${e(nm(s))}${isStaff() ? `<a onclick="rmMember('${g.id}','${s}')" title="Убрать">✕</a>` : ''}</span>`).join('') || '<span class="empty">В группе пока никого</span>'}</div>
+      <div class="chips">${ms.map(s => `<span class="chip s-plain" ${isStaff() ? `onclick="openDossier('${s}')" style="cursor:pointer" title="Открыть досье"` : ''}>${e(nm(s))}${isStaff() ? `<a onclick="event.stopPropagation();rmMember('${g.id}','${s}')" title="Убрать">✕</a>` : ''}</span>`).join('') || '<span class="empty">В группе пока никого</span>'}</div>
       ${isStaff() ? `<div class="acts"><select id="am_${g.id}" style="width:auto;flex:1;min-width:160px"><option value="">Добавить ученика…</option>${out.map(s => `<option value="${s.id}">${e(s.full_name)}</option>`).join('')}</select><button class="btn ghost" onclick="addMember('${g.id}')">Добавить</button><button class="btn del" onclick="delGroup('${g.id}')">Удалить группу</button></div>` : ''}</div>`;
   }).join('');
 }
@@ -770,7 +866,146 @@ function onMsg(m){
   else { drawNav(); if (m.sender_id !== me.id) { toast('💬 ' + nm(m.sender_id) + ': ' + m.body.slice(0, 50)); if (page === 'chat' && !($('#mIn') || {}).value) go('chat'); } }
 }
 
-const VIEWS = {home:homeView, schedule:scheduleView, grades:gradesView, homework:homeworkView, students:studentsView, teachers:teachersView, users:usersView, create:createView, settings:settingsView, groups:groupsView, chat:chatView};
+/* ---------- stats / progress / fun ---------- */
+const TITLES = ['Новичок', 'Путешественник', 'Знаток', 'Полиглот', 'Мастер', 'Легенда'], GL = {en:'Aa', zh:'文', fr:'Fr', de:'De'};
+const sd = x => String(x.submitted_at || x.created_at || '').slice(0, 10), arrow = t => t > .3 ? '📈' : t < -.3 ? '📉' : '';
+function stat(sid){
+  const today = iso(new Date()), w0 = iso(new Date(Date.now() - 6 * 864e5));
+  const hw = HW.filter(h => h.student_id === sid), gr = GR.filter(g => g.student_id === sid).slice().sort((a, b) => String(a.created_at) < String(b.created_at) ? -1 : 1);
+  const subs = SUB.filter(x => x.student_id === sid && x.status !== 'not_submitted');
+  const done = hw.filter(h => h.status !== 'not_submitted').length;
+  const onTime = subs.filter(x => { const h = hw.find(y => y.id === x.homework_id); return h && sd(x) <= String(h.due_on); }).length;
+  const xp = done * 10 + Math.round(gr.reduce((a, g) => a + g.value * 2, 0)), lvl = Math.floor(xp / 60) + 1;
+  let streak = 0; for (const h of hw.filter(h => h.due_on <= today).sort((x, y) => String(y.due_on) < String(x.due_on) ? -1 : 1)) { if (h.status === 'not_submitted') break; streak++; }
+  const m = a => a.length ? a.reduce((t, g) => t + g.value, 0) / a.length : null, l3 = gr.slice(-3), p3 = gr.slice(-6, -3);
+  const by = {}; gr.forEach(g => (by[g.language] ||= []).push(g));
+  const act = [...subs.map(sd), ...gr.map(g => String(g.created_at).slice(0, 10))].filter(Boolean).sort();
+  return {hw, gr, done, total:hw.length, onTime, xp, lvl, pct:xp % 60 / 60 * 100, title:TITLES[Math.min(5, Math.floor((lvl - 1) / 2))], streak, avg:avg(gr),
+    trend:l3.length >= 2 && p3.length >= 2 ? m(l3) - m(p3) : 0, by:Object.fromEntries(Object.entries(by).map(([k, l]) => [k, {avg:avg(l), n:l.length}])),
+    last:act[act.length - 1] || null, act, wait:hw.filter(h => h.status === 'submitted').length, late:hw.filter(h => h.status === 'not_submitted' && h.due_on < today).length,
+    week:subs.filter(x => sd(x) >= w0).length, goodWeek:gr.filter(g => String(g.created_at).slice(0, 10) >= w0 && g.value >= 4).length,
+    owl:subs.some(x => { const h = new Date(x.submitted_at || x.created_at).getHours(); return h >= 22 || h < 5; })};
+}
+const badgeList = s => [['🚀', 'Первая сдача', 'Сдайте первое ДЗ', s.done >= 1], ['🔥', 'Серия из 3', '3 задания подряд', s.streak >= 3],
+  ['⭐', 'Средний 4,5+', 'Минимум 3 оценки', s.gr.length >= 3 && s.avg >= 4.5], ['🏆', '10 заданий', 'Сдайте 10 заданий', s.done >= 10],
+  ['⏰', 'Всегда вовремя', '5 сдач в срок', s.onTime >= 5], ['💯', 'Пятёрка за КР', '5 за контрольную', s.gr.some(g => g.kind === 'КР' && g.value === 5)],
+  ['🌍', 'Полиглот', 'Оценки по 2 языкам', Object.keys(s.by).length >= 2], ['📈', 'В гору', 'Оценки растут', s.trend > .3],
+  ['🎯', 'Три пятёрки', '3 пятёрки подряд', s.gr.length >= 3 && s.gr.slice(-3).every(g => g.value === 5)], ['⚡', 'Спринтер', '3 сдачи за неделю', s.week >= 3],
+  ['🦉', 'Сова', 'Сдать ДЗ поздно вечером', s.owl], ['💎', 'Уровень 5', 'Наберите 240 XP', s.lvl >= 5]];
+const heat = s => {
+  const c = {}; s.act.forEach(d => c[d] = (c[d] || 0) + 1);
+  const t = new Date(); t.setHours(0, 0, 0, 0); const st = new Date(t); st.setDate(t.getDate() - (t.getDay() + 6) % 7 - 77); let h = '';
+  for (let i = 0; i < 84; i++) { const d = new Date(st); d.setDate(st.getDate() + i); const k = iso(d), n = c[k] || 0; h += `<i class="${d > t ? 'f' : n >= 3 ? 'a3' : n === 2 ? 'a2' : n ? 'a1' : ''}" title="${k}: ${n}"></i>`; }
+  return `<div class="heat">${h}</div>`;
+};
+const spark = s => {
+  const g = s.gr.slice(-12); if (g.length < 2) return '<div class="empty">Нужно хотя бы две оценки.</div>';
+  const w = 300, h = 80, p = g.map((x, i) => [Math.round(i * w / (g.length - 1)), Math.round(h - (x.value - 1) / 4 * (h - 12) - 6)]);
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:90px;overflow:visible"><polyline fill="none" stroke="#111827" stroke-width="3" stroke-linejoin="round" points="${p.map(q => q.join(',')).join(' ')}"/>${p.map((q, i) => `<circle cx="${q[0]}" cy="${q[1]}" r="5" fill="${g[i].value >= 4 ? '#16B38A' : g[i].value === 3 ? '#FFA620' : '#FF5A4F'}"/>`).join('')}</svg>`;
+};
+const langBars = s => Object.entries(s.by).map(([k, v]) => `<div style="margin:10px 0 0"><div class="row" style="border:0;padding:0"><div class="grow"><b>${dot(k)}${e(LANG[k] || k)}</b></div><b>${f2(v.avg)}</b><small class="lbl">· ${v.n}</small></div><div class="xp" style="margin:6px 0 0"><i style="width:${v.avg / 5 * 100}%;background:var(--${k},#6B7280)"></i></div></div>`).join('') || '<div class="empty">Оценок пока нет.</div>';
+function lvlCheck(){
+  if (me.role !== 'student') return;
+  try { const s = stat(me.id), prev = +localStorage.getItem('lv_' + me.id) || 0; localStorage.setItem('lv_' + me.id, s.lvl);
+    if (prev && s.lvl > prev) setTimeout(() => { confetti(); toast('🎉 Новый уровень: ' + s.lvl + ' · ' + s.title); }, 700); } catch (_) {}
+}
+const trLog = () => { try { return JSON.parse(localStorage.getItem('tr_' + me.id) || '[]'); } catch (_) { return []; } };
+const trBest = () => { try { return +localStorage.getItem('trb_' + me.id) || 0; } catch (_) { return 0; } };
+function progressView(){
+  const s = stat(me.id), w0 = iso(new Date(Date.now() - 6 * 864e5)), tr = trLog().filter(d => d >= w0).length;
+  const qs = [['📚', 'Сдать 2 задания за неделю', Math.min(2, s.week), 2], ['⭐', 'Получить оценку 4 или 5', Math.min(1, s.goodWeek), 1], ['🎮', 'Пройти раунд в тренажёре', Math.min(1, tr), 1]];
+  const bl = badgeList(s), all = qs.every(q => q[2] >= q[3]);
+  return `<h1>Мой прогресс</h1><p class="sub">Опыт, уровни, достижения и квесты недели.</p>
+  <div class="card hero2"><div class="lvl" style="--p:${s.pct}%"><b>${s.lvl}</b></div><div class="grow"><div class="lbl">${s.title}</div><div class="phrase" style="margin:2px 0">${s.xp} XP</div><div class="xp" style="background:#2B3444"><i style="width:${s.pct}%"></i></div>
+    <small>до уровня ${s.lvl + 1}: ${60 - s.xp % 60} XP${s.streak ? ' · 🔥 серия ' + s.streak : ''}</small></div></div>
+  <div class="two2"><div class="card"><h3>Квесты недели</h3>${qs.map(q => `<div class="row"><span style="font-size:22px">${q[0]}</span><div class="grow"><b>${q[1]}</b><div class="xp" style="margin:6px 0 0"><i style="width:${q[2] / q[3] * 100}%"></i></div></div><b>${q[2] >= q[3] ? '✓' : q[2] + '/' + q[3]}</b></div>`).join('')}
+    ${all ? '<div class="acts"><button class="btn lime" onclick="confetti()">Все квесты выполнены! Отпраздновать 🎉</button></div>' : ''}</div>
+  <div class="card"><h3>Мои языки</h3>${langBars(s)}</div></div>
+  <div class="card"><h3>Динамика оценок</h3>${spark(s)}</div>
+  <div class="card"><h3>Активность за 12 недель</h3>${heat(s)}<small class="lbl">Чем темнее клетка, тем больше сдач и оценок за день.</small></div>
+  <div class="card"><h3>Достижения · ${bl.filter(b => b[3]).length}/${bl.length}</h3><div class="bgrid">${bl.map(([i, t, d, on]) => `<div class="bd ${on ? 'on' : ''}"><div class="i">${i}</div><b>${t}</b><small>${d}</small></div>`).join('')}</div></div>`;
+}
+/* досье ученика для учителя и администратора */
+const CHEERS = ['🔥 Отличная работа на этой неделе, так держать!', '👏 Горжусь твоим прогрессом!', '🎯 Круто, в цель! Продолжай в том же духе!'];
+function openDossier(sid){
+  const p = P[sid]; if (!p) return; const s = stat(sid), now = new Date();
+  const nx = LES.filter(l => new Date(l.ends_at) >= now && (l.student_id === sid || (l.group_id && members(l.group_id).includes(sid)))).slice(0, 2), bl = badgeList(s).filter(b => b[3]);
+  openModal(`<div class="row" style="border:0;padding:0"><span class="av" style="background:${hue(sid)};width:56px;height:56px;font-size:20px">${e(ini(p.full_name))}</span><div class="grow"><h2 style="font-size:22px">${e(p.full_name)}</h2><small class="lbl">${s.title} · уровень ${s.lvl}${s.last ? ' · активность: ' + fmtS(s.last) : ''}</small></div></div>
+  <div class="xp"><i style="width:${s.pct}%"></i></div>
+  <div class="kpis"><div class="kp"><b>${f2(s.avg)} ${arrow(s.trend)}</b><small>Средний балл</small></div><div class="kp"><b>${s.xp}</b><small>XP</small></div>
+    <div class="kp"><b>${s.done}/${s.total}</b><small>Сдано заданий</small></div><div class="kp"><b>${s.onTime}</b><small>Сдано в срок · серия ${s.streak}</small></div></div>
+  ${s.wait || s.late ? `<div class="chips">${s.wait ? `<span class="chip s-submitted s-plain">Ждёт проверки: ${s.wait}</span>` : ''}${s.late ? `<span class="chip late s-plain">Просрочено: ${s.late}</span>` : ''}</div>` : ''}
+  <div class="lbl">По языкам</div>${langBars(s)}<div class="lbl" style="margin-top:14px">Динамика оценок</div>${spark(s)}
+  ${bl.length ? `<div class="lbl" style="margin:8px 0">Достижения</div><div class="badges">${bl.map(b => `<span class="badge on">${b[0]} ${b[1]}</span>`).join('')}</div>` : ''}
+  ${nx.length ? `<div class="lbl" style="margin:14px 0 4px">Ближайшие занятия</div>${nx.map(l => `<div class="row"><span class="pill">${fmtS(l.starts_at.slice(0, 10))} ${fmtT(l.starts_at)}</span><div class="grow"><b>${e(LANG[l.language])}</b></div></div>`).join('')}` : ''}
+  <div class="lbl" style="margin:16px 0 6px">Похвалить ученика (придёт в чат)</div>
+  <div class="acts">${CHEERS.map((c, i) => `<button class="btn lime" onclick="cheer('${sid}',${i})">${c.slice(0, 2)}</button>`).join('')}<button class="btn ghost" onclick="closeModal();openChat(dmId('${sid}'))">Написать</button><button class="btn ghost" onclick="closeModal()">Закрыть</button></div>`);
+}
+async function cheer(sid, i){
+  const {data, error} = await db.from('lan_messages').insert({channel:dmId(sid), sender_id:me.id, body:CHEERS[i]}).select().single();
+  if (error) return toast(error.message);
+  onMsg(data); closeModal(); confetti(); toast('Похвала отправлена: ' + nm(sid));
+}
+function pulse(){
+  const list = myStudents(); if (!list.length) return '';
+  const st = list.map(p => ({p, s:stat(p.id)})), old = iso(new Date(Date.now() - 14 * 864e5));
+  const why = s => [s.late ? 'просрочено: ' + s.late : '', s.gr.length >= 2 && s.avg < 3.5 ? 'низкий балл' : '', s.total && s.last && s.last < old ? 'давно не активен' : ''].filter(Boolean).join(' · ');
+  const att = st.filter(x => why(x.s)).slice(0, 4), stars = st.map(x => ({...x, w:x.s.week * 10 + x.s.goodWeek * 5})).filter(x => x.w > 0).sort((a, b) => b.w - a.w).slice(0, 3);
+  const r = (x, t) => `<div class="row click" onclick="openDossier('${x.p.id}')"><span class="av" style="background:${hue(x.p.id)}">${e(ini(x.p.full_name))}</span><div class="grow"><b>${e(x.p.full_name)}</b><small>${t}</small></div></div>`;
+  return `<div class="two2" style="margin-top:16px"><div class="card"><div class="lbl">⚠ Требуют внимания</div>${att.map(x => r(x, why(x.s))).join('') || '<div class="empty">Все молодцы 🎉</div>'}</div>
+  <div class="card"><div class="lbl">🌟 Звёзды недели</div>${stars.map((x, i) => r(x, ['🥇', '🥈', '🥉'][i] + ' сдач за неделю: ' + x.s.week + ' · хороших оценок: ' + x.s.goodWeek)).join('') || '<div class="empty">На этой неделе пока тихо</div>'}</div></div>`;
+}
+/* тренажёр слов (рекорд и квест хранятся в браузере) */
+const WORDS = {
+  en:'hello|привет;thank you|спасибо;friend|друг;house|дом;water|вода;book|книга;tomorrow|завтра;beautiful|красивый;to learn|учить;always|всегда',
+  zh:'你好 (nǐ hǎo)|привет;谢谢 (xièxie)|спасибо;朋友 (péngyou)|друг;水 (shuǐ)|вода;书 (shū)|книга;明天 (míngtiān)|завтра;学习 (xuéxí)|учиться;老师 (lǎoshī)|учитель;苹果 (píngguǒ)|яблоко;再见 (zàijiàn)|до свидания',
+  fr:'bonjour|здравствуйте;merci|спасибо;ami|друг;maison|дом;eau|вода;livre|книга;demain|завтра;belle|красивая;apprendre|учить;toujours|всегда',
+  de:'hallo|привет;danke|спасибо;Freund|друг;Haus|дом;Wasser|вода;Buch|книга;morgen|завтра;schön|красивый;lernen|учиться;immer|всегда'};
+const bank = k => WORDS[k].split(';').map(x => x.split('|')), shuf = a => a.slice().sort(() => Math.random() - .5);
+let TR = null;
+function trOpts(){ const q = TR.qs[TR.i]; TR.opts = shuf([q[1], ...shuf(bank(TR.k).filter(x => x[1] !== q[1])).slice(0, 3).map(x => x[1])]); }
+function trStart(k){ TR = {k, qs:shuf(bank(k)).slice(0, 8), i:0, ok:0, done:false, pick:null}; trOpts(); go('trainer'); }
+function trAnswer(j){ if (TR.pick !== null) return; TR.pick = j; if (TR.opts[j] === TR.qs[TR.i][1]) TR.ok++; go('trainer'); setTimeout(trNext, 900); }
+function trNext(){
+  if (!TR || page !== 'trainer') return;
+  TR.i++; TR.pick = null;
+  if (TR.i >= TR.qs.length) {
+    TR.done = true;
+    try { const l = trLog(); l.push(iso(new Date())); localStorage.setItem('tr_' + me.id, JSON.stringify(l.slice(-60))); if (TR.ok > trBest()) localStorage.setItem('trb_' + me.id, TR.ok); } catch (_) {}
+    if (TR.ok >= 6) confetti();
+  } else trOpts();
+  go('trainer');
+}
+function trainerView(){
+  const use = Object.keys(WORDS).filter(k => LANG[k]), ks = use.length ? use : Object.keys(WORDS);
+  if (!TR) return `<h1>Тренажёр слов</h1><p class="sub">8 слов, выберите правильный перевод. Ваш рекорд: ${trBest()}/8.</p><div class="tiles">${ks.map(k => `<button class="tile t-${k}" onclick="trStart('${k}')"><span class="g">${GL[k]}</span><b>${e(LANG[k] || k)}</b><small>Начать раунд</small></button>`).join('')}</div>`;
+  if (TR.done) { const m = TR.ok >= 8 ? 'Идеально! 🏆' : TR.ok >= 6 ? 'Отлично! 🔥' : TR.ok >= 4 ? 'Неплохо, давайте ещё раз!' : 'Тренируемся дальше 💪';
+    return `<h1>Результат</h1><div class="card" style="text-align:center;max-width:520px"><div class="big">${TR.ok}/${TR.qs.length}</div><p class="phrase">${m}</p><div class="acts" style="justify-content:center"><button class="btn lime" onclick="trStart('${TR.k}')">Ещё раунд</button><button class="btn ghost" onclick="TR=null;go('trainer')">Сменить язык</button></div></div>`; }
+  const q = TR.qs[TR.i];
+  return `<h1>${e(LANG[TR.k] || TR.k)}</h1><p class="sub">Вопрос ${TR.i + 1} из ${TR.qs.length} · верно: ${TR.ok}</p><div class="card" style="max-width:520px"><div class="xp"><i style="width:${TR.i / TR.qs.length * 100}%"></i></div><div class="word">${e(q[0])}</div>
+    ${TR.opts.map((o, j) => `<button class="qopt ${TR.pick === null ? '' : o === q[1] ? 'ok' : j === TR.pick ? 'bad' : ''}" onclick="trAnswer(${j})">${e(o)}</button>`).join('')}</div>`;
+}
+
+/* ---------- языковые акценты и ripple ---------- */
+const THEMES = {en:['En', 'Hello!'], zh:['中文', '你好！'], fr:['Fr', 'Bonjour !'], de:['De', 'Hallo!']};
+let ltheme = ''; try { ltheme = localStorage.getItem('lt') || ''; } catch (_) {}
+const applyTheme = k => k ? document.documentElement.setAttribute('data-lang', k) : document.documentElement.removeAttribute('data-lang');
+applyTheme(ltheme);
+const themeChips = () => ['', ...Object.keys(THEMES)].map(k => `<button class="thc ${ltheme === k ? 'on' : ''}" onclick="setTheme('${k}')" title="${k ? e(LANG[k] || k) : 'Авто'}">${k ? THEMES[k][0] : 'Авто'}</button>`).join('');
+function drawTheme(){ const t = $('#ltheme'); if (t) t.innerHTML = '<div class="lbl">Язык оформления</div><div class="thcs">' + themeChips() + '</div>'; }
+function setTheme(k){
+  ltheme = k; try { localStorage.setItem('lt', k); } catch (_) {}
+  applyTheme(k); drawTheme(); if (k) toast(THEMES[k][1]); if (page === 'settings') go('settings');
+}
+document.addEventListener('pointerdown', ev => {
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const b = ev.target.closest('.btn,.tile,.qopt,.fchip,.seg button,.thc'); if (!b || b.disabled) return;
+  const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2, s = document.createElement('span');
+  s.className = 'rpl'; s.style.cssText = `width:${d}px;height:${d}px;left:${ev.clientX - r.left - d / 2}px;top:${ev.clientY - r.top - d / 2}px`;
+  b.appendChild(s); setTimeout(() => s.remove(), 700);
+});
+
+const VIEWS = {home:homeView, schedule:scheduleView, grades:gradesView, homework:homeworkView, students:studentsView, teachers:teachersView, users:usersView, create:createView, settings:settingsView, groups:groupsView, chat:chatView, progress:progressView, trainer:trainerView};
 boot();
 </script>
 </body>
