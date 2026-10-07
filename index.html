@@ -1341,20 +1341,31 @@ const PetSystem = (() => {
     return h + '</div>';
   }
   const tile = (i, own, need) => `<div class="pt-tile ${own ? 'ok' : ''}" title="${esc(i.name)}"><span>${own ? (i.code === 'cat_rug' ? '🟫' : esc(i.asset)) : '🔒'}</span><small>${own ? esc(i.name) : esc(need)}</small></div>`;
+  function myLangs(){   // null = все (админ)
+    if (me.role === 'admin') return null;
+    const s = new Set();
+    if (me.role === 'teacher') (me.langs || []).forEach(k => s.add(k));
+    else {
+      const gs = new Set(GM.filter(m => m.student_id === me.id).map(m => m.group_id));
+      HW.filter(h => h.student_id === me.id).forEach(h => s.add(h.language)); GR.filter(g => g.student_id === me.id).forEach(g => s.add(g.language));
+      LES.filter(l => l.student_id === me.id || gs.has(l.group_id)).forEach(l => s.add(l.language)); GRP.filter(g => gs.has(g.id)).forEach(g => s.add(g.language));
+    }
+    Object.keys(S.prog.langs || {}).forEach(k => s.add(k)); return s;
+  }
   function collHTML(){
     const sp = S.seasons.find(s => s.key === S.prog.season); let h = '';
     if (sp) {
       const its = S.items.filter(i => i.season === sp.key).sort((a, b) => a.season_need - b.season_need), got = its.filter(i => S.inv.has(i.code)).length;
-      h += `<div class="pt-season se-${esc(sp.key.replace(/\d+/, ''))}"><div class="pt-sh"><b>${esc(sp.icon)} ${esc(sp.name)}</b><span>${got} / ${its.length} наград</span></div><div class="pt-bar"><i style="width:${its.length ? got / its.length * 100 : 0}%"></i></div><div class="pt-sub" style="margin:6px 0 10px">Сдано ДЗ в сезоне: ${S.prog.sc} · сезон до ${fmtD(sp.end_on)}. Полученные предметы остаются навсегда.</div><div class="pt-tiles">${its.map(i => tile(i, S.inv.has(i.code), i.season_need + ' ДЗ')).join('')}</div></div>`;
+      h += `<div class="pt-season se-${esc(sp.key.replace(/\d+/, ''))}"><div class="pt-sh"><b>${esc(sp.icon)} ${esc(sp.name)}</b><span>${got} / ${its.length} наград</span></div><div class="pt-bar"><i style="width:${its.length ? got / its.length * 100 : 0}%"></i></div><div class="pt-sub" style="margin:6px 0 10px">${me.role === 'teacher' ? 'Выставлено оценок в сезоне' : 'Сдано ДЗ в сезоне'}: ${S.prog.sc} · сезон до ${fmtD(sp.end_on)}. Полученные предметы остаются навсегда.</div><div class="pt-tiles">${its.map(i => tile(i, S.inv.has(i.code), i.season_need + ' ' + (me.role === 'teacher' ? 'оц.' : 'ДЗ'))).join('')}</div></div>`;
     }
     const old = [...S.inv].map(item).filter(i => i && i.season && (!sp || i.season !== sp.key));
     if (old.length) h += `<div class="pt-lbl">Коллекционные сезонные предметы</div><div class="pt-tiles">${old.map(i => tile(i, true)).join('')}</div>`;
-    const known = typeof LANG !== 'undefined' && Object.keys(LANG).length ? k => LANG[k] : () => true;
+    const mine = myLangs(), tch = me.role === 'teacher', known = k => (typeof LANG === 'undefined' || !Object.keys(LANG).length || LANG[k]) && (!mine || mine.has(k)), unit = tch ? 'оц.' : 'ДЗ';
     [...new Set(S.items.filter(i => i.lang).map(i => i.lang))].filter(known).forEach(k => {
       const its = S.items.filter(i => i.lang === k).sort((a, b) => a.lang_need - b.lang_need), own = its.filter(i => S.inv.has(i.code)).length, f = FL[k] || ['🌐', (typeof LANG !== 'undefined' && LANG[k]) || k];
-      h += `<div class="pt-season lang"><div class="pt-sh"><b>${f[0]} ${esc((typeof LANG !== 'undefined' && LANG[k]) || f[1])}</b><span>${own}/${its.length} предметов · ${its.length ? Math.round(own / its.length * 100) : 0}%</span></div><div class="pt-bar"><i style="width:${its.length ? own / its.length * 100 : 0}%"></i></div><div class="pt-sub" style="margin:6px 0 10px">Сдано ДЗ по языку: ${S.prog.langs[k] || 0}</div><div class="pt-tiles">${its.map(i => tile(i, S.inv.has(i.code), i.lang_need + ' ДЗ')).join('')}</div></div>`;
+      h += `<div class="pt-season lang"><div class="pt-sh"><b>${f[0]} ${esc((typeof LANG !== 'undefined' && LANG[k]) || f[1])}</b><span>${own}/${its.length} предметов · ${its.length ? Math.round(own / its.length * 100) : 0}%</span></div><div class="pt-bar"><i style="width:${its.length ? own / its.length * 100 : 0}%"></i></div><div class="pt-sub" style="margin:6px 0 10px">${tch ? 'Выставлено оценок по языку' : 'Сдано ДЗ по языку'}: ${S.prog.langs[k] || 0}</div><div class="pt-tiles">${its.map(i => tile(i, S.inv.has(i.code), i.lang_need + ' ' + unit)).join('')}</div></div>`;
     });
-    return h || '<div class="pt-hint">Коллекции откроются после обновления базы (pet.sql).</div>';
+    return h.includes('pt-season lang') || sp ? h : '<div class="pt-hint">Коллекции появятся, когда у тебя появится язык: у ученика — учебный, у учителя — преподаваемый.</div>';
   }
   function storyHTML(){
     const p = S.pet, days = Math.max(1, Math.ceil((Date.now() - new Date(p.created_at)) / 864e5)), first = pre => S.ledger.filter(l => l.key.startsWith(pre)).map(l => l.created_at).sort()[0];
@@ -1482,19 +1493,19 @@ const PetSystem = (() => {
     if (sub) sub.insertAdjacentHTML('afterend', '<button class="btn ghost" style="margin:-10px 0 16px" onclick="PetSystem.historyUI()">🪙 История монет</button>');
     main.querySelectorAll('.row').forEach(row => {
       const sel = row.querySelector('select[onchange^="setRole"]'); if (!sel) return;
-      const m = /setRole\('([^']+)'/.exec(sel.getAttribute('onchange')), p = m && P[m[1]]; if (!p || p.role !== 'student') return;
+      const m = /setRole\('([^']+)'/.exec(sel.getAttribute('onchange')), p = m && P[m[1]]; if (!p || !['student', 'teacher'].includes(p.role)) return;
       sel.insertAdjacentHTML('beforebegin', `<button class="btn lime" style="padding:8px 12px;white-space:nowrap" onclick="PetSystem.grantUI('${p.id}')">🪙 Выдать</button>`);
     });
   }
   function grantUI(id){
     const p = P[id]; if (!p) return;
-    openModal(`<h2 style="font-size:22px">Выдать монеты</h2><p class="lbl" style="margin:6px 0 4px">Ученик: <b style="color:var(--ink)">${esc(p.full_name)}</b></p>
+    openModal(`<h2 style="font-size:22px">Выдать монеты</h2><p class="lbl" style="margin:6px 0 4px">${p.role === 'teacher' ? 'Учитель' : 'Ученик'}: <b style="color:var(--ink)">${esc(p.full_name)}</b></p>
       <label>Количество</label><input id="ptAmt" type="number" min="1" max="100000" step="1" value="100"><label>Причина</label><input id="ptWhy" maxlength="80" value="Награда от администратора">
       <div class="acts" style="margin-top:18px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Отмена</button><button class="btn lime" id="ptGo">Выдать</button></div>`);
     document.getElementById('ptGo').onclick = async ev => {
       const n = Math.floor(+document.getElementById('ptAmt').value); if (!(n >= 1 && n <= 100000)) return toast('Введите количество от 1 до 100000');
       ev.target.disabled = true;
-      try { await rpc('pet_admin_grant', {p_user:id, p_amount:n, p_reason:document.getElementById('ptWhy').value.trim()}); closeModal(); toast(`Ученику выдано ${n} монет`); } catch (_) { ev.target.disabled = false; }
+      try { await rpc('pet_admin_grant', {p_user:id, p_amount:n, p_reason:document.getElementById('ptWhy').value.trim()}); closeModal(); toast(`${P[id].role === 'teacher' ? 'Учителю' : 'Ученику'} выдано ${n} монет`); } catch (_) { ev.target.disabled = false; }
     };
   }
   async function historyUI(){
