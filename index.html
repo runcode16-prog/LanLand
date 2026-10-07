@@ -406,6 +406,17 @@ body.hw-site :is(.btn.lime,.pt-coins){background:var(--lime);color:#2B1204}
 body.hw-site :is(small,.lbl,label,.sub,.pt-sub,.pt-hint,.pt-lbl){color:var(--mute)}
 body.hw-site .pt-card .pr,body.hw-site .pt-card b,body.hw-site .pt-top b,body.hw-site h1,body.hw-site h2,body.hw-site h3{color:var(--ink)}
 body.hw-site .pt-scene,body.hw-site .pt-scene *{color:initial}
+
+/* Halloween: читаемые плашки (оценки, статусы, чипы, бейджи) */
+body.hw-site :is(.pill,.chip,.badge){background:#2E1B4D!important;color:#F3E9FF!important;border:1px solid #5B3A8A}
+body.hw-site :is(.pill.kr,.badge.on,.s-submitted){background:#F97316!important;color:#1A0A00!important;border-color:#F97316}
+body.hw-site .s-checked{background:#0F3D31!important;color:#6EE7B7!important}
+body.hw-site .s-returned{background:#4A2E08!important;color:#FCD34D!important}
+body.hw-site .badge:not(.on){opacity:.55;filter:none;color:#B7A6D0!important}
+body.hw-site .chip a{color:#FDBA74}
+body.hw-site :is(.pill,.chip,.badge) *{color:inherit!important}
+body.hw-site .lcard{background:color-mix(in srgb,var(--x) 22%,#1E1230);color:var(--ink)}
+body.hw-site .lcard+.lcard{border-top-color:#120B1E}
 @media(prefers-reduced-motion:reduce){body.hw-site::before,body.hw-site::after,.hw-deco *{animation:none!important}}
 </style>
 </head>
