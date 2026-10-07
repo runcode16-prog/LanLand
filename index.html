@@ -393,6 +393,19 @@ body.hw-site::after{content:'🦇';position:fixed;top:12vh;left:-60px;font-size:
 .hw-deco .p{bottom:3%;left:3%;filter:drop-shadow(0 0 1.4cqw #F97316)}.hw-deco .c{bottom:3%;right:4%;animation:hwFl 2.2s ease-in-out infinite}.hw-deco .g{top:22%;left:-8cqw;opacity:0;animation:hwGh 22s linear 6s infinite}
 .hw-deco .f{inset:auto 0 0 0;height:30%;background:linear-gradient(0deg,rgba(190,170,230,.28),transparent);animation:hwFog 14s ease-in-out infinite alternate}
 @keyframes hwFl{50%{opacity:.7;transform:scale(.94)}}@keyframes hwGh{5%{opacity:.7}40%{opacity:.7}50%,100%{opacity:0;transform:translateX(110cqw)}}@keyframes hwFog{to{transform:translateX(4%)}}
+
+/* Halloween: тёмные поверхности вместо белых, чтобы светлый текст читался везде */
+body.hw-site aside{background:rgba(24,13,40,.88)}
+body.hw-site :is(.card,.sheet,.clist,.cpane,.dayb,.seg,.fchip,.lp span,.qopt,.pt-box,.pt-card,.pt-ty,.pt-tile,.row,.pill,.pt-tab,.btn.ghost,.cd){background:var(--card);color:var(--ink);border-color:var(--line)}
+body.hw-site :is(.pill,.pt-tab,.btn.ghost){background:#2A1A44}
+body.hw-site :is(.fchip.on,.cd.sel,.thc.on,.pt-tab.on,.bub.me,#ptFab.new){background:var(--pri);color:#fff}
+body.hw-site #toast{background:#2A1A44;color:#fff;border:1px solid var(--pri)}
+body.hw-site .lp input:checked+span{background:#4A2410;border-color:var(--pri)}
+body.hw-site .lcard{background:#241638}
+body.hw-site :is(.btn.lime,.pt-coins){background:var(--lime);color:#2B1204}
+body.hw-site :is(small,.lbl,label,.sub,.pt-sub,.pt-hint,.pt-lbl){color:var(--mute)}
+body.hw-site .pt-card .pr,body.hw-site .pt-card b,body.hw-site .pt-top b,body.hw-site h1,body.hw-site h2,body.hw-site h3{color:var(--ink)}
+body.hw-site .pt-scene,body.hw-site .pt-scene *{color:initial}
 @media(prefers-reduced-motion:reduce){body.hw-site::before,body.hw-site::after,.hw-deco *{animation:none!important}}
 </style>
 </head>
