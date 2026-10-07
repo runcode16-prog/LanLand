@@ -373,6 +373,27 @@ main>*{animation-duration:.35s}main :is(.row,.lcard,.chip,.bd){animation-duratio
 .pt-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:8px}
 .pt-tile{background:#fff;border-radius:14px;padding:10px 4px 8px;text-align:center;opacity:.7;transition:.15s}.pt-tile.ok{opacity:1;box-shadow:0 8px 18px -12px rgba(17,24,39,.4)}.pt-tile:hover{transform:translateY(-2px)}
 .pt-tile span{font-size:28px;display:block;line-height:1.2}.pt-tile small{display:block;font-size:11px;color:var(--mute);font-weight:600;line-height:1.2;margin-top:2px}
+
+/* ===== Halloween ===== */
+.pt-it{font-size:calc(9cqw*var(--s,1))}.pt-it.dec{font-size:calc(6cqw*var(--s,1))}.pt-it.sel{outline:2px solid #F97316!important}
+@media(max-width:820px){.pt-it{font-size:calc(11cqw*var(--s,1))}.pt-it.dec{font-size:calc(8cqw*var(--s,1))}}
+body.hw-site{--bg:#120B1E;--ink:#F3E9FF;--mute:#B7A6D0;--line:#3A2A55;--card:#1E1230;--pri:#F97316;--pri2:#F97316;--lime:#FB923C;background-color:#0D0716;background-image:radial-gradient(700px 420px at 90% -5%,rgba(249,115,22,.22),transparent 60%),radial-gradient(800px 500px at 0 105%,rgba(124,58,237,.28),transparent 60%);color:var(--ink)}
+body.hw-site .card,body.hw-site .row,body.hw-site .sheet,body.hw-site #sheet{background:var(--card);color:var(--ink);border-color:var(--line)}
+body.hw-site input,body.hw-site select,body.hw-site textarea{background:#170E26;color:var(--ink);border-color:var(--line)}
+body.hw-site::before{content:'🌙';position:fixed;top:14px;right:22px;font-size:34px;opacity:.85;filter:drop-shadow(0 0 14px #FDE68A);pointer-events:none;z-index:0;animation:hwGlow 5s ease-in-out infinite}
+body.hw-site::after{content:'🦇';position:fixed;top:12vh;left:-60px;font-size:22px;pointer-events:none;z-index:0;animation:hwBat 26s linear 4s infinite}
+@keyframes hwGlow{50%{filter:drop-shadow(0 0 24px #FDE68A)}}@keyframes hwBat{to{transform:translate(120vw,-40px)}}
+.hw-card{background:linear-gradient(135deg,#2A1346,#3B1D12);color:#F3E9FF;border:1px solid #5B3A8A;border-radius:20px;padding:14px 16px;margin:0 0 16px;box-shadow:0 0 24px rgba(249,115,22,.15)}
+.hw-h{display:flex;justify-content:space-between;align-items:center;font-size:17px}.hw-h span,.hw-card small,.hw-ch em{font-size:12px;color:#C9B6E6;font-style:normal}.hw-card p{margin:4px 0 10px;color:#D9C8F0;font-size:13px}
+.hw-ch{display:grid;gap:8px}.hw-ch>div{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;font-size:13px}.hw-ch i{grid-column:1/2;height:6px;border-radius:9px;background:linear-gradient(90deg,#F97316 var(--p),#3A2A55 var(--p))}.hw-ch>div>:last-child{grid-row:1/3;grid-column:2}
+.hw-f{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;font-size:12px;color:#C9B6E6;flex-wrap:wrap}
+.pt-scene.hw .pt-env{filter:saturate(.7) brightness(.62) hue-rotate(-12deg)}
+.hw-deco{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden;container-type:inline-size}
+.hw-deco i{position:absolute;font-style:normal;font-size:6cqw}.hw-deco .m{top:3%;right:5%;font-size:9cqw;filter:drop-shadow(0 0 2cqw #FDE68A);animation:hwGlow 5s infinite}.hw-deco .w{top:0;left:1%;font-size:8cqw;opacity:.85}
+.hw-deco .p{bottom:3%;left:3%;filter:drop-shadow(0 0 1.4cqw #F97316)}.hw-deco .c{bottom:3%;right:4%;animation:hwFl 2.2s ease-in-out infinite}.hw-deco .g{top:22%;left:-8cqw;opacity:0;animation:hwGh 22s linear 6s infinite}
+.hw-deco .f{inset:auto 0 0 0;height:30%;background:linear-gradient(0deg,rgba(190,170,230,.28),transparent);animation:hwFog 14s ease-in-out infinite alternate}
+@keyframes hwFl{50%{opacity:.7;transform:scale(.94)}}@keyframes hwGh{5%{opacity:.7}40%{opacity:.7}50%,100%{opacity:0;transform:translateX(110cqw)}}@keyframes hwFog{to{transform:translateX(4%)}}
+@media(prefers-reduced-motion:reduce){body.hw-site::before,body.hw-site::after,.hw-deco *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1131,6 +1152,9 @@ boot();
    Зависит только от: db (Supabase), me, toast(), confetti() — если есть.
    Подключается через обёртки showApp / refresh / showAuth внизу файла.
    Вся запись в БД идёт через RPC (pet_*), монеты начисляются только на сервере. */
+/* ===== HALLOWEEN EVENT: конфиг. Выключить = enabled:false или истёкшая дата. Предметы/награды остаются у пользователей. ===== */
+const HALLOWEEN = {enabled:true, start:'2026-10-01', end:'2026-11-05'};
+const hwOn = () => { const t = new Date().toISOString().slice(0, 10); return HALLOWEEN.enabled && t >= HALLOWEEN.start && t <= HALLOWEEN.end; };
 const PetSystem = (() => {
   const TYPES = {cat:['🐱','Кот','Уютная квартира'], dog:['🐶','Собака','Двор и сад'], panda:['🐼','Панда','Бамбуковый лес'], fox:['🦊','Лиса','Осенний лес'], penguin:['🐧','Пингвин','Полярная станция']};
   const COLORS = {
@@ -1138,7 +1162,7 @@ const PetSystem = (() => {
     dog:{white:['Белая','#F4F1EC'],black:['Чёрная','#3A3A42'],brown:['Коричневая','#8A5A3C'],golden:['Золотистая','#D9A441'],spotted:['Пятнистая','#F4F1EC']}};
   const BASE = {cat:'#E8944A', dog:'#D9A441', panda:'#F7F7F5', fox:'#E8803A', penguin:'#2F3A4A'};
   const RAR = {common:'', rare:'редкий', epic:'эпик', legendary:'легенда'};
-  const SHOP = [['pet','Питомец'],['cloth','Одежда'],['hat','Шапки'],['acc','Аксессуары'],['furn','Мебель'],['decor','Декор'],['env','Фон']];
+  const SHOP = [['pet','Питомец'],['cloth','Одежда'],['hat','Шапки'],['acc','Аксессуары'],['furn','Мебель'],['decor','Декор'],['env','Фон'],['hw','🎃 Halloween']];
   const ACH = [['first_steps','🚀','Первые шаги','Первое сданное ДЗ','+20 🪙'],['stable','📚','Стабильность','10 сданных ДЗ','Худи'],['excellent','🌟','Отличник','10 оценок «5»','Корона'],['marathon','🔥','Марафонец','7 дней подряд','Кубок'],['progress','🎓','Большой прогресс','Повысить уровень','Форма · +30 🪙'],['polyglot','🌍','Полиглот','ДЗ минимум по 2 языкам','+40 🪙'],['collector','🧺','Коллекционер','10 предметов в коллекции','+30 🪙'],['seasonal','🍂','Сезонный житель','Получить сезонный предмет','+20 🪙']];
   const IDLE = {cat:['wag','stretch','sit','lie','play','look'], dog:['wag','sit','hop','play','look'], panda:['sit','eat','roll','wave'], fox:['look','sit','play','curl'], penguin:['walk','wave','slide','hop']};
   const PROP = {cat:'🧶', dog:'🎾', fox:'🍂', panda:'🎋'};
@@ -1242,11 +1266,11 @@ const PetSystem = (() => {
   async function load(){
     const c = sb(); if (!c || !me) return false;
     try {
-      const r = await Promise.all([c.from('pets').select('*').maybeSingle(), c.from('pet_wallet').select('coins').maybeSingle(), c.from('pet_inventory').select('item_code,purchased_at'), c.from('pet_room').select('item_code,x,y'), c.from('pet_items').select('*'), c.from('pet_achievements').select('code,unlocked_at'),
+      const r = await Promise.all([c.from('pets').select('*').maybeSingle(), c.from('pet_wallet').select('coins').maybeSingle(), c.from('pet_inventory').select('item_code,purchased_at'), c.from('pet_room').select('*'), c.from('pet_items').select('*'), c.from('pet_achievements').select('code,unlocked_at'),
         c.from('pet_seasons').select('*'), c.from('pet_ledger').select('key,amount,reason,created_at').order('created_at', {ascending:false}).limit(300)]);
       const bad = r.slice(0, 6).find(x => x.error); if (bad) throw bad.error;
       S.pet = r[0].data; S.coins = r[1].data ? r[1].data.coins : 0; S.inv = new Set(r[2].data.map(x => x.item_code)); S.invAt = Object.fromEntries(r[2].data.map(x => [x.item_code, x.purchased_at]));
-      S.room = Object.fromEntries(r[3].data.map(x => [x.item_code, {x:x.x, y:x.y}])); S.items = r[4].data; S.ach = new Set(r[5].data.map(x => x.code)); S.achAt = Object.fromEntries(r[5].data.map(x => [x.code, x.unlocked_at]));
+      S.room = Object.fromEntries(r[3].data.map(x => [x.item_code, {x:x.x, y:x.y, rot:x.rot || 0, s:x.scale || 1}])); S.custom = r[3].data.length > 0; S.items = r[4].data; S.ach = new Set(r[5].data.map(x => x.code)); S.achAt = Object.fromEntries(r[5].data.map(x => [x.code, x.unlocked_at]));
       S.seasons = r[6].data || []; S.ledger = r[7].data || [];
       S.err = false; return true;
     } catch (err) { console.warn('[PetSystem]', err.message); S.err = true; return false; }
@@ -1323,18 +1347,25 @@ const PetSystem = (() => {
   }
 
   /* --- комната --- */
-  const placed = () => [...S.inv].map(item).filter(i => i && (i.category === 'furn' || i.category === 'decor')).map((i, n) => ({...i, ...(S.room[i.code] || {x:SLOTS[n % SLOTS.length][0], y:SLOTS[n % SLOTS.length][1]})}));
+  const owned = () => [...S.inv].map(item).filter(i => i && (i.category === 'furn' || i.category === 'decor'));
+  /* Инвентарь = owned (S.inv). Мир = только предметы с записью в S.room (после первого редактирования). */
+  const placed = () => owned().filter(i => !S.custom || S.room[i.code]).map((i, n) => ({rot:0, s:1, ...i, ...(S.room[i.code] || {x:SLOTS[n % SLOTS.length][0], y:SLOTS[n % SLOTS.length][1]})}));
+  const unplaced = () => owned().filter(i => S.custom && !S.room[i.code]);
+  const hwDeco = () => hwOn() ? '<div class="hw-deco"><i class="m">🌙</i><i class="w">🕸️</i><i class="g">👻</i><i class="p">🎃</i><i class="c">🕯️</i><i class="f"></i></div>' : '';
   function sceneHTML(){
     const p = S.pet, o = p.outfit || {}, sl = sleeping();
-    return `<div class="pt-scene w-${p.type} env-${o.env || 'none'} tm-${period()} se-${seasonOf()} ${S.edit ? 'edit' : ''}" id="ptScene"><div class="pt-env"></div>
-      ${placed().map(i => `<div class="pt-it ${i.category === 'decor' ? 'dec' : ''} ${i.code === 'cat_rug' ? 'rug' : ''}" data-c="${esc(i.code)}" style="left:${i.x}%;top:${i.y}%;z-index:${Math.round(i.y)}" title="${esc(i.name)}">${i.code === 'cat_rug' ? '' : esc(i.asset)}</div>`).join('')}
+    return `<div class="pt-scene w-${p.type} env-${o.env || 'none'} tm-${period()} se-${seasonOf()} ${S.edit ? 'edit' : ''} ${hwOn() ? 'hw' : ''}" id="ptScene"><div class="pt-env"></div>${hwDeco()}
+      ${placed().map(i => `<div class="pt-it ${i.category === 'decor' ? 'dec' : ''} ${i.code === 'cat_rug' ? 'rug' : ''} ${S.edit && S.selIt === i.code ? 'sel' : ''}" data-c="${esc(i.code)}" style="left:${i.x}%;top:${i.y}%;z-index:${Math.round(i.y)};--s:${i.s || 1};rotate:${i.rot || 0}deg" title="${esc(i.name)}">${i.code === 'cat_rug' ? '' : esc(i.asset)}</div>`).join('')}
       <div class="pt-actor ${sl ? 'sleep' : ''}"><div class="pt-mv" id="ptMv">${svg(p.type, p.color, o)}</div><span class="pt-prop" id="ptProp"></span>${sl ? '<span class="pt-zz">💤</span>' : ''}</div></div>`;
   }
   const PLAY = {cat:['🧶','Клубок'], dog:['🎾','Бросить мяч'], panda:['🎋','Бамбук'], fox:['🍂','Листья'], penguin:['🧊','Скользить']};
   function roomHTML(){
     const p = S.pet;
     let h = `<div class="pt-top"><div class="grow"><b>${esc(p.name)}</b><span class="pt-sub">${TYPES[p.type][1]} · ${TYPES[p.type][2]}${S.lvl ? ' · ур. ' + S.lvl : ''} · <span class="pt-mood">${MOODS[mood()].join(' ')}</span></span></div><div class="pt-coins">🪙 ${S.coins}</div><button class="pt-x" data-a="x" aria-label="Закрыть">✕</button></div>` + sceneHTML();
-    if (S.edit) return h + `<div class="pt-dock" style="align-items:center;justify-content:space-between"><span class="pt-hint" style="margin:0">Перетаскивай предметы по сцене</span><button class="pt-tab edit" data-a="done">✓ Готово</button></div>`;
+    if (S.edit) { const sel = S.selIt && S.room[S.selIt] && item(S.selIt), un = unplaced();
+      return h + `<div class="pt-dock" style="align-items:center;justify-content:space-between"><span class="pt-hint" style="margin:0">${sel ? esc(sel.name) : 'Выбери предмет на сцене или из инвентаря'}</span><button class="pt-tab edit" data-a="done">✓ Готово</button></div>
+      ${sel ? '<div class="pt-dock"><button class="pt-tab" data-a="rot">↻ Повернуть</button><button class="pt-tab" data-a="small">− Меньше</button><button class="pt-tab" data-a="big">+ Больше</button><button class="pt-tab" data-a="del">🗑 Убрать из комнаты</button></div>' : ''}
+      <div class="pt-lbl">Инвентарь — не размещено (${un.length})</div><div class="pt-grid">${un.map(i => `<div class="pt-card on" data-pl="${esc(i.code)}"><span class="ic">${i.code === 'cat_rug' ? '🟫' : esc(i.asset)}</span><b>${esc(i.name)}</b><span class="pr">＋ Поставить</span></div>`).join('') || '<div class="pt-hint">Все твои предметы уже в комнате. Купи новые в магазине.</div>'}</div>`; }
     const tabs = [['hat','Шапки'],['cloth','Одежда'],['acc','Аксессуары'],['pet','Окрас'],['furn','Мебель']], V = v => S.view === v ? 'on' : '';
     h += `<div class="pt-dock">${tabs.map(t => `<button class="pt-tab ${S.view === 'room' && S.tab === t[0] ? 'on' : ''}" data-tab="${t[0]}">${t[1]}</button>`).join('')}<button class="pt-tab ${V('coll')}" data-a="coll">🗂 Коллекции</button><button class="pt-tab ${V('shop')}" data-a="shop">🛍 Магазин</button><button class="pt-tab ${V('ach')}" data-a="ach">🏅 Награды</button><button class="pt-tab ${V('story')}" data-a="story">📜 История</button><button class="pt-tab" data-a="play">${PLAY[p.type][0]} ${PLAY[p.type][1]}</button><button class="pt-tab" data-a="snap">📸 Снимок</button><button class="pt-tab edit" data-a="edit">✎ Комната</button></div><div class="pt-panel">`;
     h += S.view === 'shop' ? shopHTML() : S.view === 'ach' ? achHTML() : S.view === 'coll' ? collHTML() : S.view === 'story' ? storyHTML() : tabHTML();
@@ -1391,8 +1422,8 @@ const PetSystem = (() => {
     return `<div class="pt-grid">${slotCard(t, '', 'Без ' + (t === 'hat' ? 'шапки' : t === 'cloth' ? 'одежды' : 'аксессуара'), '✕')}${list.map(i => slotCard(t, i.code, i.name, i.asset, 0, i)).join('')}</div>${list.length ? '' : '<div class="pt-hint">Пока пусто — загляни в магазин или выполняй задания.</div>'}`;
   }
   function shopHTML(){
-    const t = S.shop, p = S.pet, list = S.items.filter(i => i.category === t && (!i.pet_type || i.pet_type === p.type)).sort((a, b) => a.price - b.price);
-    return `<div class="pt-dock" style="padding-top:0">${SHOP.map(c => `<button class="pt-tab ${t === c[0] ? 'on' : ''}" data-shop="${c[0]}">${c[1]}</button>`).join('')}</div><div class="pt-grid">${list.map(i => {
+    const t = S.shop, p = S.pet, list = S.items.filter(i => (t === 'hw' ? String(i.code).startsWith('hw_') : i.category === t) && (!i.pet_type || i.pet_type === p.type)).sort((a, b) => a.price - b.price);
+    return `<div class="pt-dock" style="padding-top:0">${SHOP.filter(c => c[0] !== 'hw' || hwOn()).map(c => `<button class="pt-tab ${t === c[0] ? 'on' : ''}" data-shop="${c[0]}">${c[1]}</button>`).join('')}</div><div class="pt-grid">${list.map(i => {
       const has = S.inv.has(i.code), lock = i.unlock_ach, a = lock && ACH.find(x => x[0] === lock);
       const vis = i.category === 'pet' ? `<span class="sw" style="background:${i.asset}"></span>` : `<span class="ic">${i.code === 'cat_rug' ? '🟫' : esc(i.asset)}</span>`;
       return `<div class="pt-card r-${i.rarity} ${has ? 'on' : ''} ${lock && !has ? 'lock' : ''}" ${RAR[i.rarity] ? `data-r="${RAR[i.rarity]}"` : ''} ${has || lock ? '' : `data-buy="${esc(i.code)}"`}>${vis}<b>${esc(i.name)}</b><span class="pr">${has ? '✓ Твоё' : lock ? '🔒 ' + (a ? a[2] : 'награда') : i.price === 0 ? 'Бесплатно' : '🪙 ' + i.price}</span></div>`;
@@ -1406,13 +1437,20 @@ const PetSystem = (() => {
   function bindScene(){
     const b = modal.querySelector('.pt-box');
     b.onclick = async ev => {
-      const t = ev.target.closest('[data-tab],[data-a],[data-eq],[data-buy],[data-shop]'); if (!t) return;
+      const t = ev.target.closest('[data-tab],[data-a],[data-eq],[data-buy],[data-shop],[data-pl]'); if (!t) return;
       const d = t.dataset;
       if (d.tab) { S.tab = d.tab; S.view = 'room'; render(); }
       else if (d.shop) { S.shop = d.shop; render(); }
       else if (d.a === 'x') close();
       else if (d.a === 'shop') { S.view = 'shop'; render(); } else if (d.a === 'ach') { S.view = 'ach'; render(); }
-      else if (d.a === 'edit') { S.edit = true; render(); }
+      else if (d.a === 'edit') { placed().forEach(i => S.room[i.code] = {x:i.x, y:i.y, rot:i.rot || 0, s:i.s || 1}); S.custom = true; S.selIt = null; S.edit = true; render(); }
+      else if (d.pl) { S.room[d.pl] = {x:50, y:72, rot:0, s:1}; S.selIt = d.pl; render(); }
+      else if (['rot', 'small', 'big', 'del'].includes(d.a) && S.selIt && S.room[S.selIt]) {
+        const r = S.room[S.selIt], it = item(S.selIt);
+        if (d.a === 'rot') r.rot = ((r.rot || 0) + 30) % 360; else if (d.a === 'big') r.s = Math.min(2, +((r.s || 1) + .15).toFixed(2)); else if (d.a === 'small') r.s = Math.max(.5, +((r.s || 1) - .15).toFixed(2));
+        else { if (['epic', 'legendary'].includes(it.rarity) && !confirm(`«${it.name}» — редкий предмет. Убрать из комнаты? Он останется в твоём инвентаре.`)) return; delete S.room[S.selIt]; S.selIt = null; }
+        render();
+      }
       else if (d.a === 'coll') { S.view = 'coll'; render(); } else if (d.a === 'story') { S.view = 'story'; render(); }
       else if (d.a === 'play') { if (Date.now() - playT < 2500) return; playT = Date.now(); act({cat:'play', dog:'play', panda:'eat', fox:'play', penguin:'slide'}[S.pet.type]); setMood('joy'); }
       else if (d.a === 'snap') snap();
@@ -1433,7 +1471,7 @@ const PetSystem = (() => {
   }
   async function saveRoom(btn){
     btn.disabled = true;
-    try { await rpc('pet_save_room', {p_items:placed().map(i => ({code:i.code, x:Math.round(i.x * 10) / 10, y:Math.round(i.y * 10) / 10}))}); placed().forEach(i => S.room[i.code] = {x:i.x, y:i.y}); S.edit = false; render(); toast('Комната сохранена ✓'); }
+    try { await rpc('pet_save_room', {p_items:placed().map(i => ({code:i.code, x:Math.round(i.x * 10) / 10, y:Math.round(i.y * 10) / 10, rot:i.rot || 0, scale:i.s || 1}))}); S.edit = false; S.selIt = null; render(); toast('Комната сохранена ✓'); }
     catch (_) { btn.disabled = false; }
   }
   // drag & drop (мышь + touch через Pointer Events), предметы не выходят за сцену
@@ -1441,14 +1479,14 @@ const PetSystem = (() => {
   document.addEventListener('pointerdown', ev => {
     if (!S.edit) return; const el = ev.target.closest && ev.target.closest('#ptScene .pt-it'); if (!el) return;
     const r = el.getBoundingClientRect(); drag = {el, code:el.dataset.c, dx:ev.clientX - (r.left + r.width / 2), dy:ev.clientY - r.bottom};
-    el.classList.add('drag'); el.setPointerCapture && el.setPointerCapture(ev.pointerId); ev.preventDefault();
+    el.classList.add('drag'); if (S.selIt !== el.dataset.c) { S.selIt = el.dataset.c; drag.sel = 1; } el.setPointerCapture && el.setPointerCapture(ev.pointerId); ev.preventDefault();
   });
   document.addEventListener('pointermove', ev => {
     if (!drag) return; const r = drag.el.parentElement.getBoundingClientRect();
     const x = Math.min(96, Math.max(4, (ev.clientX - drag.dx - r.left) / r.width * 100)), y = Math.min(96, Math.max(30, (ev.clientY - drag.dy - r.top) / r.height * 100));
-    drag.el.style.left = x + '%'; drag.el.style.top = y + '%'; drag.el.style.zIndex = Math.round(y); S.room[drag.code] = {x:+x.toFixed(1), y:+y.toFixed(1)};
+    drag.el.style.left = x + '%'; drag.el.style.top = y + '%'; drag.el.style.zIndex = Math.round(y); S.room[drag.code] = {...S.room[drag.code], x:+x.toFixed(1), y:+y.toFixed(1)};
   });
-  const endDrag = () => { if (drag) { drag.el.classList.remove('drag'); drag = null; } };
+  const endDrag = () => { if (drag) { const n = drag.sel; drag.el.classList.remove('drag'); drag = null; if (n) render(); } };
   document.addEventListener('pointerup', endDrag); document.addEventListener('pointercancel', endDrag);
 
   /* --- живой питомец: редкие случайные idle-анимации --- */
@@ -1499,7 +1537,7 @@ const PetSystem = (() => {
   }
   function grantUI(id){
     const p = P[id]; if (!p) return;
-    openModal(`<h2 style="font-size:22px">Выдать монеты</h2><p class="lbl" style="margin:6px 0 4px">${p.role === 'teacher' ? 'Учитель' : 'Ученик'}: <b style="color:var(--ink)">${esc(p.full_name)}</b></p>
+    window.openModal(`<h2 style="font-size:22px">Выдать монеты</h2><p class="lbl" style="margin:6px 0 4px">${p.role === 'teacher' ? 'Учитель' : 'Ученик'}: <b style="color:var(--ink)">${esc(p.full_name)}</b></p>
       <label>Количество</label><input id="ptAmt" type="number" min="1" max="100000" step="1" value="100"><label>Причина</label><input id="ptWhy" maxlength="80" value="Награда от администратора">
       <div class="acts" style="margin-top:18px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Отмена</button><button class="btn lime" id="ptGo">Выдать</button></div>`);
     document.getElementById('ptGo').onclick = async ev => {
@@ -1510,18 +1548,33 @@ const PetSystem = (() => {
   }
   async function historyUI(){
     let rows; try { rows = await rpc('pet_admin_history'); } catch (_) { return; }
-    openModal(`<h2 style="font-size:22px">История выдачи монет</h2><div style="max-height:60vh;overflow:auto;margin-top:10px">${(rows || []).map(r => `<div class="row"><div class="grow"><b>${esc(r.user_name || 'Ученик')}</b><small>${esc(r.reason || 'Награда от администратора')} · Выдал: ${esc(r.by_email || '—')} · ${fmtDT(r.created_at)}</small></div><span class="pill kr">+${r.amount} 🪙</span></div>`).join('') || '<div class="empty">Выдач пока не было.</div>'}</div><div class="acts" style="margin-top:14px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Закрыть</button></div>`);
+    window.openModal(`<h2 style="font-size:22px">История выдачи монет</h2><div style="max-height:60vh;overflow:auto;margin-top:10px">${(rows || []).map(r => `<div class="row"><div class="grow"><b>${esc(r.user_name || 'Ученик')}</b><small>${esc(r.reason || 'Награда от администратора')} · Выдал: ${esc(r.by_email || '—')} · ${fmtDT(r.created_at)}</small></div><span class="pill kr">+${r.amount} 🪙</span></div>`).join('') || '<div class="empty">Выдач пока не было.</div>'}</div><div class="acts" style="margin-top:14px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Закрыть</button></div>`);
   }
 
+  /* ---------- Halloween: блок на главной и Challenges (прогресс в Supabase через hw_* RPC) ---------- */
+  async function hwHome(){
+    document.querySelectorAll('.hw-card').forEach(e => e.remove());
+    if (!hwOn() || !me || page !== 'home') return;
+    const main = document.querySelector('#main'); if (!main) return;
+    let ch = []; try { ch = (await sb().rpc('hw_state')).data || []; } catch (_) {}
+    const mine = [...S.inv].filter(c => String(c).startsWith('hw_')).length, done = ch.filter(c => c.claimed).length;
+    const el = document.createElement('div'); el.className = 'hw-card';
+    el.innerHTML = `<div class="hw-h"><b>🎃 Halloween Event</b><span>до ${HALLOWEEN.end.split('-').reverse().slice(0, 2).join('.')}</span></div><p>Собирай тыквы, свечи и костюмы: выполняй задания и украшай мир питомца.</p>
+      <div class="hw-ch">${ch.map(c => `<div><span>${esc(c.title)} · ${Math.min(c.progress, c.goal)}/${c.goal}</span><i style="--p:${Math.min(100, c.progress / c.goal * 100)}%"></i>${c.claimed ? '<em>✓ получено</em>' : c.progress >= c.goal ? `<button class="btn lime" data-hw="${esc(c.code)}">Забрать ${c.coins} 🪙</button>` : `<em>награда: ${c.coins} 🪙</em>`}</div>`).join('') || '<small>Задания скоро появятся.</small>'}</div>
+      <div class="hw-f"><span>Challenges: ${done}/${ch.length} · Halloween-предметов: ${mine}</span><button class="btn" data-hw="go">🎃 В мир питомца</button></div>`;
+    el.onclick = async ev => { const b = ev.target.closest('[data-hw]'); if (!b) return; if (b.dataset.hw === 'go') { document.getElementById('ptFab') && document.getElementById('ptFab').click(); return; }
+      b.disabled = true; try { await rpc('hw_claim', {p_code:b.dataset.hw}); await load(); toast('Награда получена 🎃'); hwHome(); } catch (_) { b.disabled = false; } };
+    const sub = main.querySelector('.sub'); sub ? sub.insertAdjacentElement('afterend', el) : main.prepend(el);
+  }
   /* ---------- жизненный цикл ---------- */
   async function init(){
     if (!me) return destroy();
     if (!fab) { fab = document.createElement('button'); fab.id = 'ptFab'; fab.type = 'button'; fab.setAttribute('aria-label', 'Мой питомец'); fab.onclick = click; document.body.appendChild(fab); }
-    S.lvl = null; await load(); renderFab(); await sync(true);
+    S.lvl = null; await load(); renderFab(); await sync(true); if (hwOn()) { sb().rpc('hw_ping'); hwHome(); }
   }
   function destroy(){ clearTimeout(idleT); if (fab) { fab.remove(); fab = null; } if (modal) { modal.remove(); modal = null; } Object.assign(S, {pet:null, coins:0, inv:new Set(), room:{}, ach:new Set(), open:false, edit:false, lvl:null}); }
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && S.open) close(); });
-  return {init, destroy, sync:() => sync(false), act, adminUI, grantUI, historyUI};
+  return {init, destroy, sync:() => sync(false), act, adminUI, grantUI, historyUI, hwHome};
 })();
 
 /* ---- подключение к существующему коду (ничего не заменяя, только дополняя) ---- */
@@ -1529,7 +1582,8 @@ const PetSystem = (() => {
   const wrap = (name, after) => { const o = window[name]; if (typeof o !== 'function') return; window[name] = function(){ const r = o.apply(this, arguments); try { after(r); } catch (err) { console.warn('[PetSystem]', err); } return r; }; };
   wrap('showApp', () => PetSystem.init());
   wrap('showAuth', () => PetSystem.destroy());
-  wrap('go', () => PetSystem.adminUI());
+  wrap('go', () => { PetSystem.adminUI(); PetSystem.hwHome(); });
+  if (hwOn()) document.body.classList.add('hw-site');
   wrap('refresh', r => Promise.resolve(r).then(() => PetSystem.sync()));
   if (typeof me !== 'undefined' && me && !document.querySelector('#app').classList.contains('hide')) PetSystem.init();
 })();
