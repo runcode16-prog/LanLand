@@ -357,6 +357,22 @@ main>*{animation-duration:.35s}main :is(.row,.lcard,.chip,.bd){animation-duratio
 .pt-sw{display:flex;gap:8px;flex-wrap:wrap}.pt-sw button{width:36px;height:36px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer;transition:.15s}.pt-sw button.on{box-shadow:0 0 0 3px var(--ink)}.pt-sw button:hover{transform:scale(1.1)}
 @media(max-width:820px){.pt-create{grid-template-columns:1fr}.pt-box{border-radius:22px 22px 0 0;align-self:end;padding:14px;max-height:94dvh}#ptModal{padding:0}.pt-scene{aspect-ratio:4/3}.pt-grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}.pt-it{font-size:11cqw}.pt-it.dec{font-size:8cqw}}
 @media(prefers-reduced-motion:reduce){.pt-svg *,.pt-mv,#ptFab{animation:none!important}}
+
+.pt-actor.sleep .eyes{animation:none;transform:scaleY(.08)}.pt-zz{position:absolute;right:-2cqw;top:-1cqw;font-size:4.5cqw;animation:ptZz 2.8s ease-in-out infinite;pointer-events:none}
+@keyframes ptZz{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:1;transform:translateY(-6px)}}
+.env-none.tm-evening .pt-env{background:linear-gradient(rgba(255,150,80,.2),rgba(255,100,100,.08))}.env-none.tm-night .pt-env{background:rgba(18,26,70,.45)}
+.tm-night .pt-env::before{content:'';position:absolute;inset:0 0 45% 0;background-image:radial-gradient(1.6px 1.6px at 12% 22%,#fff 50%,transparent),radial-gradient(1.2px 1.2px at 30% 12%,#fff 50%,transparent),radial-gradient(1.8px 1.8px at 52% 28%,#fff 50%,transparent),radial-gradient(1.3px 1.3px at 71% 14%,#fff 50%,transparent),radial-gradient(1.6px 1.6px at 88% 30%,#fff 50%,transparent);animation:ptTw 3.5s ease-in-out infinite}
+@keyframes ptTw{50%{opacity:.35}}
+.se-winter .pt-env::after,.se-autumn .pt-env::after{content:'';position:absolute;inset:0;background-size:140px 140px;animation:ptFall 9s linear infinite;opacity:.8}
+.se-winter .pt-env::after{background-image:radial-gradient(3px 3px at 20px 18px,#fff 50%,transparent),radial-gradient(2px 2px at 80px 70px,#fff 50%,transparent),radial-gradient(2.5px 2.5px at 120px 110px,#fff 50%,transparent),radial-gradient(2px 2px at 50px 120px,#fff 50%,transparent)}
+.se-autumn .pt-env::after{background-image:radial-gradient(3px 4px at 30px 24px,#D9822B 50%,transparent),radial-gradient(3px 4px at 100px 80px,#C2410C 50%,transparent),radial-gradient(2.5px 3.5px at 70px 120px,#E9A23B 50%,transparent);animation-duration:13s}
+@keyframes ptFall{to{background-position:30px 140px}}
+.pt-season{background:#F7F8FA;border-radius:20px;padding:16px;margin-bottom:12px}.pt-season.se-winter{background:#EEF4FA}.pt-season.se-autumn{background:#FBF1E4}.pt-season.se-spring{background:#F1F8EC}.pt-season.se-summer{background:#FFF8E3}
+.pt-sh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:8px}.pt-sh b{font:600 16px Unbounded,sans-serif;letter-spacing:-.02em}.pt-sh span{color:var(--mute);font-weight:600;font-size:13px}
+.pt-bar{height:10px;border-radius:9px;background:rgba(17,24,39,.08);overflow:hidden}.pt-bar i{display:block;height:100%;border-radius:9px;background:var(--ink);transition:width .6s}
+.pt-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:8px}
+.pt-tile{background:#fff;border-radius:14px;padding:10px 4px 8px;text-align:center;opacity:.7;transition:.15s}.pt-tile.ok{opacity:1;box-shadow:0 8px 18px -12px rgba(17,24,39,.4)}.pt-tile:hover{transform:translateY(-2px)}
+.pt-tile span{font-size:28px;display:block;line-height:1.2}.pt-tile small{display:block;font-size:11px;color:var(--mute);font-weight:600;line-height:1.2;margin-top:2px}
 </style>
 </head>
 <body>
@@ -1123,7 +1139,7 @@ const PetSystem = (() => {
   const BASE = {cat:'#E8944A', dog:'#D9A441', panda:'#F7F7F5', fox:'#E8803A', penguin:'#2F3A4A'};
   const RAR = {common:'', rare:'редкий', epic:'эпик', legendary:'легенда'};
   const SHOP = [['pet','Питомец'],['cloth','Одежда'],['hat','Шапки'],['acc','Аксессуары'],['furn','Мебель'],['decor','Декор'],['env','Фон']];
-  const ACH = [['first_steps','🚀','Первые шаги','Первое сданное ДЗ','+20 🪙'],['stable','📚','Стабильность','10 сданных ДЗ','Худи'],['excellent','🌟','Отличник','10 оценок «5»','Корона'],['marathon','🔥','Марафонец','7 дней подряд','Кубок'],['progress','🎓','Большой прогресс','Повысить уровень','Форма · +30 🪙']];
+  const ACH = [['first_steps','🚀','Первые шаги','Первое сданное ДЗ','+20 🪙'],['stable','📚','Стабильность','10 сданных ДЗ','Худи'],['excellent','🌟','Отличник','10 оценок «5»','Корона'],['marathon','🔥','Марафонец','7 дней подряд','Кубок'],['progress','🎓','Большой прогресс','Повысить уровень','Форма · +30 🪙'],['polyglot','🌍','Полиглот','ДЗ минимум по 2 языкам','+40 🪙'],['collector','🧺','Коллекционер','10 предметов в коллекции','+30 🪙'],['seasonal','🍂','Сезонный житель','Получить сезонный предмет','+20 🪙']];
   const IDLE = {cat:['wag','stretch','sit','lie','play','look'], dog:['wag','sit','hop','play','look'], panda:['sit','eat','roll','wave'], fox:['look','sit','play','curl'], penguin:['walk','wave','slide','hop']};
   const PROP = {cat:'🧶', dog:'🎾', fox:'🍂', panda:'🎋'};
   const SLOTS = [[14,72],[86,72],[30,60],[70,60],[50,54],[10,92],[90,94],[22,90],[78,90],[38,52],[62,52],[50,70]];
@@ -1131,8 +1147,19 @@ const PetSystem = (() => {
   const clean = s => String(s || '').replace(/[<>&"'`\\]/g, '').replace(/\s+/g, ' ').trim().slice(0, 16);
   const shade = (h, p) => { const n = parseInt(h.slice(1), 16), f = c => Math.max(0, Math.min(255, Math.round(c + 255 * p * (p < 0 ? c / 255 : 1)))); return '#' + [n >> 16, n >> 8 & 255, n & 255].map(c => f(c).toString(16).padStart(2, '0')).join(''); };
 
-  const S = {pet:null, coins:0, inv:new Set(), room:{}, items:[], ach:new Set(), lvl:null, view:'room', tab:'hat', shop:'cloth', edit:false, open:false, err:false, last:0, sel:'cat', cName:'', cColor:null};
-  let fab, modal, idleT, synced = false;
+  const S = {pet:null, coins:0, inv:new Set(), room:{}, items:[], ach:new Set(), lvl:null, prog:{langs:{}, season:null, sc:0}, seasons:[], ledger:[], invAt:{}, achAt:{}, mood:null, view:'room', tab:'hat', shop:'cloth', edit:false, open:false, err:false, last:0, sel:'cat', cName:'', cColor:null};
+  let fab, modal, idleT, synced = false, playT = 0;
+  const FL = {zh:['🇨🇳','Китайский'], en:['🇬🇧','Английский'], fr:['🇫🇷','Французский'], de:['🇩🇪','Немецкий']};
+  const MOODS = {joy:['😊','Радуется'], calm:['😌','Спокоен'], wow:['🤩','В восторге'], sleep:['😴','Спит'], curious:['👀','Любопытствует']};
+  const period = () => { const h = new Date().getHours(); return h >= 22 || h < 6 ? 'night' : h >= 18 ? 'evening' : 'day'; };
+  const seasonOf = () => ['winter','winter','spring','spring','spring','summer','summer','summer','autumn','autumn','autumn','winter'][new Date().getMonth()];
+  const sleeping = () => S.mood ? S.mood === 'sleep' : period() === 'night';
+  const mood = () => S.mood || (period() === 'night' ? 'sleep' : 'calm');
+  const paintMood = () => { const el = modal && modal.querySelector('.pt-mood'); if (el) el.textContent = MOODS[mood()].join(' '); };
+  function setMood(m){ S.mood = m; paintMood(); clearTimeout(setMood.t); setMood.t = setTimeout(() => { S.mood = null; paintMood(); }, 45000); }
+  const fmtD = d => new Date(d).toLocaleDateString('ru', {day:'numeric', month:'long', year:'numeric'});
+  const fmtDT = d => new Date(d).toLocaleString('ru', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+  const why = l => l.reason || (k => k.startsWith('hw:') ? 'Выполнено ДЗ' : k.startsWith('gr:') ? 'Оценка ' + ({10:5, 7:4, 4:3}[l.amount] || '') : k.startsWith('lvl:') ? 'Повышение уровня ' + k.slice(4) : k.startsWith('streak:') ? 'Учебная серия 7 дней' : k.startsWith('ach:') ? 'Достижение' : k.startsWith('tg:') ? 'Выставлена оценка ученику' : k.startsWith('admin:') ? 'Награда от администратора' : k.startsWith('buy:') ? 'Покупка' : 'Начисление')(l.key);
   const item = c => S.items.find(i => i.code === c);
   const sb = () => (typeof db !== 'undefined' ? db : null);
 
@@ -1215,23 +1242,30 @@ const PetSystem = (() => {
   async function load(){
     const c = sb(); if (!c || !me) return false;
     try {
-      const r = await Promise.all([c.from('pets').select('*').maybeSingle(), c.from('pet_wallet').select('coins').maybeSingle(), c.from('pet_inventory').select('item_code'), c.from('pet_room').select('item_code,x,y'), c.from('pet_items').select('*'), c.from('pet_achievements').select('code')]);
-      const bad = r.find(x => x.error); if (bad) throw bad.error;
-      S.pet = r[0].data; S.coins = r[1].data ? r[1].data.coins : 0; S.inv = new Set(r[2].data.map(x => x.item_code));
-      S.room = Object.fromEntries(r[3].data.map(x => [x.item_code, {x:x.x, y:x.y}])); S.items = r[4].data; S.ach = new Set(r[5].data.map(x => x.code));
+      const r = await Promise.all([c.from('pets').select('*').maybeSingle(), c.from('pet_wallet').select('coins').maybeSingle(), c.from('pet_inventory').select('item_code,purchased_at'), c.from('pet_room').select('item_code,x,y'), c.from('pet_items').select('*'), c.from('pet_achievements').select('code,unlocked_at'),
+        c.from('pet_seasons').select('*'), c.from('pet_ledger').select('key,amount,reason,created_at').order('created_at', {ascending:false}).limit(300)]);
+      const bad = r.slice(0, 6).find(x => x.error); if (bad) throw bad.error;
+      S.pet = r[0].data; S.coins = r[1].data ? r[1].data.coins : 0; S.inv = new Set(r[2].data.map(x => x.item_code)); S.invAt = Object.fromEntries(r[2].data.map(x => [x.item_code, x.purchased_at]));
+      S.room = Object.fromEntries(r[3].data.map(x => [x.item_code, {x:x.x, y:x.y}])); S.items = r[4].data; S.ach = new Set(r[5].data.map(x => x.code)); S.achAt = Object.fromEntries(r[5].data.map(x => [x.code, x.unlocked_at]));
+      S.seasons = r[6].data || []; S.ledger = r[7].data || [];
       S.err = false; return true;
     } catch (err) { console.warn('[PetSystem]', err.message); S.err = true; return false; }
   }
   async function sync(force){
     if (!S.pet || (!force && Date.now() - S.last < 4000)) return; S.last = Date.now();
-    const {data, error} = await sb().rpc('pet_sync'); if (error || !data) return;
-    const first = S.lvl === null, up = !first && data.lvl > S.lvl, newAch = (data.new_ach || []).length; S.lvl = data.lvl;
-    if (data.earned > 0 || newAch) { await load(); renderFab(); if (S.open) { render(); bump(); act('hop'); } else wiggle(); }
-    if (!first && (up || newAch)) {   // редкие приятные реакции: только уровень и достижения
-      const a = newAch ? ACH.find(x => x[0] === data.new_ach[0]) : null;
-      toast(up ? `🎉 ${S.pet.name} радуется новому уровню! +50 🪙` : `${a ? a[1] : '🏅'} Достижение: ${a ? a[2] : ''}`);
-      if (typeof confetti === 'function') confetti();
-    }
+    const {data, error} = await sb().rpc('pet_sync'); if (error || !data) { if (error) console.warn('[PetSystem]', error.message); return; }
+    const first = S.lvl === null, up = !first && data.lvl > S.lvl, na = (data.new_ach || []).length, ni = data.new_items || []; S.lvl = data.lvl;
+    S.prog = {langs:data.langs || {}, season:data.season || null, sc:data.season_cnt || 0};
+    if (data.earned > 0 || na || ni.length) {
+      await load(); renderFab(); setMood(up ? 'wow' : ni.length ? 'curious' : 'joy');
+      if (S.open) { render(); bump(); act('hop', ni.length && item(ni[0]) ? item(ni[0]).asset : '✨'); } else wiggle();
+    } else if (S.open) render();
+    // редкие приятные реакции: только уровень, достижение, новый предмет
+    let msg = null;
+    if (up) msg = `🎉 ${S.pet.name} радуется новому уровню! +50 🪙`;
+    else if (na && !first) { const a = ACH.find(x => x[0] === data.new_ach[0]); msg = `${a ? a[1] : '🏅'} Достижение: ${a ? a[2] : ''}`; }
+    if (ni.length) { const it = item(ni[0]); msg = (msg ? msg + ' · ' : '') + `🎁 ${it ? it.name : 'Новый предмет'}${ni.length > 1 ? ' +' + (ni.length - 1) : ''}`; }
+    if (msg) { toast(msg); if ((up || na) && !first && typeof confetti === 'function') confetti(); }
   }
   const rpc = async (fn, args) => { const {data, error} = await sb().rpc(fn, args); if (error) { toast(error.message); throw error; } return data; };
 
@@ -1291,19 +1325,43 @@ const PetSystem = (() => {
   /* --- комната --- */
   const placed = () => [...S.inv].map(item).filter(i => i && (i.category === 'furn' || i.category === 'decor')).map((i, n) => ({...i, ...(S.room[i.code] || {x:SLOTS[n % SLOTS.length][0], y:SLOTS[n % SLOTS.length][1]})}));
   function sceneHTML(){
-    const p = S.pet, o = p.outfit || {};
-    return `<div class="pt-scene w-${p.type} env-${o.env || 'none'} ${S.edit ? 'edit' : ''}" id="ptScene"><div class="pt-env"></div>
+    const p = S.pet, o = p.outfit || {}, sl = sleeping();
+    return `<div class="pt-scene w-${p.type} env-${o.env || 'none'} tm-${period()} se-${seasonOf()} ${S.edit ? 'edit' : ''}" id="ptScene"><div class="pt-env"></div>
       ${placed().map(i => `<div class="pt-it ${i.category === 'decor' ? 'dec' : ''} ${i.code === 'cat_rug' ? 'rug' : ''}" data-c="${esc(i.code)}" style="left:${i.x}%;top:${i.y}%;z-index:${Math.round(i.y)}" title="${esc(i.name)}">${i.code === 'cat_rug' ? '' : esc(i.asset)}</div>`).join('')}
-      <div class="pt-actor"><div class="pt-mv" id="ptMv">${svg(p.type, p.color, o)}</div><span class="pt-prop" id="ptProp"></span></div></div>`;
+      <div class="pt-actor ${sl ? 'sleep' : ''}"><div class="pt-mv" id="ptMv">${svg(p.type, p.color, o)}</div><span class="pt-prop" id="ptProp"></span>${sl ? '<span class="pt-zz">💤</span>' : ''}</div></div>`;
   }
+  const PLAY = {cat:['🧶','Клубок'], dog:['🎾','Бросить мяч'], panda:['🎋','Бамбук'], fox:['🍂','Листья'], penguin:['🧊','Скользить']};
   function roomHTML(){
-    const p = S.pet, o = p.outfit || {};
-    let h = `<div class="pt-top"><div class="grow"><b>${esc(p.name)}</b><span class="pt-sub">${TYPES[p.type][1]} · ${TYPES[p.type][2]}${S.lvl ? ' · ур. ' + S.lvl : ''}</span></div><div class="pt-coins">🪙 ${S.coins}</div><button class="pt-x" data-a="x" aria-label="Закрыть">✕</button></div>` + sceneHTML();
+    const p = S.pet;
+    let h = `<div class="pt-top"><div class="grow"><b>${esc(p.name)}</b><span class="pt-sub">${TYPES[p.type][1]} · ${TYPES[p.type][2]}${S.lvl ? ' · ур. ' + S.lvl : ''} · <span class="pt-mood">${MOODS[mood()].join(' ')}</span></span></div><div class="pt-coins">🪙 ${S.coins}</div><button class="pt-x" data-a="x" aria-label="Закрыть">✕</button></div>` + sceneHTML();
     if (S.edit) return h + `<div class="pt-dock" style="align-items:center;justify-content:space-between"><span class="pt-hint" style="margin:0">Перетаскивай предметы по сцене</span><button class="pt-tab edit" data-a="done">✓ Готово</button></div>`;
-    const tabs = [['hat','Шапки'],['cloth','Одежда'],['acc','Аксессуары'],['pet','Окрас'],['furn','Мебель']];
-    h += `<div class="pt-dock">${tabs.map(t => `<button class="pt-tab ${S.view === 'room' && S.tab === t[0] ? 'on' : ''}" data-tab="${t[0]}">${t[1]}</button>`).join('')}<button class="pt-tab ${S.view === 'shop' ? 'on' : ''}" data-a="shop">🛍 Магазин</button><button class="pt-tab ${S.view === 'ach' ? 'on' : ''}" data-a="ach">🏅 Награды</button><button class="pt-tab edit" data-a="edit">✎ Редактировать комнату</button></div><div class="pt-panel">`;
-    if (S.view === 'shop') h += shopHTML(); else if (S.view === 'ach') h += achHTML(); else h += tabHTML();
+    const tabs = [['hat','Шапки'],['cloth','Одежда'],['acc','Аксессуары'],['pet','Окрас'],['furn','Мебель']], V = v => S.view === v ? 'on' : '';
+    h += `<div class="pt-dock">${tabs.map(t => `<button class="pt-tab ${S.view === 'room' && S.tab === t[0] ? 'on' : ''}" data-tab="${t[0]}">${t[1]}</button>`).join('')}<button class="pt-tab ${V('coll')}" data-a="coll">🗂 Коллекции</button><button class="pt-tab ${V('shop')}" data-a="shop">🛍 Магазин</button><button class="pt-tab ${V('ach')}" data-a="ach">🏅 Награды</button><button class="pt-tab ${V('story')}" data-a="story">📜 История</button><button class="pt-tab" data-a="play">${PLAY[p.type][0]} ${PLAY[p.type][1]}</button><button class="pt-tab" data-a="snap">📸 Снимок</button><button class="pt-tab edit" data-a="edit">✎ Комната</button></div><div class="pt-panel">`;
+    h += S.view === 'shop' ? shopHTML() : S.view === 'ach' ? achHTML() : S.view === 'coll' ? collHTML() : S.view === 'story' ? storyHTML() : tabHTML();
     return h + '</div>';
+  }
+  const tile = (i, own, need) => `<div class="pt-tile ${own ? 'ok' : ''}" title="${esc(i.name)}"><span>${own ? (i.code === 'cat_rug' ? '🟫' : esc(i.asset)) : '🔒'}</span><small>${own ? esc(i.name) : esc(need)}</small></div>`;
+  function collHTML(){
+    const sp = S.seasons.find(s => s.key === S.prog.season); let h = '';
+    if (sp) {
+      const its = S.items.filter(i => i.season === sp.key).sort((a, b) => a.season_need - b.season_need), got = its.filter(i => S.inv.has(i.code)).length;
+      h += `<div class="pt-season se-${esc(sp.key.replace(/\d+/, ''))}"><div class="pt-sh"><b>${esc(sp.icon)} ${esc(sp.name)}</b><span>${got} / ${its.length} наград</span></div><div class="pt-bar"><i style="width:${its.length ? got / its.length * 100 : 0}%"></i></div><div class="pt-sub" style="margin:6px 0 10px">Сдано ДЗ в сезоне: ${S.prog.sc} · сезон до ${fmtD(sp.end_on)}. Полученные предметы остаются навсегда.</div><div class="pt-tiles">${its.map(i => tile(i, S.inv.has(i.code), i.season_need + ' ДЗ')).join('')}</div></div>`;
+    }
+    const old = [...S.inv].map(item).filter(i => i && i.season && (!sp || i.season !== sp.key));
+    if (old.length) h += `<div class="pt-lbl">Коллекционные сезонные предметы</div><div class="pt-tiles">${old.map(i => tile(i, true)).join('')}</div>`;
+    const known = typeof LANG !== 'undefined' && Object.keys(LANG).length ? k => LANG[k] : () => true;
+    [...new Set(S.items.filter(i => i.lang).map(i => i.lang))].filter(known).forEach(k => {
+      const its = S.items.filter(i => i.lang === k).sort((a, b) => a.lang_need - b.lang_need), own = its.filter(i => S.inv.has(i.code)).length, f = FL[k] || ['🌐', (typeof LANG !== 'undefined' && LANG[k]) || k];
+      h += `<div class="pt-season lang"><div class="pt-sh"><b>${f[0]} ${esc((typeof LANG !== 'undefined' && LANG[k]) || f[1])}</b><span>${own}/${its.length} предметов · ${its.length ? Math.round(own / its.length * 100) : 0}%</span></div><div class="pt-bar"><i style="width:${its.length ? own / its.length * 100 : 0}%"></i></div><div class="pt-sub" style="margin:6px 0 10px">Сдано ДЗ по языку: ${S.prog.langs[k] || 0}</div><div class="pt-tiles">${its.map(i => tile(i, S.inv.has(i.code), i.lang_need + ' ДЗ')).join('')}</div></div>`;
+    });
+    return h || '<div class="pt-hint">Коллекции откроются после обновления базы (pet.sql).</div>';
+  }
+  function storyHTML(){
+    const p = S.pet, days = Math.max(1, Math.ceil((Date.now() - new Date(p.created_at)) / 864e5)), first = pre => S.ledger.filter(l => l.key.startsWith(pre)).map(l => l.created_at).sort()[0];
+    const ach = Object.values(S.achAt).sort()[0], rare = [...S.inv].map(item).filter(i => i && i.rarity !== 'common').map(i => S.invAt[i.code]).filter(Boolean).sort()[0];
+    const ev = [['⭐','Первый день',p.created_at],['📚','Первое ДЗ',first('hw:')],['🎓','Первое повышение уровня',first('lvl:')],['🏆','Первое достижение',ach],['🌟','Первый редкий предмет',rare]];
+    return `<div class="pt-season"><div class="pt-sh"><b>${esc(p.name)}</b><span>Дней в LanLand: ${days}</span></div><div class="pt-sub">Создан: ${fmtD(p.created_at)}</div><div class="pt-lbl">Особые события</div>${ev.map(e => `<div class="pt-ach ${e[2] ? 'ok' : ''}" style="margin-bottom:6px"><span class="ic">${e[0]}</span><div style="flex:1"><b>${e[1]}</b><small>${e[2] ? fmtD(e[2]) : 'ещё впереди'}</small></div></div>`).join('')}</div>
+    <div class="pt-lbl">История монет</div>${S.ledger.slice(0, 40).map(l => `<div class="row"><b style="min-width:84px;color:${l.amount > 0 ? '#15803D' : '#DC2626'}">${l.amount > 0 ? '+' : ''}${l.amount} 🪙</b><div class="grow">${esc(why(l))}<small>${fmtDT(l.created_at)}</small></div></div>`).join('') || '<div class="pt-hint">Пока операций нет.</div>'}`;
   }
   const slotCard = (slot, code, label, ic, sw, it) => `<button class="pt-card r-${it ? it.rarity : 'common'} ${((S.pet.outfit || {})[slot] || null) === code ? 'on' : ''}" data-eq="${slot}" data-code="${code || ''}" ${it && RAR[it.rarity] ? `data-r="${RAR[it.rarity]}"` : ''}>${sw ? `<span class="sw" style="background:${sw}"></span>` : `<span class="ic">${ic}</span>`}<b>${esc(label)}</b></button>`;
   function tabHTML(){
@@ -1344,6 +1402,9 @@ const PetSystem = (() => {
       else if (d.a === 'x') close();
       else if (d.a === 'shop') { S.view = 'shop'; render(); } else if (d.a === 'ach') { S.view = 'ach'; render(); }
       else if (d.a === 'edit') { S.edit = true; render(); }
+      else if (d.a === 'coll') { S.view = 'coll'; render(); } else if (d.a === 'story') { S.view = 'story'; render(); }
+      else if (d.a === 'play') { if (Date.now() - playT < 2500) return; playT = Date.now(); act({cat:'play', dog:'play', panda:'eat', fox:'play', penguin:'slide'}[S.pet.type]); setMood('joy'); }
+      else if (d.a === 'snap') snap();
       else if (d.a === 'done') saveRoom(t);
       else if (d.eq) {
         const slot = d.eq, code = d.code || null, o = {...(S.pet.outfit || {})};
@@ -1380,16 +1441,65 @@ const PetSystem = (() => {
   document.addEventListener('pointerup', endDrag); document.addEventListener('pointercancel', endDrag);
 
   /* --- живой питомец: редкие случайные idle-анимации --- */
-  function act(name){
+  function act(name, em){
     const mv = document.getElementById('ptMv'); if (!mv || !S.pet) return;
     const m = {play:'hop', slide:'slide', walk:'walk', roll:'roll'}[name] || name, prop = document.getElementById('ptProp');
     mv.className = 'pt-mv'; void mv.offsetWidth; mv.className = 'pt-mv a-' + m;
-    if ((name === 'play' || name === 'eat') && prop) { prop.textContent = name === 'eat' ? PROP.panda : PROP[S.pet.type]; prop.classList.remove('on'); void prop.offsetWidth; prop.classList.add('on'); }
+    if ((name === 'play' || name === 'eat' || em) && prop) { prop.textContent = em || (name === 'eat' ? PROP.panda : PROP[S.pet.type]); prop.classList.remove('on'); void prop.offsetWidth; prop.classList.add('on'); }
     setTimeout(() => { if (mv.isConnected) mv.className = 'pt-mv'; }, 4200);
   }
   function scheduleIdle(){
     clearTimeout(idleT); if (!S.open || !S.pet || S.edit || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-    idleT = setTimeout(() => { const l = IDLE[S.pet.type]; if (document.hidden === false) act(l[Math.floor(Math.random() * l.length)]); scheduleIdle(); }, 5000 + Math.random() * 5000);
+    idleT = setTimeout(() => { const l = sleeping() ? ['sit', 'lie'] : IDLE[S.pet.type]; if (document.hidden === false) act(l[Math.floor(Math.random() * l.length)]); scheduleIdle(); }, 5000 + Math.random() * 5000);
+  }
+
+  /* ---------- фото мира (canvas) ---------- */
+  async function snap(){
+    const p = S.pet, o = p.outfit || {}, W = 1200, H = 675, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+    const BG = {cat:['#EFE8DE','#D2BFA2',.6], dog:['#CDE8F6','#9CCB7F',.55], panda:['#DDEED3','#8FB57B',.58], fox:['#F6E2C4','#B97A44',.62], penguin:['#D9EAF5','#BDD8EA',.6]}[p.type];
+    x.fillStyle = BG[0]; x.fillRect(0, 0, W, H); x.fillStyle = BG[1]; x.fillRect(0, H * BG[2], W, H);
+    const tint = {env_sunset:'rgba(255,120,60,.22)', env_night:'rgba(18,26,70,.45)', env_dawn:'rgba(255,170,200,.22)'}[o.env] || (!o.env && period() === 'night' ? 'rgba(18,26,70,.4)' : ''); if (tint) { x.fillStyle = tint; x.fillRect(0, 0, W, H); }
+    x.textAlign = 'center'; x.textBaseline = 'bottom';
+    placed().sort((a, b) => a.y - b.y).forEach(i => { const px = i.x / 100 * W, py = i.y / 100 * H; if (i.code === 'cat_rug') { x.fillStyle = '#B4846A'; x.beginPath(); x.ellipse(px, py - 14, 130, 30, 0, 0, 7); x.fill(); } else { x.font = (i.category === 'decor' ? 72 : 108) + 'px serif'; x.fillText(i.asset, px, py); } });
+    const img = new Image(), s = svg(p.type, p.color, o).replace('<svg ', '<svg width="312" height="328" ');
+    await new Promise(res => { img.onload = res; img.onerror = res; img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s); });
+    x.drawImage(img, W / 2 - 156, H * .98 - 328, 312, 328);
+    x.fillStyle = 'rgba(255,255,255,.92)'; x.beginPath(); x.roundRect ? x.roundRect(28, 28, 60 + p.name.length * 24, 64, 20) : x.rect(28, 28, 60 + p.name.length * 24, 64); x.fill();
+    x.fillStyle = '#111827'; x.font = '600 34px Unbounded, Onest, sans-serif'; x.textAlign = 'left'; x.textBaseline = 'middle'; x.fillText(p.name, 52, 61);
+    [['#3B6BFF', 0, 0], ['#FF5A4F', 1, 0], ['#16B38A', 0, 1], ['#FFA620', 1, 1]].forEach(m => { x.fillStyle = m[0]; x.fillRect(W - 210 + m[1] * 14, H - 62 + m[2] * 14, 12, 12); });
+    x.fillStyle = '#111827'; x.font = '600 28px Unbounded, Onest, sans-serif'; x.fillText('LanLand', W - 176, H - 49);
+    c.toBlob(async b => {
+      const f = new File([b], `${p.name}-lanland.png`, {type:'image/png'});
+      try { if (navigator.canShare && navigator.canShare({files:[f]})) { await navigator.share({files:[f], title:'Мой мир в LanLand'}); return; } } catch (_) {}
+      const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = f.name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); toast('Снимок сохранён 📸');
+    });
+  }
+
+  /* ---------- админ: выдача монет и история (проверка роли — на сервере в pet_admin_*) ---------- */
+  function adminUI(){
+    if (!me || me.role !== 'admin' || page !== 'users') return;
+    const main = document.querySelector('#main'), sub = main.querySelector('.sub');
+    if (sub) sub.insertAdjacentHTML('afterend', '<button class="btn ghost" style="margin:-10px 0 16px" onclick="PetSystem.historyUI()">🪙 История монет</button>');
+    main.querySelectorAll('.row').forEach(row => {
+      const sel = row.querySelector('select[onchange^="setRole"]'); if (!sel) return;
+      const m = /setRole\('([^']+)'/.exec(sel.getAttribute('onchange')), p = m && P[m[1]]; if (!p || p.role !== 'student') return;
+      sel.insertAdjacentHTML('beforebegin', `<button class="btn lime" style="padding:8px 12px;white-space:nowrap" onclick="PetSystem.grantUI('${p.id}')">🪙 Выдать</button>`);
+    });
+  }
+  function grantUI(id){
+    const p = P[id]; if (!p) return;
+    openModal(`<h2 style="font-size:22px">Выдать монеты</h2><p class="lbl" style="margin:6px 0 4px">Ученик: <b style="color:var(--ink)">${esc(p.full_name)}</b></p>
+      <label>Количество</label><input id="ptAmt" type="number" min="1" max="100000" step="1" value="100"><label>Причина</label><input id="ptWhy" maxlength="80" value="Награда от администратора">
+      <div class="acts" style="margin-top:18px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Отмена</button><button class="btn lime" id="ptGo">Выдать</button></div>`);
+    document.getElementById('ptGo').onclick = async ev => {
+      const n = Math.floor(+document.getElementById('ptAmt').value); if (!(n >= 1 && n <= 100000)) return toast('Введите количество от 1 до 100000');
+      ev.target.disabled = true;
+      try { await rpc('pet_admin_grant', {p_user:id, p_amount:n, p_reason:document.getElementById('ptWhy').value.trim()}); closeModal(); toast(`Ученику выдано ${n} монет`); } catch (_) { ev.target.disabled = false; }
+    };
+  }
+  async function historyUI(){
+    let rows; try { rows = await rpc('pet_admin_history'); } catch (_) { return; }
+    openModal(`<h2 style="font-size:22px">История выдачи монет</h2><div style="max-height:60vh;overflow:auto;margin-top:10px">${(rows || []).map(r => `<div class="row"><div class="grow"><b>${esc(r.user_name || 'Ученик')}</b><small>${esc(r.reason || 'Награда от администратора')} · Выдал: ${esc(r.by_email || '—')} · ${fmtDT(r.created_at)}</small></div><span class="pill kr">+${r.amount} 🪙</span></div>`).join('') || '<div class="empty">Выдач пока не было.</div>'}</div><div class="acts" style="margin-top:14px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">Закрыть</button></div>`);
   }
 
   /* ---------- жизненный цикл ---------- */
@@ -1400,7 +1510,7 @@ const PetSystem = (() => {
   }
   function destroy(){ clearTimeout(idleT); if (fab) { fab.remove(); fab = null; } if (modal) { modal.remove(); modal = null; } Object.assign(S, {pet:null, coins:0, inv:new Set(), room:{}, ach:new Set(), open:false, edit:false, lvl:null}); }
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && S.open) close(); });
-  return {init, destroy, sync:() => sync(false), act};
+  return {init, destroy, sync:() => sync(false), act, adminUI, grantUI, historyUI};
 })();
 
 /* ---- подключение к существующему коду (ничего не заменяя, только дополняя) ---- */
@@ -1408,6 +1518,7 @@ const PetSystem = (() => {
   const wrap = (name, after) => { const o = window[name]; if (typeof o !== 'function') return; window[name] = function(){ const r = o.apply(this, arguments); try { after(r); } catch (err) { console.warn('[PetSystem]', err); } return r; }; };
   wrap('showApp', () => PetSystem.init());
   wrap('showAuth', () => PetSystem.destroy());
+  wrap('go', () => PetSystem.adminUI());
   wrap('refresh', r => Promise.resolve(r).then(() => PetSystem.sync()));
   if (typeof me !== 'undefined' && me && !document.querySelector('#app').classList.contains('hide')) PetSystem.init();
 })();
